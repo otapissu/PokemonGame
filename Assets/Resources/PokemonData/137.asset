@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 137
   m_EditorClassIdentifier: 
   id: 137
-  pokemonName: Pokemon_137
+  pokemonName: "\uD3F4\uB9AC\uACE4"
+  canHatch: 1
   isLegendary: 0
-  canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  genderVisualType: 0
+  maleRatio: 0.5
+  evolutionOptions: []

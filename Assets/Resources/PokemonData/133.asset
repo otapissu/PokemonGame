@@ -13,9 +13,24 @@ MonoBehaviour:
   m_Name: 133
   m_EditorClassIdentifier: 
   id: 133
-  pokemonName: Pokemon_133
+  pokemonName: "\uC774\uBE0C\uC774"
+  canHatch: 1
   isLegendary: 0
-  canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  genderVisualType: 2
+  maleRatio: 0.875
+  evolutionOptions:
+  - targetData: {fileID: 11400000, guid: 9846e990320fac04e8f61b59f8fe8490, type: 2}
+    method: 2
+    requiredItem: 1
+    requiredFormIndex: 0
+    requiredEnhanceLevel: 5
+  - targetData: {fileID: 11400000, guid: 287e88ea99bbfd743a1cd3372635f055, type: 2}
+    method: 2
+    requiredItem: 3
+    requiredFormIndex: 0
+    requiredEnhanceLevel: 5
+  - targetData: {fileID: 11400000, guid: fc19104eaa0b8184b88aa0e44cf735b7, type: 2}
+    method: 2
+    requiredItem: 2
+    requiredFormIndex: 0
+    requiredEnhanceLevel: 5

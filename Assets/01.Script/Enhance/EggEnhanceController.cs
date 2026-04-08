@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class EggEnhanceController : MonoBehaviour
@@ -23,8 +24,14 @@ public class EggEnhanceController : MonoBehaviour
     [Header("Animation")]
     public float frameDelay = 0.12f;
 
-    public List<PokemonData> allPokemons;
+    [Header("Debug")]
+    [Range(0f, 1f)]
+    public float shinyChance = 0.02f;
 
+    [Header("Balance Data")]
+    public EggBalanceData balanceData;
+
+    public List<PokemonData> allPokemons;
     public PokemonInstance currentInstance;
 
     public int gold = 999999999;
@@ -32,21 +39,27 @@ public class EggEnhanceController : MonoBehaviour
 
     public Coroutine loopCoroutine;
 
-    public int[] sellPrices =
-    {
-        0, 500, 1000, 2000, 6000,
-        20000, 50000, 150000, 500000,
-        1000000, 2000000, 5000000,
-        10000000, 25000000, 50000000
-    };
+    [Header("Evolution Inventory")]
+    public Dictionary<EvolutionItemType, int> evolutionItemInventory =
+        new Dictionary<EvolutionItemType, int>();
+
+    public PokemonEvolutionService evolutionService;
 
     private EggEnhanceService enhanceService;
     private EggHatchService hatchService;
     private EggUIService uiService;
     private EggSaveService saveService;
 
-    void Start()
+    public bool IsProcessing
     {
+        get;
+        private set;
+    }
+
+    private void Start()
+    {
+        evolutionService = new PokemonEvolutionService();
+
         enhanceService = new EggEnhanceService();
         hatchService = new EggHatchService();
         uiService = new EggUIService();
@@ -58,24 +71,83 @@ public class EggEnhanceController : MonoBehaviour
         PokemonData[] loaded = Resources.LoadAll<PokemonData>("PokemonData");
         allPokemons = new List<PokemonData>(loaded);
 
+        InitializeTestEvolutionItems();
+
         saveService.Load(this);
         uiService.UpdateGold(this);
+        uiService.UpdateAll(this);
+
+        SetButtonsInteractable(true);
     }
 
-    void OnEnhanceClick()
+    private void InitializeTestEvolutionItems()
     {
+        evolutionItemInventory.Clear();
+
+        evolutionItemInventory[EvolutionItemType.WaterStone] = 1;
+        evolutionItemInventory[EvolutionItemType.FireStone] = 1;
+        evolutionItemInventory[EvolutionItemType.ThunderStone] = 100;
+        evolutionItemInventory[EvolutionItemType.IceStone] = 100;
+        evolutionItemInventory[EvolutionItemType.KingsRock] = 1;
+    }
+
+    private void OnEnhanceClick()
+    {
+        if (IsProcessing == true)
+        {
+            return;
+        }
+
         if (currentInstance == null)
         {
             StartCoroutine(hatchService.Hatch(this));
+            return;
         }
-        else
+
+        BeginProcessing();
+
+        try
         {
             enhanceService.Enhance(this);
         }
+        finally
+        {
+            EndProcessing();
+        }
     }
 
-    void OnSellClick()
+    private void OnSellClick()
     {
+        if (IsProcessing == true)
+        {
+            return;
+        }
+
         enhanceService.Sell(this);
+    }
+
+    public void BeginProcessing()
+    {
+        IsProcessing = true;
+        SetButtonsInteractable(false);
+    }
+
+    public void EndProcessing()
+    {
+        IsProcessing = false;
+        SetButtonsInteractable(true);
+    }
+
+    public void SetButtonsInteractable(bool value)
+    {
+        if (enhanceButton != null)
+        {
+            enhanceButton.interactable = value;
+        }
+
+        if (sellButton != null)
+        {
+            sellButton.interactable = value;
+        }
     }
 }

@@ -14,6 +14,7 @@ public class EggSaveService
             data.enhanceLevel = c.currentInstance.enhanceLevel;
             data.gender = (int)c.currentInstance.gender;
             data.isShiny = c.currentInstance.isShiny;
+            data.formIndex = c.currentInstance.formIndex;
         }
         else
         {
@@ -45,12 +46,26 @@ public class EggSaveService
 
         c.gold = data.gold;
 
-        if (!data.hasPokemon)
+        if (data.hasPokemon == false)
         {
+            c.currentInstance = null;
+
+            if (c.eggImage != null)
+            {
+                c.eggImage.gameObject.SetActive(true);
+            }
+
+            if (c.pokemonImage != null)
+            {
+                c.pokemonImage.gameObject.SetActive(false);
+            }
+
+            new EggUIService().UpdateAll(c);
             return;
         }
 
         PokemonData root = c.allPokemons.Find(p => p.id == data.rootID);
+        PokemonData current = c.allPokemons.Find(p => p.id == data.currentID);
 
         if (root == null)
         {
@@ -58,12 +73,54 @@ public class EggSaveService
             return;
         }
 
+        if (current == null)
+        {
+            Debug.LogError("current 못 찾음: " + data.currentID);
+            return;
+        }
+
         c.currentInstance = new PokemonInstance(
             root,
             (Gender)data.gender,
-            data.isShiny
+            data.isShiny,
+            data.formIndex
         );
 
+        c.currentInstance.data = current;
         c.currentInstance.enhanceLevel = data.enhanceLevel;
+        c.currentInstance.formIndex = data.formIndex;
+
+        RestoreVisual(c);
+        new EggUIService().UpdateAll(c);
+    }
+
+    private void RestoreVisual(EggEnhanceController c)
+    {
+        if (c.currentInstance == null)
+        {
+            return;
+        }
+
+        Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
+
+        if (frames == null || frames.Length == 0)
+        {
+            Debug.LogError("로드 후 스프라이트 없음: " + c.currentInstance.data.id);
+            return;
+        }
+
+        if (c.eggImage != null)
+        {
+            c.eggImage.gameObject.SetActive(false);
+        }
+
+        if (c.pokemonImage != null)
+        {
+            c.pokemonImage.gameObject.SetActive(true);
+            c.pokemonImage.sprite = frames[0];
+        }
+
+        EggHatchService.ApplyAutoScale(c, frames[0]);
+        EggHatchService.StartAnimationLoop(c);
     }
 }

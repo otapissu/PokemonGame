@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 136
   m_EditorClassIdentifier: 
   id: 136
-  pokemonName: Pokemon_136
-  isLegendary: 0
+  pokemonName: "\uBD80\uC2A4\uD130"
   canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  isLegendary: 0
+  genderVisualType: 0
+  maleRatio: 0.875
+  evolutionOptions: []

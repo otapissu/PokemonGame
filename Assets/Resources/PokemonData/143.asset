@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 143
   m_EditorClassIdentifier: 
   id: 143
-  pokemonName: Pokemon_143
+  pokemonName: "\uC7A0\uB9CC\uBCF4"
+  canHatch: 1
   isLegendary: 0
-  canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  genderVisualType: 1
+  maleRatio: 0.875
+  evolutionOptions: []

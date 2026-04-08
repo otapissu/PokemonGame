@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: 132
   m_EditorClassIdentifier: 
   id: 132
-  pokemonName: Pokemon_132
+  pokemonName: "\uBA54\uD0C0\uBABD"
+  canHatch: 1
   isLegendary: 0
-  canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  formName: normal
+  formIndex: 0
+  genderVisualType: 0
+  maleRatio: 0.5
+  hatchForms: []
+  evolveRequireLevel: 5
+  evolutionOptions: []

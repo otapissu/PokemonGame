@@ -8,12 +8,15 @@ public class PokemonInstance
     public Gender gender;
     public bool isShiny;
 
-    public PokemonInstance(PokemonData data, Gender gender, bool isShiny)
+    public int formIndex;
+
+    public PokemonInstance(PokemonData data, Gender gender, bool isShiny, int formIndex = 0)
     {
         this.rootData = data;
         this.data = data;
         this.gender = gender;
         this.isShiny = isShiny;
-        enhanceLevel = 0;
+        this.formIndex = formIndex;
+        this.enhanceLevel = 0;
     }
 }

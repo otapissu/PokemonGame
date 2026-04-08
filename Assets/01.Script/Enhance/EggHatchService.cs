@@ -6,59 +6,100 @@ public class EggHatchService
 {
     public IEnumerator Hatch(EggEnhanceController c)
     {
-        if (c.loopCoroutine != null)
+        if (c == null)
         {
-            c.StopCoroutine(c.loopCoroutine);
-            c.loopCoroutine = null;
-        }
-
-        c.pokemonImage.gameObject.SetActive(false);
-        c.eggImage.gameObject.SetActive(true);
-
-        yield return c.StartCoroutine(EggShake(c));
-
-        PokemonData selected = GetRandomHatchPokemon(c);
-
-        if (selected == null)
-        {
-            Debug.LogError("selected null → 부화 중단");
             yield break;
         }
 
-        bool isShiny = Random.value < 0.02f;
-        Gender gender = RollGender(selected);
-
-        c.currentInstance = new PokemonInstance(selected, gender, isShiny);
-        c.currentInstance.enhanceLevel = 1;
-
-        new EggSaveService().Save(c);
-
-        if (PokedexSaveManager.Instance != null)
+        if (c.IsProcessing == true)
         {
-            PokedexSaveManager.Instance.RegisterPokemon(selected.id);
-        }
-
-        Sprite[] frames = LoadSprites(c.currentInstance);
-
-        if (frames == null || frames.Length == 0)
-        {
-            Debug.LogError("스프라이트 없음: " + selected.id);
             yield break;
         }
 
-        c.pokemonImage.sprite = frames[0];
-        ApplyAutoScale(c, frames[0]);
+        c.BeginProcessing();
 
-        c.eggImage.gameObject.SetActive(false);
-        c.pokemonImage.gameObject.SetActive(true);
+        try
+        {
+            if (c.loopCoroutine != null)
+            {
+                c.StopCoroutine(c.loopCoroutine);
+                c.loopCoroutine = null;
+            }
 
-        c.messageText.text = selected.pokemonName + " 등장!";
+            c.pokemonImage.gameObject.SetActive(false);
+            c.eggImage.gameObject.SetActive(true);
 
-        new EggUIService().UpdateAll(c);
+            yield return c.StartCoroutine(EggShake(c));
 
-        yield return c.StartCoroutine(PopEffect(c));
+            PokemonData selected = GetRandomHatchPokemon(c);
 
-        StartAnimationLoop(c);
+            if (selected == null)
+            {
+                Debug.LogError("selected null → 부화 중단");
+                yield break;
+            }
+
+            bool isShiny = Random.value < c.shinyChance;
+            Gender gender = RollGender(selected);
+            int formIndex = PokemonFormUtility.GetRandomFormIndex(selected, gender, isShiny);
+
+            c.currentInstance = new PokemonInstance(selected, gender, isShiny, formIndex);
+            c.currentInstance.enhanceLevel = 1;
+
+            Debug.Log(
+                "[부화 결과] " +
+                "ID: " + selected.id.ToString("D3") +
+                ", 이름: " + selected.pokemonName +
+                ", 성별: " + gender +
+                ", 샤이니: " + isShiny +
+                ", 폼 인덱스: " + formIndex
+            );
+
+            new EggSaveService().Save(c);
+
+            if (PokedexSaveManager.Instance != null)
+            {
+                PokedexSaveManager.Instance.RegisterPokemon(selected.id);
+            }
+
+            Sprite[] frames = LoadSprites(c.currentInstance);
+
+            if (frames == null || frames.Length == 0)
+            {
+                Debug.LogError("스프라이트 없음: " + selected.id);
+
+                c.currentInstance = null;
+                new EggSaveService().Save(c);
+
+                yield break;
+            }
+
+            c.pokemonImage.sprite = frames[0];
+            ApplyAutoScale(c, frames[0]);
+
+            c.eggImage.gameObject.SetActive(false);
+            c.pokemonImage.gameObject.SetActive(true);
+
+            c.messageText.text = selected.pokemonName + " 등장!";
+
+            if (isShiny == true)
+            {
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlayShinyAppear();
+                }
+            }
+
+            new EggUIService().UpdateAll(c);
+
+            yield return c.StartCoroutine(PopEffect(c));
+
+            StartAnimationLoop(c);
+        }
+        finally
+        {
+            c.EndProcessing();
+        }
     }
 
     public IEnumerator EggShake(EggEnhanceController c)
@@ -120,7 +161,7 @@ public class EggHatchService
 
     private static IEnumerator PlayLoop(EggEnhanceController c, Sprite[] frames)
     {
-        if (frames.Length == 0)
+        if (frames == null || frames.Length == 0)
         {
             yield break;
         }
@@ -131,7 +172,9 @@ public class EggHatchService
         {
             c.pokemonImage.sprite = frames[index];
             ApplyAutoScale(c, frames[index]);
+
             index = (index + 1) % frames.Length;
+
             yield return new WaitForSeconds(c.frameDelay);
         }
     }
@@ -167,10 +210,10 @@ public class EggHatchService
         float roll = Random.value;
 
         List<PokemonData> legendaryList =
-            c.allPokemons.FindAll(p => p.canHatch && p.isLegendary);
+            c.allPokemons.FindAll(p => p.canHatch && p.isLegendary && HasAnyUsableSprite(p));
 
         List<PokemonData> normalList =
-            c.allPokemons.FindAll(p => p.canHatch && !p.isLegendary);
+            c.allPokemons.FindAll(p => p.canHatch && !p.isLegendary && HasAnyUsableSprite(p));
 
         List<PokemonData> targetList =
             roll < 0.05f ? legendaryList : normalList;
@@ -182,6 +225,49 @@ public class EggHatchService
         }
 
         return targetList[Random.Range(0, targetList.Count)];
+    }
+
+    private bool HasAnyUsableSprite(PokemonData data)
+    {
+        if (data == null)
+        {
+            return false;
+        }
+
+        if (data.genderVisualType == GenderVisualType.None)
+        {
+            return HasAnyUsableSpriteByGender(data, Gender.None);
+        }
+
+        if (HasAnyUsableSpriteByGender(data, Gender.Male))
+        {
+            return true;
+        }
+
+        if (HasAnyUsableSpriteByGender(data, Gender.Female))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool HasAnyUsableSpriteByGender(PokemonData data, Gender gender)
+    {
+        if (PokemonFormUtility.HasSprites(data, gender, false, 0))
+        {
+            return true;
+        }
+
+        for (int i = 1; i < 100; i++)
+        {
+            if (PokemonFormUtility.HasSprites(data, gender, false, i))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Gender RollGender(PokemonData data)
@@ -196,18 +282,23 @@ public class EggHatchService
 
     public static Sprite[] LoadSprites(PokemonInstance instance)
     {
-        string id = instance.data.id.ToString("D3");
-        string basePath = "Pokemon/" + id;
-        string shiny = instance.isShiny ? "_shiny" : "_normal";
-
-        if (instance.data.genderVisualType == GenderVisualType.DifferentVisual)
+        if (instance == null)
         {
-            string genderPart =
-                instance.gender == Gender.Male ? "_m" : "_f";
-
-            return Resources.LoadAll<Sprite>(basePath + shiny + genderPart);
+            return null;
         }
 
-        return Resources.LoadAll<Sprite>(basePath + shiny);
+        if (instance.data == null)
+        {
+            return null;
+        }
+
+        string path = PokemonFormUtility.GetLoadPath(
+            instance.data,
+            instance.gender,
+            instance.isShiny,
+            instance.formIndex
+        );
+
+        return Resources.LoadAll<Sprite>(path);
     }
 }

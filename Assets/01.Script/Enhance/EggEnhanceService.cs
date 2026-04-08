@@ -23,7 +23,7 @@ public class EggEnhanceService
         }
 
         int nextLevel = c.currentInstance.enhanceLevel + 1;
-        int cost = EggDataService.GetEnhanceCost(nextLevel);
+        int cost = EggDataService.GetEnhanceCost(c,nextLevel);
 
         if (c.gold < cost)
         {
@@ -34,69 +34,17 @@ public class EggEnhanceService
         c.gold -= cost;
         new EggUIService().UpdateGold(c);
 
-        float success = EggDataService.GetSuccessRate(nextLevel);
-        float destroy = EggDataService.GetDestroyRate(nextLevel);
+        float success = EggDataService.GetSuccessRate(c, nextLevel);
+        float destroy = EggDataService.GetDestroyRate(c, nextLevel);
         float roll = Random.value;
 
         if (roll < success)
         {
-            c.currentInstance.enhanceLevel++;
-
-            string beforeName = c.currentInstance.data.pokemonName;
-
-            CheckEvolution(c);
-
-            if (c.currentInstance.data == null)
-            {
-                Debug.LogError("진화 후 data null");
-                return;
-            }
-
-            int currentId = c.currentInstance.data.id;
-
-            if (PokedexSaveManager.Instance != null)
-            {
-                PokedexSaveManager.Instance.RegisterPokemon(currentId);
-
-                if (c.currentInstance.enhanceLevel == 15)
-                {
-                    PokedexSaveManager.Instance.RegisterMaxEnhance(currentId);
-                }
-            }
-
-            new EggSaveService().Save(c);
-
-            Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
-            if (frames != null && frames.Length > 0)
-            {
-                c.pokemonImage.sprite = frames[0];
-                EggHatchService.ApplyAutoScale(c, frames[0]);
-            }
-
-            if (beforeName != c.currentInstance.data.pokemonName)
-            {
-                c.messageText.text = beforeName + " 진화!";
-                c.StartCoroutine(EggHatchService.PopEffect(c));
-            }
-            else
-            {
-                c.messageText.text = "강화 성공!";
-            }
-
-            EggHatchService.StartAnimationLoop(c);
+            HandleEnhanceSuccess(c);
         }
         else if (roll < success + destroy)
         {
-            c.messageText.text = "파괴됨!";
-
-            c.currentInstance = null;
-
-            new EggSaveService().Save(c);
-
-            c.pokemonImage.gameObject.SetActive(false);
-            c.eggImage.gameObject.SetActive(true);
-
-            new EggUIService().Clear(c);
+            HandleEnhanceDestroyed(c);
         }
         else
         {
@@ -106,32 +54,128 @@ public class EggEnhanceService
         new EggUIService().UpdateAll(c);
     }
 
-    private void CheckEvolution(EggEnhanceController c)
+    private void HandleEnhanceSuccess(EggEnhanceController c)
     {
-        PokemonData root = c.currentInstance.rootData;
-        int level = c.currentInstance.enhanceLevel;
+        c.currentInstance.enhanceLevel++;
 
-        if (root.nextEvolution == null && root.secondEvolution == null)
+        if (c.currentInstance.enhanceLevel == 15)
         {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayEggLevel15();
+            }
+        }
+
+        string beforeName = c.currentInstance.data.pokemonName;
+        bool evolved = TryEvolution(c);
+
+        if (c.currentInstance.data == null)
+        {
+            Debug.LogError("진화 후 data null");
             return;
         }
 
-        if (root.nextEvolution != null && root.secondEvolution == null && level == 5)
+        int currentId = c.currentInstance.data.id;
+
+        if (PokedexSaveManager.Instance != null)
         {
-            c.currentInstance.data = root.nextEvolution;
+            PokedexSaveManager.Instance.RegisterPokemon(currentId);
+
+            if (c.currentInstance.enhanceLevel == 15)
+            {
+                PokedexSaveManager.Instance.RegisterMaxEnhance(currentId);
+            }
         }
 
-        if (root.nextEvolution != null && root.secondEvolution != null)
+        new EggSaveService().Save(c);
+
+        Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
+
+        if (frames != null && frames.Length > 0)
         {
-            if (level == 3)
-            {
-                c.currentInstance.data = root.nextEvolution;
-            }
-            else if (level == 6)
-            {
-                c.currentInstance.data = root.secondEvolution;
-            }
+            c.pokemonImage.sprite = frames[0];
+            EggHatchService.ApplyAutoScale(c, frames[0]);
         }
+
+        if (evolved)
+        {
+            c.messageText.text = beforeName + " 진화!";
+            c.StartCoroutine(EggHatchService.PopEffect(c));
+        }
+        else
+        {
+            c.messageText.text = "강화 성공!";
+        }
+
+        EggHatchService.StartAnimationLoop(c);
+    }
+
+    private bool TryEvolution(EggEnhanceController c)
+    {
+        if (c == null)
+        {
+            return false;
+        }
+
+        if (c.currentInstance == null)
+        {
+            return false;
+        }
+
+        if (c.currentInstance.data == null)
+        {
+            return false;
+        }
+
+        if (c.evolutionService == null)
+        {
+            Debug.LogWarning("evolutionService null");
+            return false;
+        }
+
+        string beforeName = c.currentInstance.data.pokemonName;
+
+        EvolutionOption selectedOption = c.evolutionService.GetRandomAvailableEvolution(
+            c.currentInstance,
+            c.evolutionItemInventory
+        );
+
+        if (selectedOption == null)
+        {
+            return false;
+        }
+
+        bool evolved = c.evolutionService.TryEvolve(
+            c.currentInstance,
+            selectedOption
+        );
+
+        if (!evolved)
+        {
+            return false;
+        }
+
+        if (c.currentInstance.data == null)
+        {
+            Debug.LogError("진화 후 currentInstance.data null");
+            return false;
+        }
+
+        return beforeName != c.currentInstance.data.pokemonName;
+    }
+
+    private void HandleEnhanceDestroyed(EggEnhanceController c)
+    {
+        c.messageText.text = "파괴됨!";
+
+        c.currentInstance = null;
+
+        new EggSaveService().Save(c);
+
+        c.pokemonImage.gameObject.SetActive(false);
+        c.eggImage.gameObject.SetActive(true);
+
+        new EggUIService().Clear(c);
     }
 
     public void Sell(EggEnhanceController c)

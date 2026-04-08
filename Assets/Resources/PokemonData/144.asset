@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 144
   m_EditorClassIdentifier: 
   id: 144
-  pokemonName: Pokemon_144
-  isLegendary: 0
-  canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  pokemonName: "\uD504\uB9AC\uC838"
+  canHatch: 1
+  isLegendary: 1
+  genderVisualType: 0
+  maleRatio: 0.5
+  evolutionOptions: []

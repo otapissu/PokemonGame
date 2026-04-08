@@ -17,9 +17,9 @@ public class EggUIService
         if (next <= c.maxLevel)
         {
             c.successRateText.text =
-                "강화확률 : " + (EggDataService.GetSuccessRate(next) * 100).ToString("0") + "%";
+                "강화확률 : " + (EggDataService.GetSuccessRate(c, next) * 100).ToString("0") + "%";
 
-            float d = EggDataService.GetDestroyRate(next) * 100;
+            float d = EggDataService.GetDestroyRate(c, next) * 100;
 
             if (d > 0)
             {
@@ -31,7 +31,7 @@ public class EggUIService
             }
 
             c.costText.text =
-                "강화비용 : " + EggDataService.GetEnhanceCost(next).ToString("N0");
+                "강화비용 : " + EggDataService.GetEnhanceCost(c, next).ToString("N0");
         }
         else
         {

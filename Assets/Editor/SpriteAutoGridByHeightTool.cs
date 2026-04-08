@@ -73,7 +73,11 @@ public static class SpriteAutoGridByHeightTool
 
     private static int GetTargetMaxSize(int sourceWidth)
     {
-        if (sourceWidth >= 4096)
+        if (sourceWidth >= 8192)
+        {
+            return 16384;
+        }
+        else if (sourceWidth >= 4096)
         {
             return 8192;
         }

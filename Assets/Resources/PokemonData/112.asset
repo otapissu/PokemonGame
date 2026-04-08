@@ -16,7 +16,10 @@ MonoBehaviour:
   pokemonName: "\uCF54\uBFCC\uB9AC"
   canHatch: 0
   isLegendary: 0
+  formName: normal
+  formIndex: 0
   genderVisualType: 2
   maleRatio: 0.5
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  hatchForms: []
+  evolveRequireLevel: 5
+  evolutionOptions: []

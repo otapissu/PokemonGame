@@ -1,38 +1,113 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class EggDataService
 {
-    // 강화 성공 확률
-    public static float GetSuccessRate(int level)
+    public static float GetSuccessRate(EggEnhanceController c, int level)
     {
-        float[] rates = { 1f, 0.9f, 0.8f, 0.7f, 0.65f, 0.6f, 0.5f, 0.45f, 0.4f, 0.3f, 0.26f, 0.22f, 0.18f, 0.14f, 0.1f };
-        return rates[level - 1];
+        if (c == null)
+        {
+            return 0f;
+        }
+
+        if (c.balanceData == null)
+        {
+            Debug.LogError("balanceData가 연결되지 않았습니다.");
+            return 0f;
+        }
+
+        if (c.balanceData.successRates == null || c.balanceData.successRates.Length == 0)
+        {
+            Debug.LogError("successRates가 비어 있습니다.");
+            return 0f;
+        }
+
+        int index = Mathf.Clamp(level - 1, 0, c.balanceData.successRates.Length - 1);
+        return c.balanceData.successRates[index];
     }
 
-    // 강화 파괴 확률
-    public static float GetDestroyRate(int level)
+    public static float GetDestroyRate(EggEnhanceController c, int level)
     {
         if (level < 6)
         {
             return 0f;
         }
 
-        float[] rates = { 0.05f, 0.06f, 0.07f, 0.08f, 0.1f, 0.11f, 0.12f, 0.13f, 0.14f, 0.15f };
-        return rates[level - 6];
+        if (c == null)
+        {
+            return 0f;
+        }
+
+        if (c.balanceData == null)
+        {
+            Debug.LogError("balanceData가 연결되지 않았습니다.");
+            return 0f;
+        }
+
+        if (c.balanceData.destroyRates == null || c.balanceData.destroyRates.Length == 0)
+        {
+            Debug.LogError("destroyRates가 비어 있습니다.");
+            return 0f;
+        }
+
+        int index = Mathf.Clamp(level - 6, 0, c.balanceData.destroyRates.Length - 1);
+        return c.balanceData.destroyRates[index];
     }
 
-    // 강화 비용
-    public static int GetEnhanceCost(int level)
+    public static int GetEnhanceCost(EggEnhanceController c, int level)
     {
-        int[] cost = { 500, 1000, 2000, 4000, 10000, 15000, 25000, 50000, 100000, 200000, 250000, 500000, 1000000, 1500000, 2000000 };
-        return cost[level - 1];
+        if (c == null)
+        {
+            return 0;
+        }
+
+        if (c.balanceData == null)
+        {
+            Debug.LogError("balanceData가 연결되지 않았습니다.");
+            return 0;
+        }
+
+        if (c.balanceData.enhanceCosts == null || c.balanceData.enhanceCosts.Length == 0)
+        {
+            Debug.LogError("enhanceCosts가 비어 있습니다.");
+            return 0;
+        }
+
+        int index = Mathf.Clamp(level - 1, 0, c.balanceData.enhanceCosts.Length - 1);
+        return c.balanceData.enhanceCosts[index];
     }
 
-    // 판매 비용 조정
     public static int GetSellPrice(EggEnhanceController c)
     {
+        if (c == null)
+        {
+            return 0;
+        }
+
+        if (c.currentInstance == null)
+        {
+            return 0;
+        }
+
+        if (c.currentInstance.data == null)
+        {
+            return 0;
+        }
+
+        if (c.balanceData == null)
+        {
+            Debug.LogError("balanceData가 연결되지 않았습니다.");
+            return 0;
+        }
+
+        if (c.balanceData.sellPrices == null || c.balanceData.sellPrices.Length == 0)
+        {
+            Debug.LogError("sellPrices가 비어 있습니다.");
+            return 0;
+        }
+
         int level = Mathf.Clamp(c.currentInstance.enhanceLevel, 1, 15);
-        int basePrice = c.sellPrices[level - 1];
+        int basePrice = c.balanceData.sellPrices[level - 1];
 
         float multiplier = 1f;
 
@@ -46,6 +121,104 @@ public static class EggDataService
             multiplier *= 2f;
         }
 
-        return Mathf.RoundToInt(basePrice * multiplier);
+        int finalPrice = Mathf.RoundToInt(basePrice * multiplier);
+
+        if (HasMissedItemEvolution(c.currentInstance, c.evolutionItemInventory))
+        {
+            finalPrice /= 2;
+        }
+
+        return finalPrice;
+    }
+
+    private static bool HasMissedItemEvolution(
+        PokemonInstance instance,
+        Dictionary<EvolutionItemType, int> inventory)
+    {
+        if (instance == null)
+        {
+            return false;
+        }
+
+        if (instance.data == null)
+        {
+            return false;
+        }
+
+        if (instance.data.evolutionOptions == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < instance.data.evolutionOptions.Length; i++)
+        {
+            EvolutionOption option = instance.data.evolutionOptions[i];
+
+            if (option == null)
+            {
+                continue;
+            }
+
+            if (option.targetData == null)
+            {
+                continue;
+            }
+
+            if (option.method != EvolutionMethod.Item)
+            {
+                continue;
+            }
+
+            if (!IsMatchingSourceForm(option, instance))
+            {
+                continue;
+            }
+
+            if (instance.enhanceLevel <= option.requiredEnhanceLevel)
+            {
+                continue;
+            }
+
+            if (HasItem(inventory, option.requiredItem))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsMatchingSourceForm(EvolutionOption option, PokemonInstance instance)
+    {
+        if (option.requiredSourceFormIndex < 0)
+        {
+            return true;
+        }
+
+        return option.requiredSourceFormIndex == instance.formIndex;
+    }
+
+    private static bool HasItem(
+        Dictionary<EvolutionItemType, int> inventory,
+        EvolutionItemType itemType)
+    {
+        if (inventory == null)
+        {
+            return false;
+        }
+
+        if (itemType == EvolutionItemType.None)
+        {
+            return false;
+        }
+
+        if (!inventory.ContainsKey(itemType))
+        {
+            return false;
+        }
+
+        return inventory[itemType] > 0;
     }
 }

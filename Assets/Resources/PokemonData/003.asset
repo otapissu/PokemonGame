@@ -15,7 +15,11 @@ MonoBehaviour:
   id: 3
   pokemonName: "\uC774\uC0C1\uD574\uAF43"
   canHatch: 0
+  isLegendary: 0
+  formName: normal
+  formIndex: 0
   genderVisualType: 2
   maleRatio: 0.875
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  hatchForms: []
+  evolveRequireLevel: 5
+  evolutionOptions: []

@@ -15,7 +15,12 @@ MonoBehaviour:
   id: 2
   pokemonName: "\uC774\uC0C1\uD574\uD480"
   canHatch: 0
+  isLegendary: 0
   genderVisualType: 1
   maleRatio: 0.875
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  evolutionOptions:
+  - targetData: {fileID: 11400000, guid: 7238d664c72f9cc479de5c74e4b48a56, type: 2}
+    method: 1
+    requiredItem: 0
+    requiredFormIndex: -1
+    requiredEnhanceLevel: 0

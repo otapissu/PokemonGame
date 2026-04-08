@@ -39,6 +39,11 @@ public class DexPanelController : MonoBehaviour
             return;
         }
 
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPokedexOpen();
+        }
+
         pokedexRoot.SetActive(true);
         dexPanel.anchoredPosition = hiddenPos;
 
@@ -55,6 +60,11 @@ public class DexPanelController : MonoBehaviour
         if (pokedexRoot == null || dexPanel == null)
         {
             return;
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayPokedexClose();
         }
 
         StartCoroutine(SlideDown());

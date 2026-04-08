@@ -1,22 +1,9 @@
 using UnityEngine;
 
-public enum Gender
-{
-    None,
-    Male,
-    Female
-}
-
-public enum GenderVisualType
-{
-    None,           // 성별 없음
-    SameVisual,     // 암수 동일 외형
-    DifferentVisual // 암수 외형 다름
-}
-
 [CreateAssetMenu(menuName = "Pokemon/PokemonData")]
 public class PokemonData : ScriptableObject
 {
+    [Header("Identity")]
     public int id;
     public string pokemonName;
     public bool canHatch = true;
@@ -28,6 +15,35 @@ public class PokemonData : ScriptableObject
     public float maleRatio = 0.5f;
 
     [Header("Evolution")]
-    public PokemonData nextEvolution;
-    public PokemonData secondEvolution;
+    public EvolutionOption[] evolutionOptions;
+
+    public bool HasEvolution()
+    {
+        if (evolutionOptions == null)
+        {
+            return false;
+        }
+
+        if (evolutionOptions.Length == 0)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < evolutionOptions.Length; i++)
+        {
+            EvolutionOption option = evolutionOptions[i];
+
+            if (option == null)
+            {
+                continue;
+            }
+
+            if (option.targetData != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

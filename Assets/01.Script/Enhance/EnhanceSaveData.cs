@@ -1,6 +1,4 @@
-using System;
-
-[Serializable]
+[System.Serializable]
 public class EnhanceSaveData
 {
     public bool hasPokemon;
@@ -9,5 +7,6 @@ public class EnhanceSaveData
     public int enhanceLevel;
     public int gender;
     public bool isShiny;
+    public int formIndex;
     public int gold;
 }

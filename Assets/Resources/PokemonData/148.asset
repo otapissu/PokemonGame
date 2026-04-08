@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: 148
   m_EditorClassIdentifier: 
   id: 148
-  pokemonName: Pokemon_148
-  isLegendary: 0
+  pokemonName: "\uC2E0\uB1FD"
   canHatch: 0
-  evolutionType: 0
-  nextEvolution: {fileID: 0}
-  secondEvolution: {fileID: 0}
+  isLegendary: 0
+  genderVisualType: 1
+  maleRatio: 0.5
+  evolutionOptions:
+  - targetData: {fileID: 11400000, guid: 1afcae804f443a343bd34dd99c713bbd, type: 2}
+    method: 1
+    requiredItem: 0
+    requiredFormIndex: 0
+    requiredEnhanceLevel: 6

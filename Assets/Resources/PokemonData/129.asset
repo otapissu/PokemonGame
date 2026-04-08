@@ -18,5 +18,9 @@ MonoBehaviour:
   isLegendary: 0
   genderVisualType: 2
   maleRatio: 0.5
-  nextEvolution: {fileID: 11400000, guid: 9c2f61abb18fd80498a3add5f42ce470, type: 2}
-  secondEvolution: {fileID: 0}
+  evolutionOptions:
+  - targetData: {fileID: 11400000, guid: 9c2f61abb18fd80498a3add5f42ce470, type: 2}
+    method: 1
+    requiredItem: 0
+    requiredFormIndex: 0
+    requiredEnhanceLevel: 5
