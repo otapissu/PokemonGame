@@ -8,7 +8,7 @@ public class StartScreenController : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private Image logoImage;
-    [SerializeField] private TextMeshProUGUI touchToStartText;
+    [SerializeField] private Image touchToStartText;
 
     [Header("Fade Settings")]
     [SerializeField] private float logoFadeDuration = 2f;

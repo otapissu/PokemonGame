@@ -107,9 +107,9 @@ public class EggHatchService
         RectTransform rt = c.eggImage.rectTransform;
         Vector2 originalPos = rt.anchoredPosition;
 
-        float duration = 0.5f;
+        float duration = 0.2f;
         float timer = 0f;
-        float strength = 12f;
+        float strength = 8f;
 
         while (timer < duration)
         {
@@ -129,7 +129,7 @@ public class EggHatchService
     {
         RectTransform rt = c.pokemonImage.rectTransform;
 
-        float duration = 0.25f;
+        float duration = 0.1f;
         float timer = 0f;
 
         Vector3 baseScale = Vector3.one;
@@ -139,7 +139,7 @@ public class EggHatchService
             timer += Time.deltaTime;
             float t = timer / duration;
 
-            float scale = Mathf.Lerp(0.6f, 1.2f, t);
+            float scale = Mathf.Lerp(0.85f, 1.05f, t);
             rt.localScale = baseScale * scale;
 
             yield return null;
@@ -191,7 +191,7 @@ public class EggHatchService
 
         float maxSide = Mathf.Max(spriteWidth, spriteHeight);
 
-        float targetSize = 500f;
+        float targetSize = 480f;
         float scale = targetSize / maxSide;
 
         RectTransform rt = c.pokemonImage.rectTransform;
@@ -205,6 +205,32 @@ public class EggHatchService
         {
             Debug.LogError("PokemonData 로드 안됨");
             return null;
+        }
+
+        if (c.testSpawnPokemonId > 0)
+        {
+            PokemonData testTarget = c.allPokemons.Find(p => p.id == c.testSpawnPokemonId);
+
+            if (testTarget == null)
+            {
+                Debug.LogError("테스트 소환 실패: 해당 번호의 포켓몬이 없음 → " + c.testSpawnPokemonId);
+                return null;
+            }
+
+            if (HasAnyUsableSprite(testTarget) == false)
+            {
+                Debug.LogError("테스트 소환 실패: 사용 가능한 스프라이트가 없음 → " + c.testSpawnPokemonId);
+                return null;
+            }
+
+            if (c.ignoreHatchConditionForTest == false && testTarget.canHatch == false)
+            {
+                Debug.LogError("테스트 소환 실패: canHatch가 false임 → " + c.testSpawnPokemonId);
+                return null;
+            }
+
+            Debug.Log("테스트 소환 적용 → ID: " + testTarget.id + ", 이름: " + testTarget.pokemonName);
+            return testTarget;
         }
 
         float roll = Random.value;

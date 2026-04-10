@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 using System.Collections.Generic;
 
 public class EggEnhanceController : MonoBehaviour
@@ -36,6 +35,13 @@ public class EggEnhanceController : MonoBehaviour
 
     public int gold = 999999999;
     public int maxLevel = 15;
+
+    [Header("Test Spawn")]
+    [Tooltip("0이면 랜덤, 1 이상이면 해당 도감 번호를 강제로 부화")]
+    public int testSpawnPokemonId = 0;
+
+    [Tooltip("true면 canHatch/isLegendary 조건을 무시하고 번호만 맞으면 테스트 소환")]
+    public bool ignoreHatchConditionForTest = true;
 
     public Coroutine loopCoroutine;
 
@@ -149,5 +155,47 @@ public class EggEnhanceController : MonoBehaviour
         {
             sellButton.interactable = value;
         }
+    }
+
+    [ContextMenu("Reset SAVE_DATA")]
+    private void ResetSaveDataInInspector()
+    {
+        if (loopCoroutine != null)
+        {
+            StopCoroutine(loopCoroutine);
+            loopCoroutine = null;
+        }
+
+        PlayerPrefs.DeleteKey("SAVE_DATA");
+        PlayerPrefs.Save();
+
+        currentInstance = null;
+        gold = 999999999;
+
+        if (eggImage != null)
+        {
+            eggImage.gameObject.SetActive(true);
+        }
+
+        if (pokemonImage != null)
+        {
+            pokemonImage.gameObject.SetActive(false);
+            pokemonImage.sprite = null;
+        }
+
+        if (messageText != null)
+        {
+            messageText.text = "세이브 데이터 초기화 완료";
+        }
+
+        if (uiService == null)
+        {
+            uiService = new EggUIService();
+        }
+
+        uiService.UpdateGold(this);
+        uiService.UpdateAll(this);
+
+        Debug.Log("SAVE_DATA 초기화 완료");
     }
 }

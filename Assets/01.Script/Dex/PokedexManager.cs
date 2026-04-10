@@ -8,7 +8,7 @@ public class PokedexManager : MonoBehaviour
     public int maxDexCount = 151;   // Inspector에서 늘리면 됨
 
     private int currentPage = 0;
-    private int itemsPerPage = 30;
+    private int itemsPerPage = 25;
 
     public void GenerateCurrentPage()
     {
