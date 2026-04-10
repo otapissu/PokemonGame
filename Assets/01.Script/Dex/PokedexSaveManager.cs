@@ -51,7 +51,7 @@ public class PokedexSaveManager : MonoBehaviour
     {
         ResetDex();
 
-        PokedexManager manager = FindObjectOfType<PokedexManager>();
+        PokedexManager manager = FindFirstObjectByType<PokedexManager>();
         if (manager != null)
         {
             manager.GenerateCurrentPage();

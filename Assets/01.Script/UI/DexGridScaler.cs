@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ public class DexGridScaler : MonoBehaviour
     [SerializeField] private int referencePaddingTop = 0;
     [SerializeField] private int referencePaddingBottom = 0;
 
+    [Header("Reference Position Y")]
+    [SerializeField] private float referencePosY = 158f;
+
     private GridLayoutGroup grid;
     private RectTransform rectTransform;
 
@@ -31,10 +35,16 @@ public class DexGridScaler : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(ApplyScaleNextFrame());
+    }
+
+    private IEnumerator ApplyScaleNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
         ApplyScale();
     }
 
-    private void OnRectTransformChange()
+    private void OnRectTransformDimensionsChange()
     {
         if (grid == null || rectTransform == null)
         {
@@ -61,5 +71,14 @@ public class DexGridScaler : MonoBehaviour
         grid.padding.right = Mathf.RoundToInt(referencePaddingRight * ratio);
         grid.padding.top = Mathf.RoundToInt(referencePaddingTop * ratio);
         grid.padding.bottom = Mathf.RoundToInt(referencePaddingBottom * ratio);
+
+        float scaledCellH = referenceCellSize.y * ratio;
+        float scaledSpacingY = referenceSpacing.y * ratio;
+        float totalHeight = scaledCellH * 5 + scaledSpacingY * 4;
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
+
+        Vector2 pos = rectTransform.anchoredPosition;
+        pos.y = referencePosY * ratio;
+        rectTransform.anchoredPosition = pos;
     }
 }

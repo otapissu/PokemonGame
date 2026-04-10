@@ -3,9 +3,9 @@ using System.Collections;
 
 public class ShopPanelController : MonoBehaviour
 {
-    public GameObject shopRoot;
     public RectTransform shopPanel;
     public float animationDuration = 0.4f;
+    public GameObject closeArea;
 
     [Header("Panel Position")]
     public Vector2 hiddenPos;
@@ -16,6 +16,7 @@ public class ShopPanelController : MonoBehaviour
     public GameObject evolvePage;
 
     private bool isAnimating = false;
+    private bool isOpen = false;
 
     private void Start()
     {
@@ -24,20 +25,22 @@ public class ShopPanelController : MonoBehaviour
             shopPanel.anchoredPosition = hiddenPos;
         }
 
-        if (shopRoot != null)
+        if (closeArea != null)
         {
-            shopRoot.SetActive(false);
+            closeArea.SetActive(false);
         }
+
+        ShowGenPage();
     }
 
     public void OpenShop()
     {
-        if (isAnimating)
+        if (isAnimating || isOpen)
         {
             return;
         }
 
-        if (shopRoot == null || shopPanel == null)
+        if (shopPanel == null)
         {
             return;
         }
@@ -49,21 +52,17 @@ public class ShopPanelController : MonoBehaviour
         }
 
         ShowGenPage();
-
-        shopRoot.SetActive(true);
-        shopPanel.anchoredPosition = hiddenPos;
-
         StartCoroutine(SlideUp());
     }
 
     public void CloseShop()
     {
-        if (isAnimating)
+        if (isAnimating || !isOpen)
         {
             return;
         }
 
-        if (shopRoot == null || shopPanel == null)
+        if (shopPanel == null)
         {
             return;
         }
@@ -92,6 +91,7 @@ public class ShopPanelController : MonoBehaviour
     private IEnumerator SlideUp()
     {
         isAnimating = true;
+        isOpen = true;
 
         float time = 0f;
 
@@ -106,12 +106,23 @@ public class ShopPanelController : MonoBehaviour
         }
 
         shopPanel.anchoredPosition = shownPos;
+
+        if (closeArea != null)
+        {
+            closeArea.SetActive(true);
+        }
+
         isAnimating = false;
     }
 
     private IEnumerator SlideDown()
     {
         isAnimating = true;
+
+        if (closeArea != null)
+        {
+            closeArea.SetActive(false);
+        }
 
         float time = 0f;
 
@@ -126,12 +137,8 @@ public class ShopPanelController : MonoBehaviour
         }
 
         shopPanel.anchoredPosition = hiddenPos;
+        isOpen = false;
         isAnimating = false;
-
-        if (shopRoot != null)
-        {
-            shopRoot.SetActive(false);
-        }
     }
 
     private float EaseOutCubic(float t)
