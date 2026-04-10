@@ -7,12 +7,14 @@ public class DexPanelController : MonoBehaviour
     public RectTransform dexPanel;
     public float animationDuration = 0.4f;
     public PokedexManager pokedexManager;
+    public GameObject closeArea;
 
     [Header("Panel Position")]
     public Vector2 hiddenPos;
     public Vector2 shownPos = Vector2.zero;
 
     private bool isAnimating = false;
+    private bool isOpen = false;
 
     private void Start()
     {
@@ -21,20 +23,28 @@ public class DexPanelController : MonoBehaviour
             dexPanel.anchoredPosition = hiddenPos;
         }
 
-        if (pokedexRoot != null)
+        if (closeArea != null)
         {
-            pokedexRoot.SetActive(false);
+            closeArea.SetActive(false);
+        }
+
+        // pokedexRoot는 항상 켜진 상태 유지 (SetActive 토글 안 함)
+        // 최초에 슬롯 풀 생성 및 첫 페이지 데이터 로드
+        if (pokedexManager != null)
+        {
+            pokedexManager.GenerateCurrentPage();
+            pokedexManager.enabled = false;
         }
     }
 
     public void OpenDex()
     {
-        if (isAnimating)
+        if (isAnimating || isOpen)
         {
             return;
         }
 
-        if (pokedexRoot == null || dexPanel == null)
+        if (dexPanel == null)
         {
             return;
         }
@@ -44,27 +54,30 @@ public class DexPanelController : MonoBehaviour
             SoundManager.Instance.PlayPokedexOpen();
         }
 
-        pokedexRoot.SetActive(true);
-        dexPanel.anchoredPosition = hiddenPos;
+        // 열릴 때 현재 페이지 데이터 갱신 (소유 상태 등 반영)
+        if (pokedexManager != null)
+        {
+            pokedexManager.GenerateCurrentPage();
+        }
 
         StartCoroutine(SlideUp());
     }
 
     public void CloseDex()
     {
-        if (isAnimating)
+        if (isAnimating || !isOpen)
         {
             return;
         }
 
-        if (pokedexRoot == null || dexPanel == null)
+        if (dexPanel == null)
         {
             return;
         }
 
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlayPokedexClose();
+            SoundManager.Instance.PlayButtonClose();
         }
 
         StartCoroutine(SlideDown());
@@ -73,6 +86,12 @@ public class DexPanelController : MonoBehaviour
     private IEnumerator SlideUp()
     {
         isAnimating = true;
+        isOpen = true;
+
+        if (pokedexManager != null)
+        {
+            pokedexManager.enabled = true;
+        }
 
         float time = 0f;
 
@@ -88,9 +107,9 @@ public class DexPanelController : MonoBehaviour
 
         dexPanel.anchoredPosition = shownPos;
 
-        if (pokedexManager != null)
+        if (closeArea != null)
         {
-            pokedexManager.GenerateCurrentPage();
+            closeArea.SetActive(true);
         }
 
         isAnimating = false;
@@ -113,12 +132,19 @@ public class DexPanelController : MonoBehaviour
         }
 
         dexPanel.anchoredPosition = hiddenPos;
-        isAnimating = false;
 
-        if (pokedexRoot != null)
+        if (closeArea != null)
         {
-            pokedexRoot.SetActive(false);
+            closeArea.SetActive(false);
         }
+
+        if (pokedexManager != null)
+        {
+            pokedexManager.enabled = false;
+        }
+
+        isOpen = false;
+        isAnimating = false;
     }
 
     private float EaseOutCubic(float t)

@@ -8,5 +8,5 @@ public class EnhanceSaveData
     public int gender;
     public bool isShiny;
     public int formIndex;
-    public int gold;
+    public long gold;
 }

@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartScreenController
   logoImage: {fileID: 116533229}
   touchToStartText: {fileID: 505156431}
-  logoFadeDuration: 4
+  logoFadeDuration: 3
   blinkInterval: 0.5
   nextSceneName: Main
 --- !u!1 &505156430
@@ -511,8 +511,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 996704836}
-  - component: {fileID: 996704835}
   - component: {fileID: 996704834}
+  - component: {fileID: 996704837}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -617,7 +617,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &996704835
+--- !u!4 &996704836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996704833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 148, y: 263.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &996704837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -643,29 +658,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a0cbdfbf4c946b24ca3c00bb4d67f72e, type: 3}
   - {fileID: 8300000, guid: 82c6cdac0f048e945954a39b67b1ee24, type: 3}
   - {fileID: 8300000, guid: 04b9d4a9afe81d94a80054333097efe0, type: 3}
-  buttonClickSfx: {fileID: 8300000, guid: 6fcf8a7b199eaad43be1df13b503d0ea, type: 3}
+  shopBgm: {fileID: 8300000, guid: 103515f574fd8204c94554e02bc0d71d, type: 3}
+  buttonClickSfx: {fileID: 8300000, guid: ef0cafe2c795d5747914e62468301efd, type: 3}
   eggLevel15Sfx: {fileID: 8300000, guid: 50e8fb6341dc0e345bf205dac48fdee5, type: 3}
   shinyAppearSfx: {fileID: 8300000, guid: 579aa8858a56c0347b4bae9af1e73561, type: 3}
   pokedexOpenSfx: {fileID: 8300000, guid: d464d3da6b31c6d41877536aa9417775, type: 3}
-  pokedexCloseSfx: {fileID: 8300000, guid: 582909b1e25297d4695173836a44665d, type: 3}
+  shopOpenSfx: {fileID: 8300000, guid: e55563b5ce3383143a4b404573bba531, type: 3}
+  bagOpenSfx: {fileID: 8300000, guid: a3ee9b199fe88504bb7e695e979eb74f, type: 3}
+  shopSelectSfx: {fileID: 8300000, guid: ef0cafe2c795d5747914e62468301efd, type: 3}
+  shopBuySfx: {fileID: 8300000, guid: 6fcf8a7b199eaad43be1df13b503d0ea, type: 3}
+  buttonCloseSfx: {fileID: 8300000, guid: 582909b1e25297d4695173836a44665d, type: 3}
   shuffleMainBgm: 0
-  bgmVolume: 0.1
-  sfxVolume: 1
---- !u!4 &996704836
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996704833}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148, y: 263.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  bgmVolume: 0.108
+  sfxVolume: 0.493
 --- !u!1 &1735374563
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ public class EggHatchService
 
             if (selected == null)
             {
-                Debug.LogError("selected null ¡æ ºÎÈ­ Áß´Ü");
+                Debug.LogError("selected null â†’ ë¶€í™” ì¤‘ë‹¨");
                 yield break;
             }
 
@@ -47,12 +47,12 @@ public class EggHatchService
             c.currentInstance.enhanceLevel = 1;
 
             Debug.Log(
-                "[ºÎÈ­ °á°ú] " +
+                "[ë¶€í™” ê²°ê³¼] " +
                 "ID: " + selected.id.ToString("D3") +
-                ", ÀÌ¸§: " + selected.pokemonName +
-                ", ¼ºº°: " + gender +
-                ", »şÀÌ´Ï: " + isShiny +
-                ", Æû ÀÎµ¦½º: " + formIndex
+                ", ì´ë¦„: " + selected.pokemonName +
+                ", ì„±ë³„: " + gender +
+                ", ìƒ¤ì´ë‹ˆ: " + isShiny +
+                ", í¼ ì¸ë±ìŠ¤: " + formIndex
             );
 
             new EggSaveService().Save(c);
@@ -66,7 +66,7 @@ public class EggHatchService
 
             if (frames == null || frames.Length == 0)
             {
-                Debug.LogError("½ºÇÁ¶óÀÌÆ® ¾øÀ½: " + selected.id);
+                Debug.LogError("ìŠ¤í”„ë¼ì´íŠ¸ ì—†ìŒ: " + selected.id);
 
                 c.currentInstance = null;
                 new EggSaveService().Save(c);
@@ -80,7 +80,7 @@ public class EggHatchService
             c.eggImage.gameObject.SetActive(false);
             c.pokemonImage.gameObject.SetActive(true);
 
-            c.messageText.text = selected.pokemonName + " µîÀå!";
+            c.messageText.text = selected.pokemonName + " ë“±ì¥!";
 
             if (isShiny == true)
             {
@@ -203,7 +203,7 @@ public class EggHatchService
     {
         if (c.allPokemons == null || c.allPokemons.Count == 0)
         {
-            Debug.LogError("PokemonData ·Îµå ¾ÈµÊ");
+            Debug.LogError("PokemonData ë¡œë“œ ì•ˆë¨");
             return null;
         }
 
@@ -213,23 +213,23 @@ public class EggHatchService
 
             if (testTarget == null)
             {
-                Debug.LogError("Å×½ºÆ® ¼ÒÈ¯ ½ÇÆĞ: ÇØ´ç ¹øÈ£ÀÇ Æ÷ÄÏ¸óÀÌ ¾øÀ½ ¡æ " + c.testSpawnPokemonId);
+                Debug.LogError("í…ŒìŠ¤íŠ¸ ì†Œí™˜ ì‹¤íŒ¨: í•´ë‹¹ ë²ˆí˜¸ì˜ í¬ì¼“ëª¬ì´ ì—†ìŒ â†’ " + c.testSpawnPokemonId);
                 return null;
             }
 
             if (HasAnyUsableSprite(testTarget) == false)
             {
-                Debug.LogError("Å×½ºÆ® ¼ÒÈ¯ ½ÇÆĞ: »ç¿ë °¡´ÉÇÑ ½ºÇÁ¶óÀÌÆ®°¡ ¾øÀ½ ¡æ " + c.testSpawnPokemonId);
+                Debug.LogError("í…ŒìŠ¤íŠ¸ ì†Œí™˜ ì‹¤íŒ¨: ì‚¬ìš© ê°€ëŠ¥í•œ ìŠ¤í”„ë¼ì´íŠ¸ê°€ ì—†ìŒ â†’ " + c.testSpawnPokemonId);
                 return null;
             }
 
             if (c.ignoreHatchConditionForTest == false && testTarget.canHatch == false)
             {
-                Debug.LogError("Å×½ºÆ® ¼ÒÈ¯ ½ÇÆĞ: canHatch°¡ falseÀÓ ¡æ " + c.testSpawnPokemonId);
+                Debug.LogError("í…ŒìŠ¤íŠ¸ ì†Œí™˜ ì‹¤íŒ¨: canHatchê°€ falseì„ â†’ " + c.testSpawnPokemonId);
                 return null;
             }
 
-            Debug.Log("Å×½ºÆ® ¼ÒÈ¯ Àû¿ë ¡æ ID: " + testTarget.id + ", ÀÌ¸§: " + testTarget.pokemonName);
+            Debug.Log("í…ŒìŠ¤íŠ¸ ì†Œí™˜ ì ìš© â†’ ID: " + testTarget.id + ", ì´ë¦„: " + testTarget.pokemonName);
             return testTarget;
         }
 
@@ -246,7 +246,7 @@ public class EggHatchService
 
         if (targetList == null || targetList.Count == 0)
         {
-            Debug.LogError("ºÎÈ­ °¡´ÉÇÑ Æ÷ÄÏ¸ó ¾øÀ½");
+            Debug.LogError("ë¶€í™” ê°€ëŠ¥í•œ í¬ì¼“ëª¬ ì—†ìŒ");
             return null;
         }
 

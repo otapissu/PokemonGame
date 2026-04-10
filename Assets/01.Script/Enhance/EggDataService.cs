@@ -54,60 +54,60 @@ public static class EggDataService
         return c.balanceData.destroyRates[index];
     }
 
-    public static int GetEnhanceCost(EggEnhanceController c, int level)
+    public static long GetEnhanceCost(EggEnhanceController c, int level)
     {
         if (c == null)
         {
-            return 0;
+            return 0L;
         }
 
         if (c.balanceData == null)
         {
             Debug.LogError("balanceData가 연결되지 않았습니다.");
-            return 0;
+            return 0L;
         }
 
         if (c.balanceData.enhanceCosts == null || c.balanceData.enhanceCosts.Length == 0)
         {
             Debug.LogError("enhanceCosts가 비어 있습니다.");
-            return 0;
+            return 0L;
         }
 
         int index = Mathf.Clamp(level - 1, 0, c.balanceData.enhanceCosts.Length - 1);
         return c.balanceData.enhanceCosts[index];
     }
 
-    public static int GetSellPrice(EggEnhanceController c)
+    public static long GetSellPrice(EggEnhanceController c)
     {
         if (c == null)
         {
-            return 0;
+            return 0L;
         }
 
         if (c.currentInstance == null)
         {
-            return 0;
+            return 0L;
         }
 
         if (c.currentInstance.data == null)
         {
-            return 0;
+            return 0L;
         }
 
         if (c.balanceData == null)
         {
             Debug.LogError("balanceData가 연결되지 않았습니다.");
-            return 0;
+            return 0L;
         }
 
         if (c.balanceData.sellPrices == null || c.balanceData.sellPrices.Length == 0)
         {
             Debug.LogError("sellPrices가 비어 있습니다.");
-            return 0;
+            return 0L;
         }
 
         int level = Mathf.Clamp(c.currentInstance.enhanceLevel, 1, 15);
-        int basePrice = c.balanceData.sellPrices[level - 1];
+        long basePrice = c.balanceData.sellPrices[level - 1];
 
         float multiplier = 1f;
 
@@ -121,7 +121,7 @@ public static class EggDataService
             multiplier *= 2f;
         }
 
-        int finalPrice = Mathf.RoundToInt(basePrice * multiplier);
+        long finalPrice = (long)(basePrice * multiplier);
 
         if (HasMissedItemEvolution(c.currentInstance, c.evolutionItemInventory))
         {

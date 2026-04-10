@@ -1,53 +1,44 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class DexSlotUI : MonoBehaviour
 {
     public Image iconImage;
     public GameObject outline;
 
-    private Coroutine loopCoroutine;
+    private Sprite[] frames;
 
-    public void Setup(int id)
+    public void Setup(int id, Sprite[] cachedFrames)
     {
+        frames = cachedFrames;
+
+        if (frames == null || frames.Length == 0)
+        {
+            iconImage.sprite = null;
+            outline.SetActive(false);
+            return;
+        }
+
         bool owned = PokedexSaveManager.Instance != null &&
                      PokedexSaveManager.Instance.IsOwned(id);
 
         bool maxed = PokedexSaveManager.Instance != null &&
                      PokedexSaveManager.Instance.IsMaxEnhanced(id);
 
-        string iconPath = "Icon/" + id.ToString("D3");
-        Sprite[] frames = Resources.LoadAll<Sprite>(iconPath);
-
-        if (frames.Length == 0)
-        {
-            iconImage.sprite = null;
-            return;
-        }
-
         iconImage.preserveAspect = true;
-
-        if (loopCoroutine != null)
-            StopCoroutine(loopCoroutine);
-
-        loopCoroutine = StartCoroutine(PlayLoop(frames));
-
-        // ⭐ 등록 안 된 건 검정으로
         iconImage.color = owned ? Color.white : Color.black;
+        iconImage.sprite = frames[0];
 
         outline.SetActive(maxed);
     }
 
-    IEnumerator PlayLoop(Sprite[] frames)
+    public void UpdateFrame(int frameIndex)
     {
-        int index = 0;
-
-        while (true)
+        if (frames == null || frames.Length == 0)
         {
-            iconImage.sprite = frames[index];
-            index = (index + 1) % frames.Length;
-            yield return new WaitForSeconds(0.4f);
+            return;
         }
+
+        iconImage.sprite = frames[frameIndex % frames.Length];
     }
 }

@@ -10,20 +10,20 @@ public class EggUIService
             return;
         }
 
-        c.enhanceLevelText.text = "°­È­ ´Ü°è : +" + c.currentInstance.enhanceLevel;
+        c.enhanceLevelText.text = "ê°•í™” ë‹¨ê³„ : +" + c.currentInstance.enhanceLevel;
 
         int next = c.currentInstance.enhanceLevel + 1;
 
         if (next <= c.maxLevel)
         {
             c.successRateText.text =
-                "°­È­È®·ü : " + (EggDataService.GetSuccessRate(c, next) * 100).ToString("0") + "%";
+                "ê°•í™”í™•ë¥  : " + (EggDataService.GetSuccessRate(c, next) * 100).ToString("0") + "%";
 
             float d = EggDataService.GetDestroyRate(c, next) * 100;
 
             if (d > 0)
             {
-                c.destroyRateText.text = "ÆÄ±«È®·ü : " + d.ToString("0") + "%";
+                c.destroyRateText.text = "íŒŒê´´í™•ë¥  : " + d.ToString("0") + "%";
             }
             else
             {
@@ -31,7 +31,7 @@ public class EggUIService
             }
 
             c.costText.text =
-                "°­È­ºñ¿ë : " + EggDataService.GetEnhanceCost(c, next).ToString("N0");
+                "ê°•í™”ë¹„ìš© : " + EggDataService.GetEnhanceCost(c, next).ToString("N0");
         }
         else
         {
@@ -41,7 +41,7 @@ public class EggUIService
         }
 
         c.sellPriceText.text =
-            "ÆÇ¸Å ±İ¾× : " + EggDataService.GetSellPrice(c).ToString("N0");
+            "íŒë§¤ ê¸ˆì•¡ : " + EggDataService.GetSellPrice(c).ToString("N0");
     }
 
     public void Clear(EggEnhanceController c)
@@ -55,6 +55,6 @@ public class EggUIService
 
     public void UpdateGold(EggEnhanceController c)
     {
-        c.goldText.text = "¼ÒÁö±İ : " + c.gold.ToString("N0");
+        c.goldText.text = "ì†Œì§€ê¸ˆ : " + c.gold.ToString("N0");
     }
 }

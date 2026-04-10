@@ -37,12 +37,19 @@ public class EggSaveService
 
         if (c.allPokemons == null || c.allPokemons.Count == 0)
         {
-            Debug.LogError("PokemonData ���� �ε� �ȵ�");
+            Debug.LogError("PokemonData 아직 로드 안됨");
             return;
         }
 
         string json = PlayerPrefs.GetString("SAVE_DATA");
         EnhanceSaveData data = JsonUtility.FromJson<EnhanceSaveData>(json);
+
+        // 기존 세이브가 int로 저장된 경우 음수(-21억)로 깨진 값 보정
+        if (data.gold < 0)
+        {
+            Debug.LogWarning("gold 값이 음수입니다. 기존 int 오버플로우 세이브로 판단하여 0으로 초기화합니다.");
+            data.gold = 0L;
+        }
 
         c.gold = data.gold;
 
@@ -69,13 +76,13 @@ public class EggSaveService
 
         if (root == null)
         {
-            Debug.LogError("root �� ã��: " + data.rootID);
+            Debug.LogError("root 못 찾음: " + data.rootID);
             return;
         }
 
         if (current == null)
         {
-            Debug.LogError("current �� ã��: " + data.currentID);
+            Debug.LogError("current 못 찾음: " + data.currentID);
             return;
         }
 
@@ -105,7 +112,7 @@ public class EggSaveService
 
         if (frames == null || frames.Length == 0)
         {
-            Debug.LogError("�ε� �� ��������Ʈ ����: " + c.currentInstance.data.id);
+            Debug.LogError("로드 후 스프라이트 없음: " + c.currentInstance.data.id);
             return;
         }
 

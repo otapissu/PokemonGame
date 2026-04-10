@@ -33,7 +33,7 @@ public class EggEnhanceController : MonoBehaviour
     public List<PokemonData> allPokemons;
     public PokemonInstance currentInstance;
 
-    public int gold = 999999999;
+    public long gold = 999999999L;
     public int maxLevel = 15;
 
     [Header("Test Spawn")]
@@ -170,7 +170,7 @@ public class EggEnhanceController : MonoBehaviour
         PlayerPrefs.Save();
 
         currentInstance = null;
-        gold = 999999999;
+        gold = 999999999L;
 
         if (eggImage != null)
         {

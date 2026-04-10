@@ -23,7 +23,7 @@ public class EggEnhanceService
         }
 
         int nextLevel = c.currentInstance.enhanceLevel + 1;
-        int cost = EggDataService.GetEnhanceCost(c,nextLevel);
+        long cost = EggDataService.GetEnhanceCost(c, nextLevel);
 
         if (c.gold < cost)
         {
@@ -185,7 +185,7 @@ public class EggEnhanceService
             return;
         }
 
-        int sellGold = EggDataService.GetSellPrice(c);
+        long sellGold = EggDataService.GetSellPrice(c);
         c.gold += sellGold;
 
         c.messageText.text = sellGold.ToString("N0") + " °ñµå È¹µæ!";

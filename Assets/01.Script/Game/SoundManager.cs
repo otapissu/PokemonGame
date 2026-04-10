@@ -16,12 +16,19 @@ public class SoundManager : MonoBehaviour
     [Header("Main BGM List")]
     [SerializeField] private List<AudioClip> mainBgmList = new List<AudioClip>();
 
+    [Header("Shop BGM")]
+    [SerializeField] private AudioClip shopBgm;
+
     [Header("SFX Clips")]
     [SerializeField] private AudioClip buttonClickSfx;
     [SerializeField] private AudioClip eggLevel15Sfx;
     [SerializeField] private AudioClip shinyAppearSfx;
     [SerializeField] private AudioClip pokedexOpenSfx;
-    [SerializeField] private AudioClip pokedexCloseSfx;
+    [SerializeField] private AudioClip shopOpenSfx;
+    [SerializeField] private AudioClip bagOpenSfx;
+    [SerializeField] private AudioClip shopSelectSfx;
+    [SerializeField] private AudioClip shopBuySfx;
+    [SerializeField] private AudioClip buttonCloseSfx;
 
     [Header("BGM Option")]
     [SerializeField] private bool shuffleMainBgm = false;
@@ -38,6 +45,7 @@ public class SoundManager : MonoBehaviour
 
     private int currentMainBgmIndex = -1;
     private bool isPlayingStartSceneBgm = false;
+    private bool isPlayingShopBgm = false;
 
     private void Awake()
     {
@@ -104,6 +112,7 @@ public class SoundManager : MonoBehaviour
 
     private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        isPlayingShopBgm = false;
         RefreshBgmByScene();
     }
 
@@ -125,13 +134,13 @@ public class SoundManager : MonoBehaviour
     {
         if (startSceneBgm == null)
         {
-            Debug.LogWarning("[SoundManager] startSceneBgmÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] startSceneBgmì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (bgmSource == null)
         {
-            Debug.LogWarning("[SoundManager] bgmSource°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] bgmSourceê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -141,6 +150,7 @@ public class SoundManager : MonoBehaviour
         }
 
         isPlayingStartSceneBgm = true;
+        isPlayingShopBgm = false;
         currentMainBgmIndex = -1;
 
         bgmSource.Stop();
@@ -154,22 +164,23 @@ public class SoundManager : MonoBehaviour
     {
         if (bgmSource == null)
         {
-            Debug.LogWarning("[SoundManager] bgmSource°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] bgmSourceê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (mainBgmList == null || mainBgmList.Count == 0)
         {
-            Debug.LogWarning("[SoundManager] mainBgmList°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] mainBgmListê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
-        if (isPlayingStartSceneBgm == false && bgmSource.isPlaying == true && bgmSource.clip != null)
+        if (isPlayingStartSceneBgm == false && isPlayingShopBgm == false && bgmSource.isPlaying == true && bgmSource.clip != null)
         {
             return;
         }
 
         isPlayingStartSceneBgm = false;
+        isPlayingShopBgm = false;
 
         if (shuffleMainBgm == true)
         {
@@ -181,20 +192,69 @@ public class SoundManager : MonoBehaviour
         PlayMainBgmByIndex(currentMainBgmIndex);
     }
 
+    // ìƒì  ì˜¤í”ˆ ì‹œ í˜¸ì¶œ â€” ë©”ì¸ BGMì„ ë©ˆì¶”ê³  ìƒì  BGMì„ ë£¨í”„ ì¬ìƒ
+    public void PlayShopBgm()
+    {
+        if (bgmSource == null)
+        {
+            Debug.LogWarning("[SoundManager] bgmSourceê°€ ì—†ìŠµë‹ˆë‹¤.");
+            return;
+        }
+
+        if (shopBgm == null)
+        {
+            Debug.LogWarning("[SoundManager] shopBgmì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
+            return;
+        }
+
+        isPlayingStartSceneBgm = false;
+        isPlayingShopBgm = true;
+        currentMainBgmIndex = -1;
+
+        bgmSource.Stop();
+        bgmSource.clip = shopBgm;
+        bgmSource.volume = bgmVolume;
+        bgmSource.loop = true;
+        bgmSource.Play();
+    }
+
+    // ìƒì  ë‹«í ë•Œ í˜¸ì¶œ â€” ìƒì  BGMì„ ë©ˆì¶”ê³  ë©”ì¸ BGMìœ¼ë¡œ ë³µê·€
+    public void StopShopBgm()
+    {
+        if (isPlayingShopBgm == false)
+        {
+            return;
+        }
+
+        isPlayingShopBgm = false;
+
+        bgmSource.Stop();
+        bgmSource.clip = null;
+
+        PlayMainBgmList();
+    }
+
     public void StopBgm()
     {
         if (bgmSource == null)
         {
-            Debug.LogWarning("[SoundManager] bgmSource°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] bgmSourceê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         bgmSource.Stop();
     }
 
+    // â”€â”€ SFX â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
     public void PlayButtonClick()
     {
         PlaySfxOneShot(buttonClickSfx);
+    }
+
+    public void PlayButtonClose()
+    {
+        PlaySfxOneShot(buttonCloseSfx);
     }
 
     public void PlayEggLevel15()
@@ -212,22 +272,37 @@ public class SoundManager : MonoBehaviour
         PlaySfxOneShot(pokedexOpenSfx);
     }
 
-    public void PlayPokedexClose()
+    public void PlayShopOpen()
     {
-        PlaySfxOneShot(pokedexCloseSfx);
+        PlaySfxOneShot(shopOpenSfx);
+    }
+
+    public void PlayBagOpen()
+    {
+        PlaySfxOneShot(bagOpenSfx);
+    }
+
+    public void PlayShopSelect()
+    {
+        PlaySfxOneShot(shopSelectSfx);
+    }
+
+    public void PlayShopBuy()
+    {
+        PlaySfxOneShot(shopBuySfx);
     }
 
     public void PlaySfxOneShot(AudioClip sfxClip, float volumeScale = 1f)
     {
         if (sfxClip == null)
         {
-            Debug.LogWarning("[SoundManager] Àç»ıÇÒ È¿°úÀ½ÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] ì¬ìƒí•  íš¨ê³¼ìŒì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (sfxSource == null)
         {
-            Debug.LogWarning("[SoundManager] sfxSource°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] sfxSourceê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -257,6 +332,11 @@ public class SoundManager : MonoBehaviour
         }
 
         if (isPlayingStartSceneBgm == true)
+        {
+            return;
+        }
+
+        if (isPlayingShopBgm == true)
         {
             return;
         }
@@ -296,13 +376,13 @@ public class SoundManager : MonoBehaviour
     {
         if (mainBgmList == null || mainBgmList.Count == 0)
         {
-            Debug.LogWarning("[SoundManager] mainBgmList°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] mainBgmListê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (index < 0 || index >= mainBgmList.Count)
         {
-            Debug.LogWarning("[SoundManager] Àß¸øµÈ ¸ŞÀÎ BGM ÀÎµ¦½ºÀÔ´Ï´Ù: " + index);
+            Debug.LogWarning("[SoundManager] ì˜ëª»ëœ ë©”ì¸ BGM ì¸ë±ìŠ¤ì…ë‹ˆë‹¤: " + index);
             return;
         }
 
@@ -310,7 +390,7 @@ public class SoundManager : MonoBehaviour
 
         if (clip == null)
         {
-            Debug.LogWarning("[SoundManager] mainBgmListÀÇ Å¬¸³ÀÌ nullÀÔ´Ï´Ù. index: " + index);
+            Debug.LogWarning("[SoundManager] mainBgmListì˜ í´ë¦½ì´ nullì…ë‹ˆë‹¤. index: " + index);
             return;
         }
 
@@ -325,7 +405,7 @@ public class SoundManager : MonoBehaviour
     {
         if (mainBgmList == null || mainBgmList.Count == 0)
         {
-            Debug.LogWarning("[SoundManager] mainBgmList°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogWarning("[SoundManager] mainBgmListê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
