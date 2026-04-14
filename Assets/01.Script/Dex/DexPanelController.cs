@@ -40,7 +40,10 @@ public class DexPanelController : MonoBehaviour
     public void OpenDex()
     {
         if (GeneralBagPanelController.Instance != null)
+        {
             GeneralBagPanelController.Instance.CloseBag();
+            GeneralBagPanelController.Instance.HideRevivalCostUI();
+        }
 
         if (isAnimating || isOpen)
         {
@@ -148,6 +151,9 @@ public class DexPanelController : MonoBehaviour
 
         isOpen = false;
         isAnimating = false;
+
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.ShowRevivalCostUI();
     }
 
     private float EaseOutCubic(float t)

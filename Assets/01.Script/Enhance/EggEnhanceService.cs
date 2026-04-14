@@ -290,7 +290,7 @@ public class EggEnhanceService
         c.pokemonImage.gameObject.SetActive(true);
 
         c.statusIconController?.Setup(c.currentInstance);
-        c.messageText.text = snap.data.pokemonName + " 복구!";
+        c.messageText.text = snap.data.pokemonName + " 부활!";
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayEnhanceSuccess();

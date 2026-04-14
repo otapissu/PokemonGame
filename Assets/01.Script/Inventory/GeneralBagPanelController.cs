@@ -248,6 +248,17 @@ public class GeneralBagPanelController : MonoBehaviour
 
     }
 
+    public void HideRevivalCostUI()
+    {
+        if (revivalCostUI != null)
+            revivalCostUI.SetActive(false);
+    }
+
+    public void ShowRevivalCostUI()
+    {
+        RefreshRevivalCostUI();
+    }
+
     public void ClearQueue()
     {
         queueList.Clear();

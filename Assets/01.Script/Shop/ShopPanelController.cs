@@ -36,7 +36,10 @@ public class ShopPanelController : MonoBehaviour
     public void OpenShop()
     {
         if (GeneralBagPanelController.Instance != null)
+        {
             GeneralBagPanelController.Instance.CloseBag();
+            GeneralBagPanelController.Instance.HideRevivalCostUI();
+        }
 
         if (isAnimating || isOpen)
         {
@@ -145,6 +148,9 @@ public class ShopPanelController : MonoBehaviour
         shopPanel.anchoredPosition = hiddenPos;
         isOpen = false;
         isAnimating = false;
+
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.ShowRevivalCostUI();
     }
 
     private float EaseOutCubic(float t)

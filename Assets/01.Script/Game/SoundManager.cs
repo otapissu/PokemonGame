@@ -350,10 +350,11 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(sfxClip, Mathf.Clamp01(volumeScale) * sfxVolume);
     }
 
-    public float GetBgmVolume() => bgmVolume;
-    public float GetSfxVolume() => sfxVolume;
-    public bool  IsBgmMuted()   => bgmMuted;
-    public bool  IsSfxMuted()   => sfxMuted;
+    public float  GetBgmVolume()      => bgmVolume;
+    public float  GetSfxVolume()      => sfxVolume;
+    public bool   IsBgmMuted()        => bgmMuted;
+    public bool   IsSfxMuted()        => sfxMuted;
+    public string GetCurrentBgmName() => bgmSource != null && bgmSource.clip != null ? bgmSource.clip.name : "";
 
     public void SetBgmVolume(float volume)
     {
