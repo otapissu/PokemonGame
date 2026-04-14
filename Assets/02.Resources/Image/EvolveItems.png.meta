@@ -875,7 +875,7 @@ TextureImporter:
       name: EvolveItems_30
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 288
         width: 48
         height: 48
@@ -897,7 +897,7 @@ TextureImporter:
       name: EvolveItems_31
       rect:
         serializedVersion: 2
-        x: 240
+        x: 48
         y: 288
         width: 48
         height: 48
@@ -919,7 +919,7 @@ TextureImporter:
       name: EvolveItems_32
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 288
         width: 48
         height: 48
@@ -941,7 +941,7 @@ TextureImporter:
       name: EvolveItems_33
       rect:
         serializedVersion: 2
-        x: 336
+        x: 144
         y: 288
         width: 48
         height: 48
@@ -963,7 +963,7 @@ TextureImporter:
       name: EvolveItems_34
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 288
         width: 48
         height: 48
@@ -985,7 +985,7 @@ TextureImporter:
       name: EvolveItems_35
       rect:
         serializedVersion: 2
-        x: 432
+        x: 240
         y: 288
         width: 48
         height: 48
@@ -999,6 +999,28 @@ TextureImporter:
       bones: []
       spriteID: 839c7b9a4c560034d86a6c39e812ec05
       internalID: 1459762787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EvolveItems_36
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380f01accff00b049ba69086e2d12c36
+      internalID: 1945562816
       vertices: []
       indices: 
       edges: []
@@ -1049,6 +1071,7 @@ TextureImporter:
       EvolveItems_33: -2919290898225435152
       EvolveItems_34: 600372656
       EvolveItems_35: 1459762787
+      EvolveItems_36: 1945562816
       EvolveItems_4: 3872165761672902510
       EvolveItems_5: -568599086383523875
       EvolveItems_6: 5244766367607107702

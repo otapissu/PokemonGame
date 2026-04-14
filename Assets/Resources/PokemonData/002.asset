@@ -22,5 +22,7 @@ MonoBehaviour:
   - targetData: {fileID: 11400000, guid: 7238d664c72f9cc479de5c74e4b48a56, type: 2}
     method: 1
     requiredItem: 0
-    requiredFormIndex: -1
-    requiredEnhanceLevel: 0
+    requiredSourceFormIndex: -1
+    targetFormIndex: 0
+    requiredEnhanceLevel: 6
+    randomizeTargetForm: 0

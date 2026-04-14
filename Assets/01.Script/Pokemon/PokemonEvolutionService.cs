@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PokemonEvolutionService
 {
     public bool HasEvolutionOption(PokemonInstance instance)
@@ -128,9 +129,7 @@ public class PokemonEvolutionService
         return false;
     }
 
-    public bool HasRequiredItemForAnyCurrentEvolution(
-        PokemonInstance instance,
-        Dictionary<EvolutionItemType, int> inventory)
+    public bool HasRequiredItemForAnyCurrentEvolution(PokemonInstance instance)
     {
         List<EvolutionOption> options = GetOptionsAtCurrentTiming(instance);
 
@@ -143,7 +142,7 @@ public class PokemonEvolutionService
                 continue;
             }
 
-            if (HasItem(inventory, option.requiredItem))
+            if (HasItem(option.requiredItem))
             {
                 return true;
             }
@@ -152,9 +151,7 @@ public class PokemonEvolutionService
         return false;
     }
 
-    public List<EvolutionOption> GetAvailableEvolutionOptions(
-        PokemonInstance instance,
-        Dictionary<EvolutionItemType, int> inventory)
+    public List<EvolutionOption> GetAvailableEvolutionOptions(PokemonInstance instance)
     {
         List<EvolutionOption> result = new List<EvolutionOption>();
         List<EvolutionOption> options = GetOptionsAtCurrentTiming(instance);
@@ -171,7 +168,7 @@ public class PokemonEvolutionService
 
             if (option.method == EvolutionMethod.Item)
             {
-                if (HasItem(inventory, option.requiredItem))
+                if (HasItem(option.requiredItem))
                 {
                     result.Add(option);
                 }
@@ -183,19 +180,15 @@ public class PokemonEvolutionService
         return result;
     }
 
-    public bool CanEvolveNow(
-        PokemonInstance instance,
-        Dictionary<EvolutionItemType, int> inventory)
+    public bool CanEvolveNow(PokemonInstance instance)
     {
-        List<EvolutionOption> options = GetAvailableEvolutionOptions(instance, inventory);
+        List<EvolutionOption> options = GetAvailableEvolutionOptions(instance);
         return options.Count > 0;
     }
 
-    public EvolutionOption GetRandomAvailableEvolution(
-        PokemonInstance instance,
-        Dictionary<EvolutionItemType, int> inventory)
+    public EvolutionOption GetRandomAvailableEvolution(PokemonInstance instance)
     {
-        List<EvolutionOption> availableOptions = GetAvailableEvolutionOptions(instance, inventory);
+        List<EvolutionOption> availableOptions = GetAvailableEvolutionOptions(instance);
 
         if (availableOptions.Count == 0)
         {
@@ -228,6 +221,11 @@ public class PokemonEvolutionService
         if (!IsEnhanceLevelSatisfied(selectedOption, instance))
         {
             return false;
+        }
+
+        if (selectedOption.method == EvolutionMethod.Item)
+        {
+            PlayerEvolveInventory.Instance?.ConsumeItem(selectedOption.requiredItem);
         }
 
         instance.data = selectedOption.targetData;
@@ -303,25 +301,10 @@ public class PokemonEvolutionService
         return instance.enhanceLevel >= option.requiredEnhanceLevel;
     }
 
-    private bool HasItem(
-        Dictionary<EvolutionItemType, int> inventory,
-        EvolutionItemType itemType)
+    private bool HasItem(EvolutionItemType itemType)
     {
-        if (inventory == null)
-        {
-            return false;
-        }
-
-        if (itemType == EvolutionItemType.None)
-        {
-            return false;
-        }
-
-        if (!inventory.ContainsKey(itemType))
-        {
-            return false;
-        }
-
-        return inventory[itemType] > 0;
+        if (itemType == EvolutionItemType.None) return false;
+        if (PlayerEvolveInventory.Instance == null) return false;
+        return PlayerEvolveInventory.Instance.HasItem(itemType);
     }
 }

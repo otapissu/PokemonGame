@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50de151a1da9754ab20fb2463675c0a, type: 3}
+  m_Name: GalaricaCuff
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  itemName: "\uAC00\uB77C\uB450\uAD6C \uD314\uCC0C"
+  icon: {fileID: 21300000, guid: 615878670d8f3594184eca4f87954a84, type: 3}
+  description: "\uAC00\uB77C\uB450\uAD6C\uAC00\uC9C0\uB97C \uC5EE\uC5B4\uC11C \uB9CC\uB4E0
+    \uD314\uCC0C. \uAC00\uB77C\uB974\uC9C0\uBC29\uC758 \uC57C\uB3C8\uC5D0\uAC8C \uCC44\uC6CC\uC8FC\uBA74
+    \uAE30\uBED0\uD55C\uB2E4."
+  price: 20000
+  itemType: 1
+  evolutionItemType: 27

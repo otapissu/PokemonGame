@@ -12,13 +12,13 @@ public class EggEnhanceService
 
         if (c.currentInstance.data == null)
         {
-            Debug.LogError("currentInstance.data null °Ê ∫πø¯ Ω«∆– ªÛ≈¬");
+            Debug.LogError("currentInstance.data null ‚Äî Í∞ïÌôî Î°úÏßÅ Ï§ëÎã®");
             return;
         }
 
         if (c.currentInstance.enhanceLevel >= c.maxLevel)
         {
-            c.messageText.text = "√÷¥Î ∞≠»≠¿‘¥œ¥Ÿ.";
+            c.messageText.text = "ÏµúÎåÄ Í∞ïÌôîÏûÖÎãàÎã§.";
             return;
         }
 
@@ -27,14 +27,17 @@ public class EggEnhanceService
 
         if (c.gold < cost)
         {
-            c.messageText.text = "∞ÒµÂ ∫Œ¡∑!";
+            c.messageText.text = "Í≥®Îìú Î∂ÄÏ°±!";
             return;
         }
 
         c.gold -= cost;
         new EggUIService().UpdateGold(c);
 
-        float success = EggDataService.GetSuccessRate(c, nextLevel);
+        float bonus   = GeneralBagPanelController.Instance != null
+                        ? GeneralBagPanelController.Instance.GetSuccessRateBonus()
+                        : 0f;
+        float success = Mathf.Min(EggDataService.GetSuccessRate(c, nextLevel) + bonus, 1f);
         float destroy = EggDataService.GetDestroyRate(c, nextLevel);
         float roll = Random.value;
 
@@ -48,7 +51,12 @@ public class EggEnhanceService
         }
         else
         {
-            c.messageText.text = "∞≠»≠ Ω«∆–!";
+            c.messageText.text = "Í∞ïÌôî Ïã§Ìå®!";
+
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayEnhanceFail();
+            }
         }
 
         new EggUIService().UpdateAll(c);
@@ -71,7 +79,7 @@ public class EggEnhanceService
 
         if (c.currentInstance.data == null)
         {
-            Debug.LogError("¡¯»≠ »ƒ data null");
+            Debug.LogError("ÔøΩÔøΩ»≠ ÔøΩÔøΩ data null");
             return;
         }
 
@@ -80,12 +88,33 @@ public class EggEnhanceService
         if (PokedexSaveManager.Instance != null)
         {
             PokedexSaveManager.Instance.RegisterPokemon(currentId);
+            PokedexSaveManager.Instance.RegisterFormSeen(
+                currentId,
+                c.currentInstance.gender,
+                c.currentInstance.formIndex,
+                c.currentInstance.isShiny,
+                c.currentInstance.data.genderVisualType
+            );
 
             if (c.currentInstance.enhanceLevel == 15)
             {
-                PokedexSaveManager.Instance.RegisterMaxEnhance(currentId);
+                PokedexSaveManager.Instance.RegisterMaxEnhance(
+                    currentId,
+                    c.currentInstance.gender,
+                    c.currentInstance.formIndex,
+                    c.currentInstance.isShiny,
+                    c.currentInstance.data.genderVisualType
+                );
+
+                PokedexSaveManager.Instance.PropagateMaxEnhanceToChain(
+                    c.currentInstance.rootData,
+                    currentId,
+                    c.currentInstance.data
+                );
             }
         }
+
+        c.statusIconController?.Setup(c.currentInstance);
 
         new EggSaveService().Save(c);
 
@@ -97,14 +126,19 @@ public class EggEnhanceService
             EggHatchService.ApplyAutoScale(c, frames[0]);
         }
 
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayEnhanceSuccess();
+        }
+
         if (evolved)
         {
-            c.messageText.text = beforeName + " ¡¯»≠!";
+            c.messageText.text = beforeName + " ÏßÑÌôî!";
             c.StartCoroutine(EggHatchService.PopEffect(c));
         }
         else
         {
-            c.messageText.text = "∞≠»≠ º∫∞¯!";
+            c.messageText.text = "Í∞ïÌôî ÏÑ±Í≥µ!";
         }
 
         EggHatchService.StartAnimationLoop(c);
@@ -136,8 +170,7 @@ public class EggEnhanceService
         string beforeName = c.currentInstance.data.pokemonName;
 
         EvolutionOption selectedOption = c.evolutionService.GetRandomAvailableEvolution(
-            c.currentInstance,
-            c.evolutionItemInventory
+            c.currentInstance
         );
 
         if (selectedOption == null)
@@ -157,7 +190,7 @@ public class EggEnhanceService
 
         if (c.currentInstance.data == null)
         {
-            Debug.LogError("¡¯»≠ »ƒ currentInstance.data null");
+            Debug.LogError("ÏßÑÌôî ÌõÑ currentInstance.data null");
             return false;
         }
 
@@ -166,7 +199,16 @@ public class EggEnhanceService
 
     private void HandleEnhanceDestroyed(EggEnhanceController c)
     {
-        c.messageText.text = "∆ƒ±´µ !";
+        c.IsDestroyed = true;
+        c.DestroyedSnapshot = new RevivalSnapshot(c.currentInstance);
+        c.messageText.text = "ÌååÍ¥¥Îê®!";
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayEnhanceDestroy();
+        }
+
+        c.statusIconController?.Hide();
 
         c.currentInstance = null;
 
@@ -175,7 +217,95 @@ public class EggEnhanceService
         c.pokemonImage.gameObject.SetActive(false);
         c.eggImage.gameObject.SetActive(true);
 
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.ClearQueue();
+
         new EggUIService().Clear(c);
+    }
+
+    public void Revive(EggEnhanceController c)
+    {
+        RevivalSnapshot snap = c.DestroyedSnapshot;
+        if (snap == null)
+        {
+            Debug.LogWarning("[Revival] Ïä§ÎÉÖÏÉ∑ ÏóÜÏùå");
+            return;
+        }
+
+        ShopItemData revivalItem = GeneralBagPanelController.Instance != null
+                                   ? GeneralBagPanelController.Instance.GetRevivalItemData()
+                                   : null;
+        if (revivalItem == null)
+        {
+            Debug.LogWarning("[Revival] Î≥µÍµ¨Í∂å ÏïÑÏù¥ÌÖú ÏóÜÏùå");
+            return;
+        }
+
+        // ÌïÑÏöî Í∞ØÏàò Í≥ÑÏÇ∞
+        int costIndex = snap.destroyedAtLevel - 6;
+        int cost = 1;
+        if (c.balanceData != null && c.balanceData.reviveCosts != null
+            && costIndex >= 0 && costIndex < c.balanceData.reviveCosts.Length)
+        {
+            cost = c.balanceData.reviveCosts[costIndex];
+        }
+
+        // Î≥¥Ïú† Í∞ØÏàò ÌôïÏù∏
+        int available = 0;
+        if (PlayerGeneralInventory.Instance != null)
+        {
+            foreach (var e in PlayerGeneralInventory.Instance.Entries)
+            {
+                if (e.item == revivalItem) { available = e.count; break; }
+            }
+        }
+
+        if (available < cost)
+        {
+            c.messageText.text = "Í∏∞Î†•Ïùò Îç©Ïñ¥Î¶¨Í∞Ä Î∂ÄÏ°±Ìï©ÎãàÎã§.";
+            return;
+        }
+
+        // ÏïÑÏù¥ÌÖú ÏÜåÎ™®
+        for (int i = 0; i < cost; i++)
+            PlayerGeneralInventory.Instance.RemoveItem(revivalItem, 1);
+
+        // Ïù∏Ïä§ÌÑ¥Ïä§ Î≥µÏõê
+        c.currentInstance = new PokemonInstance(snap.rootData, snap.gender, snap.isShiny, snap.formIndex);
+        c.currentInstance.data         = snap.data;
+        c.currentInstance.enhanceLevel = snap.enhanceLevel;
+
+        c.IsDestroyed       = false;
+        c.DestroyedSnapshot = null;
+
+        // Ïù¥ÎØ∏ÏßÄ Î≥µÏõê
+        Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
+        if (frames != null && frames.Length > 0)
+        {
+            c.pokemonImage.sprite = frames[0];
+            EggHatchService.ApplyAutoScale(c, frames[0]);
+        }
+
+        c.eggImage.gameObject.SetActive(false);
+        c.pokemonImage.gameObject.SetActive(true);
+
+        c.statusIconController?.Setup(c.currentInstance);
+        c.messageText.text = snap.data.pokemonName + " Î≥µÍµ¨!";
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayEnhanceSuccess();
+
+        new EggSaveService().Save(c);
+        new EggUIService().UpdateAll(c);
+        EggHatchService.StartAnimationLoop(c);
+
+        if (GeneralBagPanelController.Instance != null)
+        {
+            GeneralBagPanelController.Instance.ClearQueue();
+            GeneralBagPanelController.Instance.RefreshCounts();
+        }
+
+        c.RefreshEnhanceButtonText();
     }
 
     public void Sell(EggEnhanceController c)
@@ -188,7 +318,7 @@ public class EggEnhanceService
         long sellGold = EggDataService.GetSellPrice(c);
         c.gold += sellGold;
 
-        c.messageText.text = sellGold.ToString("N0") + " ∞ÒµÂ »πµÊ!";
+        c.messageText.text = sellGold.ToString("N0") + " Í≥®Îìú ÌöçÎìù!";
 
         if (c.loopCoroutine != null)
         {
@@ -196,6 +326,10 @@ public class EggEnhanceService
             c.loopCoroutine = null;
         }
 
+        c.statusIconController?.Hide();
+
+        c.IsDestroyed = false;
+        c.DestroyedSnapshot = null;
         c.pokemonImage.sprite = null;
         c.currentInstance = null;
 

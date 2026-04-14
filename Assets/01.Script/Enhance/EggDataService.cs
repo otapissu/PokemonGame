@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class EggDataService
@@ -12,13 +11,13 @@ public static class EggDataService
 
         if (c.balanceData == null)
         {
-            Debug.LogError("balanceData°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("balanceDataê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return 0f;
         }
 
         if (c.balanceData.successRates == null || c.balanceData.successRates.Length == 0)
         {
-            Debug.LogError("successRates°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("successRatesê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return 0f;
         }
 
@@ -40,13 +39,13 @@ public static class EggDataService
 
         if (c.balanceData == null)
         {
-            Debug.LogError("balanceData°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("balanceDataê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return 0f;
         }
 
         if (c.balanceData.destroyRates == null || c.balanceData.destroyRates.Length == 0)
         {
-            Debug.LogError("destroyRates°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("destroyRatesê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return 0f;
         }
 
@@ -63,13 +62,13 @@ public static class EggDataService
 
         if (c.balanceData == null)
         {
-            Debug.LogError("balanceData°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("balanceDataê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return 0L;
         }
 
         if (c.balanceData.enhanceCosts == null || c.balanceData.enhanceCosts.Length == 0)
         {
-            Debug.LogError("enhanceCosts°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("enhanceCostsê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return 0L;
         }
 
@@ -96,13 +95,13 @@ public static class EggDataService
 
         if (c.balanceData == null)
         {
-            Debug.LogError("balanceData°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("balanceDataê°€ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return 0L;
         }
 
         if (c.balanceData.sellPrices == null || c.balanceData.sellPrices.Length == 0)
         {
-            Debug.LogError("sellPrices°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("sellPricesê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return 0L;
         }
 
@@ -123,7 +122,7 @@ public static class EggDataService
 
         long finalPrice = (long)(basePrice * multiplier);
 
-        if (HasMissedItemEvolution(c.currentInstance, c.evolutionItemInventory))
+        if (HasMissedItemEvolution(c.currentInstance))
         {
             finalPrice /= 2;
         }
@@ -131,9 +130,7 @@ public static class EggDataService
         return finalPrice;
     }
 
-    private static bool HasMissedItemEvolution(
-        PokemonInstance instance,
-        Dictionary<EvolutionItemType, int> inventory)
+    private static bool HasMissedItemEvolution(PokemonInstance instance)
     {
         if (instance == null)
         {
@@ -179,7 +176,7 @@ public static class EggDataService
                 continue;
             }
 
-            if (HasItem(inventory, option.requiredItem))
+            if (PlayerEvolveInventory.Instance != null && PlayerEvolveInventory.Instance.HasItem(option.requiredItem))
             {
                 return false;
             }
@@ -200,25 +197,4 @@ public static class EggDataService
         return option.requiredSourceFormIndex == instance.formIndex;
     }
 
-    private static bool HasItem(
-        Dictionary<EvolutionItemType, int> inventory,
-        EvolutionItemType itemType)
-    {
-        if (inventory == null)
-        {
-            return false;
-        }
-
-        if (itemType == EvolutionItemType.None)
-        {
-            return false;
-        }
-
-        if (!inventory.ContainsKey(itemType))
-        {
-            return false;
-        }
-
-        return inventory[itemType] > 0;
-    }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class PokedexManager : MonoBehaviour
 {
+    public static PokedexManager Instance { get; private set; }
+
     public GameObject dexSlotPrefab;
     public Transform slotContainer;
 
@@ -12,13 +14,18 @@ public class PokedexManager : MonoBehaviour
     private int itemsPerPage = 25;
 
     private readonly List<DexSlotUI> slotPool = new();
-    private bool isInitialized = false;
 
     private readonly Dictionary<int, Sprite[]> spriteCache = new();
+    private readonly Dictionary<int, PokemonData> pokemonDataCache = new();
 
     private float animTimer = 0f;
     private float animInterval = 0.4f;
     private int animFrame = 0;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -50,18 +57,31 @@ public class PokedexManager : MonoBehaviour
 
     private void InitializeSlots()
     {
-        if (isInitialized)
+        // 이미 올바른 수의 슬롯이 있으면 스킵
+        if (slotPool.Count >= itemsPerPage)
         {
             return;
         }
+
+        // 씬에 이미 배치된 원본 prefab 오브젝트가 있으면 비활성화
+        if (dexSlotPrefab != null && dexSlotPrefab.transform.parent == slotContainer)
+        {
+            dexSlotPrefab.SetActive(false);
+        }
+
+        // 혹시 남아있는 잘못된 슬롯 정리
+        foreach (DexSlotUI old in slotPool)
+        {
+            if (old != null)
+                Destroy(old.gameObject);
+        }
+        slotPool.Clear();
 
         for (int i = 0; i < itemsPerPage; i++)
         {
             GameObject slot = Instantiate(dexSlotPrefab, slotContainer);
             slotPool.Add(slot.GetComponent<DexSlotUI>());
         }
-
-        isInitialized = true;
     }
 
     private Sprite[] GetCachedSprites(int id)
@@ -74,6 +94,20 @@ public class PokedexManager : MonoBehaviour
         Sprite[] loaded = Resources.LoadAll<Sprite>("Icon/" + id.ToString("D3"));
         spriteCache[id] = loaded;
         return loaded;
+    }
+
+    private PokemonData GetCachedPokemonData(int id)
+    {
+        if (pokemonDataCache.TryGetValue(id, out PokemonData cached))
+            return cached;
+
+        PokemonData found = null;
+
+        if (EggEnhanceController.Instance != null)
+            found = EggEnhanceController.Instance.allPokemons.Find(p => p.id == id);
+
+        pokemonDataCache[id] = found;
+        return found;
     }
 
     public void GenerateCurrentPage()
@@ -94,7 +128,7 @@ public class PokedexManager : MonoBehaviour
             else
             {
                 slot.gameObject.SetActive(true);
-                slot.Setup(id, GetCachedSprites(id));
+                slot.Setup(id, GetCachedSprites(id), GetCachedPokemonData(id));
             }
         }
     }

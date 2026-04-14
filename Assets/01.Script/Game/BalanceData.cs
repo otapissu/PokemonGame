@@ -26,6 +26,9 @@ public class EggBalanceData : ScriptableObject
         250000L, 500000L, 1000000L, 1500000L, 2000000L
     };
 
+    [Header("Revival Costs (index 0 = 6강 파괴, index 1 = 7강 파괴 ...)")]
+    public int[] reviveCosts = { 1, 2, 4, 6, 9, 12, 16, 20, 25, 30 };
+
     [Header("Sell Prices")]
     public long[] sellPrices =
     {

@@ -35,6 +35,9 @@ public class ShopPanelController : MonoBehaviour
 
     public void OpenShop()
     {
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.CloseBag();
+
         if (isAnimating || isOpen)
         {
             return;
@@ -73,17 +76,20 @@ public class ShopPanelController : MonoBehaviour
             SoundManager.Instance.StopShopBgm();
         }
 
+        ShopInfoPageController.Instance?.HideInfo();
         StartCoroutine(SlideDown());
     }
 
     public void ShowGenPage()
     {
+        ShopInfoPageController.Instance?.HideInfo();
         if (genPage != null) genPage.SetActive(true);
         if (evolvePage != null) evolvePage.SetActive(false);
     }
 
     public void ShowEvolvePage()
     {
+        ShopInfoPageController.Instance?.HideInfo();
         if (genPage != null) genPage.SetActive(false);
         if (evolvePage != null) evolvePage.SetActive(true);
     }

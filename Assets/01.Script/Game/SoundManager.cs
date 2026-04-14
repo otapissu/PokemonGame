@@ -29,6 +29,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip shopSelectSfx;
     [SerializeField] private AudioClip shopBuySfx;
     [SerializeField] private AudioClip buttonCloseSfx;
+    [SerializeField] private AudioClip enhanceSuccessSfx;
+    [SerializeField] private AudioClip enhanceFailSfx;
+    [SerializeField] private AudioClip enhanceDestroySfx;
 
     [Header("BGM Option")]
     [SerializeField] private bool shuffleMainBgm = false;
@@ -40,12 +43,16 @@ public class SoundManager : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float sfxVolume = 1f;
 
+    private bool bgmMuted = false;
+    private bool sfxMuted = false;
+
     private AudioSource bgmSource;
     private AudioSource sfxSource;
 
     private int currentMainBgmIndex = -1;
     private bool isPlayingStartSceneBgm = false;
     private bool isPlayingShopBgm = false;
+    private float savedMainBgmTime = 0f;
 
     private void Awake()
     {
@@ -59,6 +66,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         EnsureAudioSources();
+        LoadSettings();
     }
 
     private void OnEnable()
@@ -103,7 +111,7 @@ public class SoundManager : MonoBehaviour
 
         bgmSource.playOnAwake = false;
         bgmSource.loop = false;
-        bgmSource.volume = bgmVolume;
+        bgmSource.volume = bgmMuted ? 0f : bgmVolume;
 
         sfxSource.playOnAwake = false;
         sfxSource.loop = false;
@@ -207,9 +215,13 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
+        if (!isPlayingStartSceneBgm && !isPlayingShopBgm && bgmSource.isPlaying)
+        {
+            savedMainBgmTime = bgmSource.time;
+        }
+
         isPlayingStartSceneBgm = false;
         isPlayingShopBgm = true;
-        currentMainBgmIndex = -1;
 
         bgmSource.Stop();
         bgmSource.clip = shopBgm;
@@ -218,7 +230,7 @@ public class SoundManager : MonoBehaviour
         bgmSource.Play();
     }
 
-    // 상점 닫힐 때 호출 — 상점 BGM을 멈추고 메인 BGM으로 복귀
+    // 상점 닫힐 때 호출 — 상점 BGM을 멈추고 메인 BGM을 멈췄던 위치부터 재개
     public void StopShopBgm()
     {
         if (isPlayingShopBgm == false)
@@ -228,8 +240,21 @@ public class SoundManager : MonoBehaviour
 
         isPlayingShopBgm = false;
 
-        bgmSource.Stop();
-        bgmSource.clip = null;
+        if (currentMainBgmIndex >= 0 && mainBgmList != null && currentMainBgmIndex < mainBgmList.Count)
+        {
+            AudioClip clip = mainBgmList[currentMainBgmIndex];
+
+            if (clip != null)
+            {
+                bgmSource.Stop();
+                bgmSource.clip = clip;
+                bgmSource.volume = bgmVolume;
+                bgmSource.loop = false;
+                bgmSource.time = savedMainBgmTime;
+                bgmSource.Play();
+                return;
+            }
+        }
 
         PlayMainBgmList();
     }
@@ -292,6 +317,21 @@ public class SoundManager : MonoBehaviour
         PlaySfxOneShot(shopBuySfx);
     }
 
+    public void PlayEnhanceSuccess()
+    {
+        PlaySfxOneShot(enhanceSuccessSfx);
+    }
+
+    public void PlayEnhanceFail()
+    {
+        PlaySfxOneShot(enhanceFailSfx);
+    }
+
+    public void PlayEnhanceDestroy()
+    {
+        PlaySfxOneShot(enhanceDestroySfx);
+    }
+
     public void PlaySfxOneShot(AudioClip sfxClip, float volumeScale = 1f)
     {
         if (sfxClip == null)
@@ -306,22 +346,62 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
+        if (sfxMuted) return;
         sfxSource.PlayOneShot(sfxClip, Mathf.Clamp01(volumeScale) * sfxVolume);
     }
+
+    public float GetBgmVolume() => bgmVolume;
+    public float GetSfxVolume() => sfxVolume;
+    public bool  IsBgmMuted()   => bgmMuted;
+    public bool  IsSfxMuted()   => sfxMuted;
 
     public void SetBgmVolume(float volume)
     {
         bgmVolume = Mathf.Clamp01(volume);
 
         if (bgmSource != null)
-        {
-            bgmSource.volume = bgmVolume;
-        }
+            bgmSource.volume = bgmMuted ? 0f : bgmVolume;
+
+        SaveSettings();
     }
 
     public void SetSfxVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
+        SaveSettings();
+    }
+
+    public void SetBgmMute(bool mute)
+    {
+        bgmMuted = mute;
+
+        if (bgmSource != null)
+            bgmSource.volume = bgmMuted ? 0f : bgmVolume;
+
+        SaveSettings();
+    }
+
+    public void SetSfxMute(bool mute)
+    {
+        sfxMuted = mute;
+        SaveSettings();
+    }
+
+    private void SaveSettings()
+    {
+        PlayerPrefs.SetFloat("SOUND_BGM_VOL",  bgmVolume);
+        PlayerPrefs.SetFloat("SOUND_SFX_VOL",  sfxVolume);
+        PlayerPrefs.SetInt("SOUND_BGM_MUTE",   bgmMuted ? 1 : 0);
+        PlayerPrefs.SetInt("SOUND_SFX_MUTE",   sfxMuted ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void LoadSettings()
+    {
+        bgmVolume = PlayerPrefs.GetFloat("SOUND_BGM_VOL", bgmVolume);
+        sfxVolume = PlayerPrefs.GetFloat("SOUND_SFX_VOL", sfxVolume);
+        bgmMuted  = PlayerPrefs.GetInt("SOUND_BGM_MUTE", 0) == 1;
+        sfxMuted  = PlayerPrefs.GetInt("SOUND_SFX_MUTE", 0) == 1;
     }
 
     private void TryPlayNextMainBgm()

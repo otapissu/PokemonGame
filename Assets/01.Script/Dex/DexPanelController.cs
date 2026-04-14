@@ -39,6 +39,9 @@ public class DexPanelController : MonoBehaviour
 
     public void OpenDex()
     {
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.CloseBag();
+
         if (isAnimating || isOpen)
         {
             return;

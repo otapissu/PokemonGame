@@ -668,7 +668,10 @@ MonoBehaviour:
   shopSelectSfx: {fileID: 8300000, guid: ef0cafe2c795d5747914e62468301efd, type: 3}
   shopBuySfx: {fileID: 8300000, guid: 6fcf8a7b199eaad43be1df13b503d0ea, type: 3}
   buttonCloseSfx: {fileID: 8300000, guid: 582909b1e25297d4695173836a44665d, type: 3}
-  shuffleMainBgm: 0
+  enhanceSuccessSfx: {fileID: 8300000, guid: 93055dc758785b548b255aed7641652d, type: 3}
+  enhanceFailSfx: {fileID: 8300000, guid: d353f865de04590419aad97aa340fe9a, type: 3}
+  enhanceDestroySfx: {fileID: 8300000, guid: 5de7d5ff7bf384f499b98e642f27cf91, type: 3}
+  shuffleMainBgm: 1
   bgmVolume: 0.108
   sfxVolume: 0.493
 --- !u!1 &1735374563

@@ -1,0 +1,1611 @@
+fileFormatVersion: 2
+guid: cd31d2a78530a9a4bb8a45cd51e18870
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2385307656840849298
+    second: ShinyEffect_0
+  - first:
+      213: -5339018800169575521
+    second: ShinyEffect_1
+  - first:
+      213: -6646681530756452656
+    second: ShinyEffect_2
+  - first:
+      213: -7900873396422263949
+    second: ShinyEffect_3
+  - first:
+      213: 2928634854403970233
+    second: ShinyEffect_4
+  - first:
+      213: 8306438996748783922
+    second: ShinyEffect_5
+  - first:
+      213: -2995880097601234702
+    second: ShinyEffect_6
+  - first:
+      213: -1578832320726443470
+    second: ShinyEffect_7
+  - first:
+      213: -4522033854300989434
+    second: ShinyEffect_8
+  - first:
+      213: 1163506426264167574
+    second: ShinyEffect_9
+  - first:
+      213: -5092779546044994857
+    second: ShinyEffect_10
+  - first:
+      213: 5451058426851455443
+    second: ShinyEffect_11
+  - first:
+      213: 1494418617856856264
+    second: ShinyEffect_12
+  - first:
+      213: 184724220419539851
+    second: ShinyEffect_13
+  - first:
+      213: 7861301303755075987
+    second: ShinyEffect_14
+  - first:
+      213: -9121214748842296471
+    second: ShinyEffect_15
+  - first:
+      213: 5019869677412038388
+    second: ShinyEffect_16
+  - first:
+      213: -3017617891390796587
+    second: ShinyEffect_17
+  - first:
+      213: -6148767312017958258
+    second: ShinyEffect_18
+  - first:
+      213: 8820870996324895860
+    second: ShinyEffect_19
+  - first:
+      213: 2381264215068440009
+    second: ShinyEffect_20
+  - first:
+      213: 6682440264924595509
+    second: ShinyEffect_21
+  - first:
+      213: -4604819195846572123
+    second: ShinyEffect_22
+  - first:
+      213: 2849859507269996488
+    second: ShinyEffect_23
+  - first:
+      213: 4491987052005196400
+    second: ShinyEffect_24
+  - first:
+      213: -3656574270810765479
+    second: ShinyEffect_25
+  - first:
+      213: -1518950166368362400
+    second: ShinyEffect_26
+  - first:
+      213: -3854303571738422914
+    second: ShinyEffect_27
+  - first:
+      213: -8212623789493926936
+    second: ShinyEffect_28
+  - first:
+      213: 7614229476850698096
+    second: ShinyEffect_29
+  - first:
+      213: -7868011354930944049
+    second: ShinyEffect_30
+  - first:
+      213: -853129470456207313
+    second: ShinyEffect_31
+  - first:
+      213: -8083337928823048036
+    second: ShinyEffect_32
+  - first:
+      213: -28085578275007449
+    second: ShinyEffect_33
+  - first:
+      213: -5636844931144476743
+    second: ShinyEffect_34
+  - first:
+      213: 4111972911153837456
+    second: ShinyEffect_35
+  - first:
+      213: -198833173821263250
+    second: ShinyEffect_36
+  - first:
+      213: 2635378609221286487
+    second: ShinyEffect_37
+  - first:
+      213: 6504416439286415807
+    second: ShinyEffect_38
+  - first:
+      213: 2997424998309037724
+    second: ShinyEffect_39
+  - first:
+      213: 485492170484174614
+    second: ShinyEffect_40
+  - first:
+      213: -2851341445862101510
+    second: ShinyEffect_41
+  - first:
+      213: 8526758163052040629
+    second: ShinyEffect_42
+  - first:
+      213: 3583857465424675443
+    second: ShinyEffect_43
+  - first:
+      213: 391315744073905683
+    second: ShinyEffect_44
+  - first:
+      213: -4258448348319702303
+    second: ShinyEffect_45
+  - first:
+      213: 4799464713914626415
+    second: ShinyEffect_46
+  - first:
+      213: 937385136718841677
+    second: ShinyEffect_47
+  - first:
+      213: -4590076415854242279
+    second: ShinyEffect_48
+  - first:
+      213: -9106879707598951391
+    second: ShinyEffect_49
+  - first:
+      213: -2025075683579589395
+    second: ShinyEffect_50
+  - first:
+      213: 4424917545695545165
+    second: ShinyEffect_51
+  - first:
+      213: -7963218196013764186
+    second: ShinyEffect_52
+  - first:
+      213: -5432401593794336616
+    second: ShinyEffect_53
+  - first:
+      213: -1435739325951267889
+    second: ShinyEffect_54
+  - first:
+      213: 6712248366397515225
+    second: ShinyEffect_55
+  - first:
+      213: -6421373603168238800
+    second: ShinyEffect_56
+  - first:
+      213: -5958029757217356201
+    second: ShinyEffect_57
+  - first:
+      213: -8676275471050754219
+    second: ShinyEffect_58
+  - first:
+      213: -8365852996439866555
+    second: ShinyEffect_59
+  - first:
+      213: -8454823655475546516
+    second: ShinyEffect_60
+  - first:
+      213: -1626893171335808692
+    second: ShinyEffect_61
+  - first:
+      213: 362482495130085664
+    second: ShinyEffect_62
+  - first:
+      213: 1080698137691484956
+    second: ShinyEffect_63
+  - first:
+      213: 6240586394586734543
+    second: ShinyEffect_64
+  - first:
+      213: -4736605577921449596
+    second: ShinyEffect_65
+  - first:
+      213: -4885267478967020654
+    second: ShinyEffect_66
+  - first:
+      213: 3729948695676501224
+    second: ShinyEffect_67
+  - first:
+      213: -6118646790122478284
+    second: ShinyEffect_68
+  - first:
+      213: 4904250675876790667
+    second: ShinyEffect_69
+  - first:
+      213: -3995597627131173955
+    second: ShinyEffect_70
+  - first:
+      213: 2646304378978020372
+    second: ShinyEffect_71
+  - first:
+      213: -8775652631461679042
+    second: ShinyEffect_72
+  - first:
+      213: 4595527033610619497
+    second: ShinyEffect_73
+  - first:
+      213: -1554916070290220805
+    second: ShinyEffect_74
+  - first:
+      213: -652536114451228797
+    second: ShinyEffect_75
+  - first:
+      213: -1223964937441548727
+    second: ShinyEffect_76
+  - first:
+      213: -7973065990745950287
+    second: ShinyEffect_77
+  - first:
+      213: -2821855923557053620
+    second: ShinyEffect_78
+  - first:
+      213: -1684809189221190724
+    second: ShinyEffect_79
+  - first:
+      213: 6400920841724834193
+    second: ShinyEffect_80
+  - first:
+      213: 4348079809766656848
+    second: ShinyEffect_81
+  - first:
+      213: -3766569403159921488
+    second: ShinyEffect_82
+  - first:
+      213: -4965796481767298304
+    second: ShinyEffect_83
+  - first:
+      213: -8636468597234478059
+    second: ShinyEffect_84
+  - first:
+      213: -5876353159127342926
+    second: ShinyEffect_85
+  - first:
+      213: -581624539850889018
+    second: ShinyEffect_86
+  - first:
+      213: 3808960171735881201
+    second: ShinyEffect_87
+  - first:
+      213: -1592158144981747334
+    second: ShinyEffect_88
+  - first:
+      213: 1456543473680104050
+    second: ShinyEffect_89
+  - first:
+      213: -9123304511555977719
+    second: ShinyEffect_90
+  - first:
+      213: -1765946322802107451
+    second: ShinyEffect_91
+  - first:
+      213: -4172706031467627073
+    second: ShinyEffect_92
+  - first:
+      213: 5428645497230714811
+    second: ShinyEffect_93
+  - first:
+      213: 9113819676255712325
+    second: ShinyEffect_94
+  - first:
+      213: -537304634872228078
+    second: ShinyEffect_95
+  - first:
+      213: 1182965975495402315
+    second: ShinyEffect_96
+  - first:
+      213: -9109166849428394496
+    second: ShinyEffect_97
+  - first:
+      213: -4617946054288453622
+    second: ShinyEffect_98
+  - first:
+      213: 4060159084057603167
+    second: ShinyEffect_99
+  - first:
+      213: -8220536139725292089
+    second: ShinyEffect_100
+  - first:
+      213: 249015266363718991
+    second: ShinyEffect_101
+  - first:
+      213: 7593908282749411727
+    second: ShinyEffect_102
+  - first:
+      213: -6617049130582804888
+    second: ShinyEffect_103
+  - first:
+      213: 5727053853906033382
+    second: ShinyEffect_104
+  - first:
+      213: -552901884250853700
+    second: ShinyEffect_105
+  - first:
+      213: -5221086281284288843
+    second: ShinyEffect_106
+  - first:
+      213: 7638907884300585959
+    second: ShinyEffect_107
+  - first:
+      213: 8992473205270660305
+    second: ShinyEffect_108
+  - first:
+      213: -4087029316245791629
+    second: ShinyEffect_109
+  - first:
+      213: 2641983381188189546
+    second: ShinyEffect_110
+  - first:
+      213: -6730941043354146834
+    second: ShinyEffect_111
+  - first:
+      213: -6335317453721292706
+    second: ShinyEffect_112
+  - first:
+      213: 9214654694710019458
+    second: ShinyEffect_113
+  - first:
+      213: -8840650616259994246
+    second: ShinyEffect_114
+  - first:
+      213: 3713366948023131423
+    second: ShinyEffect_115
+  - first:
+      213: 1750276394681951478
+    second: ShinyEffect_116
+  - first:
+      213: -11079330267803162
+    second: ShinyEffect_117
+  - first:
+      213: -5088015596304420818
+    second: ShinyEffect_118
+  - first:
+      213: -9051264988415006829
+    second: ShinyEffect_119
+  - first:
+      213: -472415624562146872
+    second: ShinyEffect_120
+  - first:
+      213: 6943181448542606062
+    second: ShinyEffect_121
+  - first:
+      213: -2760255762183995291
+    second: ShinyEffect_122
+  - first:
+      213: 6602123407937226103
+    second: ShinyEffect_123
+  - first:
+      213: -2546178730834875386
+    second: ShinyEffect_124
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ShinyEffect_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e685bf1f25fa5eed0800000000000000
+      internalID: -2385307656840849298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_1
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9b92c640bef7e5b0800000000000000
+      internalID: -5339018800169575521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0deac180d5e32c3a0800000000000000
+      internalID: -6646681530756452656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_3
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37bbaeea1857a5290800000000000000
+      internalID: -7900873396422263949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_4
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4939d22e994a820800000000000000
+      internalID: 2928634854403970233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_5
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 231d9a51246664370800000000000000
+      internalID: 8306438996748783922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f8d0d09cee7c66d0800000000000000
+      internalID: -2995880097601234702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_7
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23ad13b8e5cd61ae0800000000000000
+      internalID: -1578832320726443470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_8
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60859141b228e31c0800000000000000
+      internalID: -4522033854300989434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_9
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 196
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6942c5f1eea952010800000000000000
+      internalID: 1163506426264167574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7daec9e4cffc259b0800000000000000
+      internalID: -5092779546044994857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_11
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d1716e12cc06ab40800000000000000
+      internalID: 5451058426851455443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_12
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c0961fa0dd3db410800000000000000
+      internalID: 1494418617856856264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_13
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83848323b5409200800000000000000
+      internalID: 184724220419539851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_14
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 391f2a282e3f81d60800000000000000
+      internalID: 7861301303755075987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_15
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b733f138fea6180800000000000000
+      internalID: -9121214748842296471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_16
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f636ec00e82aa540800000000000000
+      internalID: 5019869677412038388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_17
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dcc9cb04844f16d0800000000000000
+      internalID: -3017617891390796587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_18
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ad2a015b03baaa0800000000000000
+      internalID: -6148767312017958258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_19
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 148
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47ccd79af670a6a70800000000000000
+      internalID: 8820870996324895860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c5f087ef23fb0120800000000000000
+      internalID: 2381264215068440009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_21
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 535099f040cccbc50800000000000000
+      internalID: 6682440264924595509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a74aa8b6556810c0800000000000000
+      internalID: -4604819195846572123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_23
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf09966f1cbc8720800000000000000
+      internalID: 2849859507269996488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_24
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0728c6a9c6eb65e30800000000000000
+      internalID: 4491987052005196400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_25
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 957cd75f21d314dc0800000000000000
+      internalID: -3656574270810765479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_26
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 060e7161fda9beae0800000000000000
+      internalID: -1518950166368362400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_27
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e71130e8253c28ac0800000000000000
+      internalID: -3854303571738422914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_28
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e3ca410d26e60e80800000000000000
+      internalID: -8212623789493926936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_29
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 100
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0778ef50e5d2ba960800000000000000
+      internalID: 7614229476850698096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc7e994fb553fc290800000000000000
+      internalID: -7868011354930944049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_31
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f286a0644431924f0800000000000000
+      internalID: -853129470456207313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_32
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c987f092bf632df80800000000000000
+      internalID: -8083337928823048036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_33
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7245b9bb0583c9ff0800000000000000
+      internalID: -28085578275007449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_34
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b71c218667e5c1b0800000000000000
+      internalID: -5636844931144476743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_35
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0957a579399a01930800000000000000
+      internalID: 4111972911153837456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_36
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62f1d8284a9d3df0800000000000000
+      internalID: -198833173821263250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_37
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75a3c4bd1eeb29420800000000000000
+      internalID: 2635378609221286487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_38
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb1c0e62a44544a50800000000000000
+      internalID: 6504416439286415807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_39
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 52
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c960619a72ef89920800000000000000
+      internalID: 2997424998309037724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61f41fa8e80dcb600800000000000000
+      internalID: 485492170484174614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_41
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd6a02ef000e68d0800000000000000
+      internalID: -2851341445862101510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_42
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b111626f51255670800000000000000
+      internalID: 8526758163052040629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_43
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3720540706b6cb130800000000000000
+      internalID: 3583857465424675443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_44
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 316fa80989b3e6500800000000000000
+      internalID: 391315744073905683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_45
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e22e081ac3f6e4c0800000000000000
+      internalID: -4258448348319702303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_46
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6137e88abf1b9240800000000000000
+      internalID: 4799464713914626415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShinyEffect_47
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 4
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d478bdbb0d2420d00800000000000000
+      internalID: 937385136718841677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4d3843e303250dd49be9c9d7f2b20c17
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":5.0},"gridSpriteSize":{"x":49.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":2.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      ShinyEffect_0: -2385307656840849298
+      ShinyEffect_1: -5339018800169575521
+      ShinyEffect_10: -5092779546044994857
+      ShinyEffect_11: 5451058426851455443
+      ShinyEffect_12: 1494418617856856264
+      ShinyEffect_13: 184724220419539851
+      ShinyEffect_14: 7861301303755075987
+      ShinyEffect_15: -9121214748842296471
+      ShinyEffect_16: 5019869677412038388
+      ShinyEffect_17: -3017617891390796587
+      ShinyEffect_18: -6148767312017958258
+      ShinyEffect_19: 8820870996324895860
+      ShinyEffect_2: -6646681530756452656
+      ShinyEffect_20: 2381264215068440009
+      ShinyEffect_21: 6682440264924595509
+      ShinyEffect_22: -4604819195846572123
+      ShinyEffect_23: 2849859507269996488
+      ShinyEffect_24: 4491987052005196400
+      ShinyEffect_25: -3656574270810765479
+      ShinyEffect_26: -1518950166368362400
+      ShinyEffect_27: -3854303571738422914
+      ShinyEffect_28: -8212623789493926936
+      ShinyEffect_29: 7614229476850698096
+      ShinyEffect_3: -7900873396422263949
+      ShinyEffect_30: -7868011354930944049
+      ShinyEffect_31: -853129470456207313
+      ShinyEffect_32: -8083337928823048036
+      ShinyEffect_33: -28085578275007449
+      ShinyEffect_34: -5636844931144476743
+      ShinyEffect_35: 4111972911153837456
+      ShinyEffect_36: -198833173821263250
+      ShinyEffect_37: 2635378609221286487
+      ShinyEffect_38: 6504416439286415807
+      ShinyEffect_39: 2997424998309037724
+      ShinyEffect_4: 2928634854403970233
+      ShinyEffect_40: 485492170484174614
+      ShinyEffect_41: -2851341445862101510
+      ShinyEffect_42: 8526758163052040629
+      ShinyEffect_43: 3583857465424675443
+      ShinyEffect_44: 391315744073905683
+      ShinyEffect_45: -4258448348319702303
+      ShinyEffect_46: 4799464713914626415
+      ShinyEffect_47: 937385136718841677
+      ShinyEffect_5: 8306438996748783922
+      ShinyEffect_6: -2995880097601234702
+      ShinyEffect_7: -1578832320726443470
+      ShinyEffect_8: -4522033854300989434
+      ShinyEffect_9: 1163506426264167574
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

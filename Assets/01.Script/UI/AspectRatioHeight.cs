@@ -6,6 +6,8 @@ public class AspectRatioHeight : MonoBehaviour
     [SerializeField] private float referenceWidth = 1080f;
     [SerializeField] private float referenceHeight = 1480f;
 
+    public float ReferenceWidth => referenceWidth;
+
     private RectTransform rectTransform;
 
     private void Awake()

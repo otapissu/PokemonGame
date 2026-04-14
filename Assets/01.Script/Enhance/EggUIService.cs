@@ -16,8 +16,21 @@ public class EggUIService
 
         if (next <= c.maxLevel)
         {
-            c.successRateText.text =
-                "강화확률 : " + (EggDataService.GetSuccessRate(c, next) * 100).ToString("0") + "%";
+            float baseRate  = EggDataService.GetSuccessRate(c, next);
+            float bonus     = GeneralBagPanelController.Instance != null
+                              ? GeneralBagPanelController.Instance.GetSuccessRateBonus()
+                              : 0f;
+
+            if (bonus > 0f)
+            {
+                c.successRateText.text =
+                    "강화확률 : " + (baseRate * 100).ToString("0") + "% + (" + (bonus * 100).ToString("0") + "%)";
+            }
+            else
+            {
+                c.successRateText.text =
+                    "강화확률 : " + (baseRate * 100).ToString("0") + "%";
+            }
 
             float d = EggDataService.GetDestroyRate(c, next) * 100;
 

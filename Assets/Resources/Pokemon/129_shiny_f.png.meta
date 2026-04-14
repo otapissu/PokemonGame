@@ -1,0 +1,1750 @@
+fileFormatVersion: 2
+guid: 28a98f898c20d544d956605ee5dbe2f7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1821680153807936130
+    second: MAGIKARP_female_0
+  - first:
+      213: -3813759357288756129
+    second: MAGIKARP_female_1
+  - first:
+      213: -2658893990732599905
+    second: MAGIKARP_female_2
+  - first:
+      213: -4871301396656460494
+    second: MAGIKARP_female_3
+  - first:
+      213: 2329422697075309650
+    second: MAGIKARP_female_4
+  - first:
+      213: 6916277126212784756
+    second: MAGIKARP_female_5
+  - first:
+      213: -9209290624193505727
+    second: MAGIKARP_female_6
+  - first:
+      213: 7971455419100685735
+    second: MAGIKARP_female_7
+  - first:
+      213: 3357761664874018804
+    second: MAGIKARP_female_8
+  - first:
+      213: -3733208898475975353
+    second: MAGIKARP_female_9
+  - first:
+      213: 6186949498956298809
+    second: MAGIKARP_female_10
+  - first:
+      213: -807136074933188114
+    second: MAGIKARP_female_11
+  - first:
+      213: -4410164913308471154
+    second: MAGIKARP_female_12
+  - first:
+      213: -7180180937761062165
+    second: MAGIKARP_female_13
+  - first:
+      213: 7179753879454751855
+    second: MAGIKARP_female_14
+  - first:
+      213: 3372355343326656744
+    second: MAGIKARP_female_15
+  - first:
+      213: -4571407966553444993
+    second: MAGIKARP_female_16
+  - first:
+      213: 2530845503474939180
+    second: MAGIKARP_female_17
+  - first:
+      213: -8246904422329919532
+    second: MAGIKARP_female_18
+  - first:
+      213: -6061460353693713499
+    second: MAGIKARP_female_19
+  - first:
+      213: 7113601921164120320
+    second: MAGIKARP_female_20
+  - first:
+      213: 2524263570192453306
+    second: MAGIKARP_female_21
+  - first:
+      213: -8688114424081086847
+    second: MAGIKARP_female_22
+  - first:
+      213: 1818699750032251457
+    second: MAGIKARP_female_23
+  - first:
+      213: -3092480962617048538
+    second: MAGIKARP_female_24
+  - first:
+      213: -8243446669331109378
+    second: MAGIKARP_female_25
+  - first:
+      213: 4097026207300704437
+    second: MAGIKARP_female_26
+  - first:
+      213: 8384307394145796216
+    second: MAGIKARP_female_27
+  - first:
+      213: 6983898466454821878
+    second: MAGIKARP_female_28
+  - first:
+      213: 1723532344130910387
+    second: MAGIKARP_female_29
+  - first:
+      213: 8013774928778088481
+    second: MAGIKARP_female_30
+  - first:
+      213: -8357143201492725881
+    second: MAGIKARP_female_31
+  - first:
+      213: 3464509620025924834
+    second: MAGIKARP_female_32
+  - first:
+      213: 8140390780355724816
+    second: MAGIKARP_female_33
+  - first:
+      213: -719978826169959296
+    second: MAGIKARP_female_34
+  - first:
+      213: -8152948949225285742
+    second: MAGIKARP_female_35
+  - first:
+      213: -7547697274980738534
+    second: MAGIKARP_female_36
+  - first:
+      213: -5494557188076024655
+    second: MAGIKARP_female_37
+  - first:
+      213: -4307614718027837757
+    second: MAGIKARP_female_38
+  - first:
+      213: -8536500428906463009
+    second: MAGIKARP_female_39
+  - first:
+      213: -7186191752769054140
+    second: MAGIKARP_female_40
+  - first:
+      213: 5421657223089710939
+    second: MAGIKARP_female_41
+  - first:
+      213: -1577150614871595986
+    second: MAGIKARP_female_42
+  - first:
+      213: 8803381661221580120
+    second: MAGIKARP_female_43
+  - first:
+      213: -3819673812582666632
+    second: MAGIKARP_female_44
+  - first:
+      213: -6911750216923576783
+    second: MAGIKARP_female_45
+  - first:
+      213: 3863395050868474823
+    second: MAGIKARP_female_46
+  - first:
+      213: -896629191695522825
+    second: MAGIKARP_female_47
+  - first:
+      213: -2906797772755260512
+    second: MAGIKARP_female_48
+  - first:
+      213: -2793506856283177801
+    second: MAGIKARP_female_49
+  - first:
+      213: -4972893070139331112
+    second: MAGIKARP_female_50
+  - first:
+      213: -1762576987979247263
+    second: MAGIKARP_female_51
+  - first:
+      213: 6007548745534077647
+    second: MAGIKARP_female_52
+  - first:
+      213: -6565707819105327651
+    second: MAGIKARP_female_53
+  - first:
+      213: 3795774103618702097
+    second: MAGIKARP_female_54
+  - first:
+      213: 3097576236538870255
+    second: MAGIKARP_female_55
+  - first:
+      213: -61951689871904222
+    second: MAGIKARP_female_56
+  - first:
+      213: 2270906290537243744
+    second: MAGIKARP_female_57
+  - first:
+      213: 1383365895149675279
+    second: MAGIKARP_female_58
+  - first:
+      213: -4391261036030155913
+    second: MAGIKARP_female_59
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 129_shiny_f_0_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a04a36f0c1ae24eb3750dd84d6db41
+      internalID: -1604778458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d33b96d509069c24b9b01983e91e3c1a
+      internalID: 1217911304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_2
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60c28cfaa819e974cb9a0db98c0e30e5
+      internalID: -1754209952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_3
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09bbf1fc9e9cca345a3fd8be56ff9af6
+      internalID: 927443493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_4
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c5e211374a31fe4391e32345d14cd12
+      internalID: 86424631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_5
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a99563b076b91c34fb14f0b46551c47a
+      internalID: -332965920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_6
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f1dddb0f649d841a655c9e809156a4
+      internalID: 1410073320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_7
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3883b39c780d3240b4d8b90e421fdd2
+      internalID: -750019693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_8
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39432a241923a6642b680514f25112de
+      internalID: -407391293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_9
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06e200c5d37ae7e48bb02e074c476b07
+      internalID: -327397047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_10
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58720d748eb15874abdb1d37bdb3afcf
+      internalID: -50691144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_11
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68374e8cbe5b1f4997c0a879e3c1f16
+      internalID: -1476722666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_12
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf6d0ab8d38a3344dab02c944581a08e
+      internalID: 1922380420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_13
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e44e15a8a3983a8448599c1dc157e9c7
+      internalID: 1072522212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_14
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a07d5db3eba6af6448a64d99b181c41c
+      internalID: 434107891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_15
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdcf1ab90906a4f44bdc80edd95b217c
+      internalID: 1026862998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_16
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71865e0ad6ae47459debca0b488d3c2
+      internalID: -1851208078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_17
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28555681e65085643995f31938e0d8e2
+      internalID: 1460981128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_18
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfbdf41e095969a4ea4a69373bc144bd
+      internalID: 644549033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_19
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0ab5b834da016244a4aa997bed62708
+      internalID: 462243885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_20
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4e3e76774e2d944ab695850afa104cf
+      internalID: -1464987898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_21
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7612ff9b9143643b42e181adf2d7a0
+      internalID: 252513792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_22
+      rect:
+        serializedVersion: 2
+        x: 1386
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaf8e72951e1c784484c7a6758e691a6
+      internalID: 852504194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_23
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62e1b947d8e73b2439477abfb6f200cd
+      internalID: 1129726319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_24
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 462463fd7c15dde42a23c4d717103412
+      internalID: 571342176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_25
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd51ee7a75c53b34797aee78a4d2d509
+      internalID: 940675193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_26
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4047066dd3ca0f4a9ce74c4e58fef05
+      internalID: -1271703310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_27
+      rect:
+        serializedVersion: 2
+        x: 1701
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed5867c211f65846882444ed6b98658
+      internalID: -1543994959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_28
+      rect:
+        serializedVersion: 2
+        x: 1764
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 658e1b43e629c6545993032e41db1c19
+      internalID: 1970113077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_29
+      rect:
+        serializedVersion: 2
+        x: 1827
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e6be745be79e44681e99efb6aa0347
+      internalID: 138723282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_30
+      rect:
+        serializedVersion: 2
+        x: 1890
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1193fc35a12065e418cc6a7c503182f9
+      internalID: 376008407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_31
+      rect:
+        serializedVersion: 2
+        x: 1953
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76bc662bd3c971f448a3c21f8619074e
+      internalID: 2062559402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_32
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac144d50d8cdacd4c9f5ffb59e1587d6
+      internalID: -594033798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_33
+      rect:
+        serializedVersion: 2
+        x: 2079
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8591de0325fb564481d768aa4d5c3e8
+      internalID: -354694949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_34
+      rect:
+        serializedVersion: 2
+        x: 2142
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 027eda82caef61a4a84a8b8d6fcadc11
+      internalID: 2039461608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_35
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78a4695e04805f48ac46039c2039131
+      internalID: -1660939444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_36
+      rect:
+        serializedVersion: 2
+        x: 2268
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85df5fed6f4f4124a821c3984e0319a9
+      internalID: 1333077608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_37
+      rect:
+        serializedVersion: 2
+        x: 2331
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 505cdd33ae5357c4bb221a777448f63b
+      internalID: -2031140797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_38
+      rect:
+        serializedVersion: 2
+        x: 2394
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96f726f3e3e95774883e3671189b19a6
+      internalID: 1521067962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_39
+      rect:
+        serializedVersion: 2
+        x: 2457
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f961a203052e61489d625c14c9eecd1
+      internalID: 755817954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_40
+      rect:
+        serializedVersion: 2
+        x: 2520
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb84c53a9d292064a861c654ac721415
+      internalID: 1714371038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_41
+      rect:
+        serializedVersion: 2
+        x: 2583
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b923e4435443b439c29c170310868f
+      internalID: 313160635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_42
+      rect:
+        serializedVersion: 2
+        x: 2646
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 520023e51cbf83f47b08b96c50408c9a
+      internalID: 1341394990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_43
+      rect:
+        serializedVersion: 2
+        x: 2709
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef21bae1b9a40ea49b46298595bf0fd3
+      internalID: -1473178183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_44
+      rect:
+        serializedVersion: 2
+        x: 2772
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64460760a020e414488369dc6efb3bd7
+      internalID: 1413001110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_45
+      rect:
+        serializedVersion: 2
+        x: 2835
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dfdf8f2b2e6ee34894e668d9fbd050c
+      internalID: -2090746214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_46
+      rect:
+        serializedVersion: 2
+        x: 2898
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cf898aa86606bb4392ac9b44f79e281
+      internalID: -1783417107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_47
+      rect:
+        serializedVersion: 2
+        x: 2961
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef8f089d90a2d0e47ba130c128560e99
+      internalID: 1504582534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_48
+      rect:
+        serializedVersion: 2
+        x: 3024
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 667438700bf2e944aae841543eb8bedf
+      internalID: 432113759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_49
+      rect:
+        serializedVersion: 2
+        x: 3087
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6c6d817d1e70f543a2f5001a52f24cb
+      internalID: 210678543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_50
+      rect:
+        serializedVersion: 2
+        x: 3150
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0062a42b4114bde4ba19e49086bac388
+      internalID: 774778123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_51
+      rect:
+        serializedVersion: 2
+        x: 3213
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c99c3055af27c584085f23ce8985d5b9
+      internalID: 755643550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_52
+      rect:
+        serializedVersion: 2
+        x: 3276
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b96659c718b8f8f48b0db4647d73c5a1
+      internalID: 300702001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_53
+      rect:
+        serializedVersion: 2
+        x: 3339
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789a85ea19c62bc4a8f6fdce7bbd7d0c
+      internalID: 648585631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_54
+      rect:
+        serializedVersion: 2
+        x: 3402
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb253ce1e4d55849be2f19787d8ea3d
+      internalID: 43063283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_55
+      rect:
+        serializedVersion: 2
+        x: 3465
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f061c37c055728468d90fdf76dad195
+      internalID: 2103954533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_56
+      rect:
+        serializedVersion: 2
+        x: 3528
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3d10813f7805f741b8634f558985fe2
+      internalID: 1188352189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_57
+      rect:
+        serializedVersion: 2
+        x: 3591
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61b1904feeee8345b4619ba83a7969d
+      internalID: 2087357415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_58
+      rect:
+        serializedVersion: 2
+        x: 3654
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc1389531ff9d834b87b5ce79098211f
+      internalID: 1892555678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 129_shiny_f_0_59
+      rect:
+        serializedVersion: 2
+        x: 3717
+        y: 0
+        width: 63
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d1a7f93364ca73408e81e0eec033be2
+      internalID: 1624773149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7c1ea8e430908104da2d2b46c74a6b5b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      129_shiny_f_0_0: -1604778458
+      129_shiny_f_0_1: 1217911304
+      129_shiny_f_0_10: -50691144
+      129_shiny_f_0_11: -1476722666
+      129_shiny_f_0_12: 1922380420
+      129_shiny_f_0_13: 1072522212
+      129_shiny_f_0_14: 434107891
+      129_shiny_f_0_15: 1026862998
+      129_shiny_f_0_16: -1851208078
+      129_shiny_f_0_17: 1460981128
+      129_shiny_f_0_18: 644549033
+      129_shiny_f_0_19: 462243885
+      129_shiny_f_0_2: -1754209952
+      129_shiny_f_0_20: -1464987898
+      129_shiny_f_0_21: 252513792
+      129_shiny_f_0_22: 852504194
+      129_shiny_f_0_23: 1129726319
+      129_shiny_f_0_24: 571342176
+      129_shiny_f_0_25: 940675193
+      129_shiny_f_0_26: -1271703310
+      129_shiny_f_0_27: -1543994959
+      129_shiny_f_0_28: 1970113077
+      129_shiny_f_0_29: 138723282
+      129_shiny_f_0_3: 927443493
+      129_shiny_f_0_30: 376008407
+      129_shiny_f_0_31: 2062559402
+      129_shiny_f_0_32: -594033798
+      129_shiny_f_0_33: -354694949
+      129_shiny_f_0_34: 2039461608
+      129_shiny_f_0_35: -1660939444
+      129_shiny_f_0_36: 1333077608
+      129_shiny_f_0_37: -2031140797
+      129_shiny_f_0_38: 1521067962
+      129_shiny_f_0_39: 755817954
+      129_shiny_f_0_4: 86424631
+      129_shiny_f_0_40: 1714371038
+      129_shiny_f_0_41: 313160635
+      129_shiny_f_0_42: 1341394990
+      129_shiny_f_0_43: -1473178183
+      129_shiny_f_0_44: 1413001110
+      129_shiny_f_0_45: -2090746214
+      129_shiny_f_0_46: -1783417107
+      129_shiny_f_0_47: 1504582534
+      129_shiny_f_0_48: 432113759
+      129_shiny_f_0_49: 210678543
+      129_shiny_f_0_5: -332965920
+      129_shiny_f_0_50: 774778123
+      129_shiny_f_0_51: 755643550
+      129_shiny_f_0_52: 300702001
+      129_shiny_f_0_53: 648585631
+      129_shiny_f_0_54: 43063283
+      129_shiny_f_0_55: 2103954533
+      129_shiny_f_0_56: 1188352189
+      129_shiny_f_0_57: 2087357415
+      129_shiny_f_0_58: 1892555678
+      129_shiny_f_0_59: 1624773149
+      129_shiny_f_0_6: 1410073320
+      129_shiny_f_0_7: -750019693
+      129_shiny_f_0_8: -407391293
+      129_shiny_f_0_9: -327397047
+      MAGIKARP_female_0: 1821680153807936130
+      MAGIKARP_female_1: -3813759357288756129
+      MAGIKARP_female_10: 6186949498956298809
+      MAGIKARP_female_11: -807136074933188114
+      MAGIKARP_female_12: -4410164913308471154
+      MAGIKARP_female_13: -7180180937761062165
+      MAGIKARP_female_14: 7179753879454751855
+      MAGIKARP_female_15: 3372355343326656744
+      MAGIKARP_female_16: -4571407966553444993
+      MAGIKARP_female_17: 2530845503474939180
+      MAGIKARP_female_18: -8246904422329919532
+      MAGIKARP_female_19: -6061460353693713499
+      MAGIKARP_female_2: -2658893990732599905
+      MAGIKARP_female_20: 7113601921164120320
+      MAGIKARP_female_21: 2524263570192453306
+      MAGIKARP_female_22: -8688114424081086847
+      MAGIKARP_female_23: 1818699750032251457
+      MAGIKARP_female_24: -3092480962617048538
+      MAGIKARP_female_25: -8243446669331109378
+      MAGIKARP_female_26: 4097026207300704437
+      MAGIKARP_female_27: 8384307394145796216
+      MAGIKARP_female_28: 6983898466454821878
+      MAGIKARP_female_29: 1723532344130910387
+      MAGIKARP_female_3: -4871301396656460494
+      MAGIKARP_female_30: 8013774928778088481
+      MAGIKARP_female_31: -8357143201492725881
+      MAGIKARP_female_32: 3464509620025924834
+      MAGIKARP_female_33: 8140390780355724816
+      MAGIKARP_female_34: -719978826169959296
+      MAGIKARP_female_35: -8152948949225285742
+      MAGIKARP_female_36: -7547697274980738534
+      MAGIKARP_female_37: -5494557188076024655
+      MAGIKARP_female_38: -4307614718027837757
+      MAGIKARP_female_39: -8536500428906463009
+      MAGIKARP_female_4: 2329422697075309650
+      MAGIKARP_female_40: -7186191752769054140
+      MAGIKARP_female_41: 5421657223089710939
+      MAGIKARP_female_42: -1577150614871595986
+      MAGIKARP_female_43: 8803381661221580120
+      MAGIKARP_female_44: -3819673812582666632
+      MAGIKARP_female_45: -6911750216923576783
+      MAGIKARP_female_46: 3863395050868474823
+      MAGIKARP_female_47: -896629191695522825
+      MAGIKARP_female_48: -2906797772755260512
+      MAGIKARP_female_49: -2793506856283177801
+      MAGIKARP_female_5: 6916277126212784756
+      MAGIKARP_female_50: -4972893070139331112
+      MAGIKARP_female_51: -1762576987979247263
+      MAGIKARP_female_52: 6007548745534077647
+      MAGIKARP_female_53: -6565707819105327651
+      MAGIKARP_female_54: 3795774103618702097
+      MAGIKARP_female_55: 3097576236538870255
+      MAGIKARP_female_56: -61951689871904222
+      MAGIKARP_female_57: 2270906290537243744
+      MAGIKARP_female_58: 1383365895149675279
+      MAGIKARP_female_59: -4391261036030155913
+      MAGIKARP_female_6: -9209290624193505727
+      MAGIKARP_female_7: 7971455419100685735
+      MAGIKARP_female_8: 3357761664874018804
+      MAGIKARP_female_9: -3733208898475975353
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

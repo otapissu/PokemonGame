@@ -16,6 +16,8 @@ public class EggHatchService
             yield break;
         }
 
+        c.IsDestroyed       = false;
+        c.DestroyedSnapshot = null;
         c.BeginProcessing();
 
         try
@@ -29,6 +31,11 @@ public class EggHatchService
             c.pokemonImage.gameObject.SetActive(false);
             c.eggImage.gameObject.SetActive(true);
 
+            if (c.shinyEffectAnimator != null)
+            {
+                c.shinyEffectAnimator.gameObject.SetActive(false);
+            }
+
             yield return c.StartCoroutine(EggShake(c));
 
             PokemonData selected = GetRandomHatchPokemon(c);
@@ -39,7 +46,10 @@ public class EggHatchService
                 yield break;
             }
 
-            bool isShiny = Random.value < c.shinyChance;
+            bool shinyCharmActive = GeneralBagPanelController.Instance != null
+                                  && GeneralBagPanelController.Instance.IsShinyCharmQueued();
+            float effectiveShinyChance = shinyCharmActive ? 0.10f : c.shinyChance;
+            bool isShiny = Random.value < effectiveShinyChance;
             Gender gender = RollGender(selected);
             int formIndex = PokemonFormUtility.GetRandomFormIndex(selected, gender, isShiny);
 
@@ -80,6 +90,21 @@ public class EggHatchService
             c.eggImage.gameObject.SetActive(false);
             c.pokemonImage.gameObject.SetActive(true);
 
+            // Setup 먼저 → 처음 본 폼이면 "new" 스프라이트 표시
+            c.statusIconController?.Setup(c.currentInstance);
+
+            // 아이콘 표시 후 "본 적 있음" 등록
+            if (PokedexSaveManager.Instance != null)
+            {
+                PokedexSaveManager.Instance.RegisterFormSeen(
+                    c.currentInstance.data.id,
+                    c.currentInstance.gender,
+                    c.currentInstance.formIndex,
+                    c.currentInstance.isShiny,
+                    c.currentInstance.data.genderVisualType
+                );
+            }
+
             c.messageText.text = selected.pokemonName + " 등장!";
 
             if (isShiny == true)
@@ -88,9 +113,19 @@ public class EggHatchService
                 {
                     SoundManager.Instance.PlayShinyAppear();
                 }
+
+                if (c.shinyEffectAnimator != null)
+                {
+                    c.shinyEffectAnimator.gameObject.SetActive(true);
+                    c.StartCoroutine(DisableShinyEffectAfterPlay(c));
+                }
             }
 
             new EggUIService().UpdateAll(c);
+
+            // 부화 시 큐에 담긴 아이템 소모
+            if (GeneralBagPanelController.Instance != null)
+                GeneralBagPanelController.Instance.ApplyQueuedItems();
 
             yield return c.StartCoroutine(PopEffect(c));
 
@@ -99,6 +134,20 @@ public class EggHatchService
         finally
         {
             c.EndProcessing();
+        }
+    }
+
+    private IEnumerator DisableShinyEffectAfterPlay(EggEnhanceController c)
+    {
+        // 한 프레임 대기 후 Animator 상태 확인
+        yield return null;
+
+        AnimatorStateInfo info = c.shinyEffectAnimator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(info.length);
+
+        if (c.shinyEffectAnimator != null)
+        {
+            c.shinyEffectAnimator.gameObject.SetActive(false);
         }
     }
 

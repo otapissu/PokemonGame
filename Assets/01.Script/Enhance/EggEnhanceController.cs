@@ -5,12 +5,15 @@ using System.Collections.Generic;
 
 public class EggEnhanceController : MonoBehaviour
 {
+    public static EggEnhanceController Instance { get; private set; }
     [Header("UI")]
     public Image eggImage;
     public Image pokemonImage;
 
     public Button enhanceButton;
     public Button sellButton;
+
+    private TMP_Text enhanceButtonText;
 
     public TextMeshProUGUI messageText;
     public TextMeshProUGUI enhanceLevelText;
@@ -22,6 +25,10 @@ public class EggEnhanceController : MonoBehaviour
 
     [Header("Animation")]
     public float frameDelay = 0.12f;
+    public Animator shinyEffectAnimator;
+
+    [Header("Status Icon")]
+    public PokemonStatusIconController statusIconController;
 
     [Header("Debug")]
     [Range(0f, 1f)]
@@ -45,10 +52,6 @@ public class EggEnhanceController : MonoBehaviour
 
     public Coroutine loopCoroutine;
 
-    [Header("Evolution Inventory")]
-    public Dictionary<EvolutionItemType, int> evolutionItemInventory =
-        new Dictionary<EvolutionItemType, int>();
-
     public PokemonEvolutionService evolutionService;
 
     private EggEnhanceService enhanceService;
@@ -62,8 +65,28 @@ public class EggEnhanceController : MonoBehaviour
         private set;
     }
 
+    public bool IsDestroyed
+    {
+        get;
+        set;
+    }
+
+    public RevivalSnapshot DestroyedSnapshot
+    {
+        get;
+        set;
+    }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
+        if (enhanceButton != null)
+            enhanceButtonText = enhanceButton.GetComponentInChildren<TMP_Text>();
+
         evolutionService = new PokemonEvolutionService();
 
         enhanceService = new EggEnhanceService();
@@ -77,24 +100,16 @@ public class EggEnhanceController : MonoBehaviour
         PokemonData[] loaded = Resources.LoadAll<PokemonData>("PokemonData");
         allPokemons = new List<PokemonData>(loaded);
 
-        InitializeTestEvolutionItems();
-
         saveService.Load(this);
         uiService.UpdateGold(this);
         uiService.UpdateAll(this);
 
+        if (currentInstance != null)
+            statusIconController?.Setup(currentInstance);
+        else
+            statusIconController?.Hide();
+
         SetButtonsInteractable(true);
-    }
-
-    private void InitializeTestEvolutionItems()
-    {
-        evolutionItemInventory.Clear();
-
-        evolutionItemInventory[EvolutionItemType.WaterStone] = 1;
-        evolutionItemInventory[EvolutionItemType.FireStone] = 1;
-        evolutionItemInventory[EvolutionItemType.ThunderStone] = 100;
-        evolutionItemInventory[EvolutionItemType.IceStone] = 100;
-        evolutionItemInventory[EvolutionItemType.KingsRock] = 1;
     }
 
     private void OnEnhanceClick()
@@ -106,6 +121,18 @@ public class EggEnhanceController : MonoBehaviour
 
         if (currentInstance == null)
         {
+            bool revivalQueued = IsDestroyed
+                && GeneralBagPanelController.Instance != null
+                && GeneralBagPanelController.Instance.HasRevivalItemQueued();
+
+            if (revivalQueued)
+            {
+                BeginProcessing();
+                try   { enhanceService.Revive(this); }
+                finally { EndProcessing(); }
+                return;
+            }
+
             StartCoroutine(hatchService.Hatch(this));
             return;
         }
@@ -115,6 +142,9 @@ public class EggEnhanceController : MonoBehaviour
         try
         {
             enhanceService.Enhance(this);
+
+            if (GeneralBagPanelController.Instance != null)
+                GeneralBagPanelController.Instance.ConsumeEnhanceItems();
         }
         finally
         {
@@ -144,6 +174,17 @@ public class EggEnhanceController : MonoBehaviour
         SetButtonsInteractable(true);
     }
 
+    public void RefreshEnhanceButtonText()
+    {
+        if (enhanceButtonText == null) return;
+
+        bool showRevive = IsDestroyed
+            && GeneralBagPanelController.Instance != null
+            && GeneralBagPanelController.Instance.HasRevivalItemQueued();
+
+        enhanceButtonText.text = showRevive ? "되살리기" : "강화하기";
+    }
+
     public void SetButtonsInteractable(bool value)
     {
         if (enhanceButton != null)
@@ -157,6 +198,40 @@ public class EggEnhanceController : MonoBehaviour
         }
     }
 
+    public void ResetAllGameData()
+    {
+        if (loopCoroutine != null)
+        {
+            StopCoroutine(loopCoroutine);
+            loopCoroutine = null;
+        }
+
+        PlayerPrefs.DeleteKey("SAVE_DATA");
+        PlayerPrefs.Save();
+
+        IsDestroyed       = false;
+        DestroyedSnapshot = null;
+        currentInstance   = null;
+        gold              = 400000L;
+
+        if (eggImage != null)  eggImage.gameObject.SetActive(true);
+        if (pokemonImage != null)
+        {
+            pokemonImage.gameObject.SetActive(false);
+            pokemonImage.sprite = null;
+        }
+
+        statusIconController?.Hide();
+
+        if (GeneralBagPanelController.Instance != null)
+            GeneralBagPanelController.Instance.ClearQueue();
+
+        uiService ??= new EggUIService();
+        uiService.UpdateGold(this);
+        uiService.UpdateAll(this);
+        RefreshEnhanceButtonText();
+    }
+
     [ContextMenu("Reset SAVE_DATA")]
     private void ResetSaveDataInInspector()
     {
@@ -167,7 +242,15 @@ public class EggEnhanceController : MonoBehaviour
         }
 
         PlayerPrefs.DeleteKey("SAVE_DATA");
+        PlayerPrefs.DeleteKey("EVOLVE_INVENTORY");
+        PlayerPrefs.DeleteKey("GENERAL_INVENTORY");
+        PlayerPrefs.DeleteKey("DEX_MAX");
         PlayerPrefs.Save();
+
+        if (PokedexSaveManager.Instance != null)
+        {
+            PokedexSaveManager.Instance.ResetDex();
+        }
 
         currentInstance = null;
         gold = 999999999L;
@@ -185,17 +268,21 @@ public class EggEnhanceController : MonoBehaviour
 
         if (messageText != null)
         {
-            messageText.text = "세이브 데이터 초기화 완료";
+            messageText.text = "";
         }
 
-        if (uiService == null)
-        {
-            uiService = new EggUIService();
-        }
+        statusIconController?.Hide();
+
+        uiService ??= new EggUIService();
 
         uiService.UpdateGold(this);
         uiService.UpdateAll(this);
 
         Debug.Log("SAVE_DATA 초기화 완료");
+    }
+
+    public void RefreshGoldUI()
+    {
+        uiService?.UpdateGold(this);
     }
 }
