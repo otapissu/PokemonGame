@@ -232,10 +232,10 @@ public class EggEnhanceService
             return;
         }
 
-        ShopItemData revivalItem = GeneralBagPanelController.Instance != null
-                                   ? GeneralBagPanelController.Instance.GetRevivalItemData()
-                                   : null;
-        if (revivalItem == null)
+        string revivalItemName = GeneralBagPanelController.Instance != null
+                                 ? GeneralBagPanelController.Instance.GetRevivalItemName()
+                                 : null;
+        if (string.IsNullOrEmpty(revivalItemName))
         {
             Debug.LogWarning("[Revival] 복구권 아이템 없음");
             return;
@@ -256,7 +256,7 @@ public class EggEnhanceService
         {
             foreach (var e in PlayerGeneralInventory.Instance.Entries)
             {
-                if (e.item == revivalItem) { available = e.count; break; }
+                if (e.item.itemName == revivalItemName) { available = e.count; break; }
             }
         }
 
@@ -268,7 +268,7 @@ public class EggEnhanceService
 
         // 아이템 소모
         for (int i = 0; i < cost; i++)
-            PlayerGeneralInventory.Instance.RemoveItem(revivalItem, 1);
+            PlayerGeneralInventory.Instance.RemoveItem(revivalItemName, 1);
 
         // 인스턴스 복원
         c.currentInstance = new PokemonInstance(snap.rootData, snap.gender, snap.isShiny, snap.formIndex);

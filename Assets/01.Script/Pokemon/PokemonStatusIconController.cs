@@ -56,25 +56,29 @@ public class PokemonStatusIconController : MonoBehaviour
     {
         if (iconImage == null) return;
 
-        int id               = instance.data.id;
-        Gender gender        = instance.gender;
-        int formIndex        = instance.formIndex;
-        bool isShiny         = instance.isShiny;
+        int id = instance.data.id;
+        Gender gender = instance.gender;
+        int formIndex = instance.formIndex;
+        bool isShiny = instance.isShiny;
         GenderVisualType gvt = instance.data.genderVisualType;
 
-        bool isMaxed = PokedexSaveManager.Instance != null
-                    && PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt);
+        bool isMaxed = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt);
 
-        bool isSeen  = PokedexSaveManager.Instance != null
-                    && PokedexSaveManager.Instance.IsFormSeen(id, gender, formIndex, isShiny, gvt);
+        bool isSeen  = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormSeen(id, gender, formIndex, isShiny, gvt);
 
         iconImage.enabled = true;
 
         if (isMaxed)
+        {
             iconImage.sprite = maxedSprite;
+        }
         else if (isSeen)
+        {
             iconImage.sprite = seenSprite;
+        }
         else
+        {
             iconImage.sprite = newSprite;
+        }
     }
 }

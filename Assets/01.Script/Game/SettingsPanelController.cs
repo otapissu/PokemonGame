@@ -38,30 +38,41 @@ public class SettingsPanelController : MonoBehaviour
     private void Start()
     {
         if (settingsPanel != null)
+        {
             settingsPanel.SetActive(false);
+        }
 
         if (confirmPanel != null)
+        {
             confirmPanel.SetActive(false);
+        }
 
         currentResolutionIndex = PlayerPrefs.GetInt("RESOLUTION_INDEX", 0);
         ApplyResolution(currentResolutionIndex, save: false);
 
         InitializeUI();
 
-        if (bgmSlider != null) bgmSlider.onValueChanged.AddListener(OnBgmSliderChanged);
-        if (sfxSlider != null) sfxSlider.onValueChanged.AddListener(OnSfxSliderChanged);
-        if (bgmToggle != null) bgmToggle.onValueChanged.AddListener(OnBgmToggleChanged);
-        if (sfxToggle != null) sfxToggle.onValueChanged.AddListener(OnSfxToggleChanged);
+        if (bgmSlider != null)
+        {
+            bgmSlider.onValueChanged.AddListener(OnBgmSliderChanged);
+        }
+        if (sfxSlider != null)
+        {
+            sfxSlider.onValueChanged.AddListener(OnSfxSliderChanged);
+        }
+        if (bgmToggle != null)
+        {
+            bgmToggle.onValueChanged.AddListener(OnBgmToggleChanged);
+        }
+        if (sfxToggle != null)
+        {
+            sfxToggle.onValueChanged.AddListener(OnSfxToggleChanged);
+        }
 
         if (resolutionDropdown != null)
         {
             resolutionDropdown.ClearOptions();
-            resolutionDropdown.AddOptions(new System.Collections.Generic.List<string>
-            {
-                "540 x 960",
-                "576 x 1024",
-                "720 x 1280"
-            });
+            resolutionDropdown.AddOptions(new System.Collections.Generic.List<string>{ "540 x 960", "576 x 1024", "720 x 1280" });
             resolutionDropdown.onValueChanged.AddListener(OnResolutionSelected);
         }
     }
@@ -72,130 +83,203 @@ public class SettingsPanelController : MonoBehaviour
 
         isInitializing = true;
 
-        if (bgmSlider != null) bgmSlider.value = SoundManager.Instance.GetBgmVolume();
-        if (sfxSlider != null) sfxSlider.value = SoundManager.Instance.GetSfxVolume();
-        if (bgmToggle != null) bgmToggle.isOn   = !SoundManager.Instance.IsBgmMuted();
-        if (sfxToggle != null) sfxToggle.isOn   = !SoundManager.Instance.IsSfxMuted();
+        if (bgmSlider != null)
+        {
+            bgmSlider.value = SoundManager.Instance.IsBgmMuted() ? 0f : SoundManager.Instance.GetBgmVolume();
+        }
+        if (sfxSlider != null)
+        {
+            sfxSlider.value = SoundManager.Instance.IsSfxMuted() ? 0f : SoundManager.Instance.GetSfxVolume();
+        }
+        if (bgmToggle != null)
+        {
+            bgmToggle.isOn = !SoundManager.Instance.IsBgmMuted();
+        }
+        if (sfxToggle != null)
+        {
+            sfxToggle.isOn = !SoundManager.Instance.IsSfxMuted();
+        }
 
         isInitializing = false;
 
         if (resolutionDropdown != null)
+        {
             resolutionDropdown.SetValueWithoutNotify(currentResolutionIndex);
+        }
+            
     }
 
     public void OpenSettings()
     {
-        if (settingsPanel == null) return;
+        if (settingsPanel == null)
+        {
+            return;
+        }
 
         InitializeUI();
         settingsPanel.SetActive(true);
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayButtonClick();
+        }
     }
 
     public void CloseSettings()
     {
-        if (settingsPanel == null) return;
+        if (settingsPanel == null)
+        {
+            return;
+        }
 
         settingsPanel.SetActive(false);
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayButtonClose();
+        }
     }
 
     private void OnBgmSliderChanged(float value)
     {
-        if (isInitializing) return;
+        if (isInitializing)
+        {
+            return;
+        }
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.SetBgmVolume(value);
+        }
     }
 
     private void OnSfxSliderChanged(float value)
     {
-        if (isInitializing) return;
+        if (isInitializing)
+        {
+            return;
+        }
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.SetSfxVolume(value);
+        }
+            
     }
 
     private void OnBgmToggleChanged(bool isOn)
     {
-        if (isInitializing) return;
+        if (isInitializing)
+        {
+            return;
+        }
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.SetBgmMute(!isOn);
+            if (bgmSlider != null)
+            {
+                bgmSlider.SetValueWithoutNotify(isOn ? SoundManager.Instance.GetBgmVolume() : 0f);
+            }
+        }
     }
 
     private void OnSfxToggleChanged(bool isOn)
     {
-        if (isInitializing) return;
+        if (isInitializing)
+        {
+            return;
+        }
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.SetSfxMute(!isOn);
+            if (sfxSlider != null)
+            {
+                sfxSlider.SetValueWithoutNotify(isOn ? SoundManager.Instance.GetSfxVolume() : 0f);
+            }
+        }
     }
 
-    // ─────────────────────────────────────────
     // 데이터 초기화
-    // ─────────────────────────────────────────
-
-    /// <summary>초기화 버튼 클릭 → 확인 팝업 표시.</summary>
     public void OnResetButtonClicked()
     {
         if (confirmPanel != null)
+        {
             confirmPanel.SetActive(true);
+        }
     }
 
-    /// <summary>확인 팝업에서 "예" 클릭.</summary>
+    // 확인 팝업에서 "예" 클릭
     public void OnConfirmReset()
     {
         if (confirmPanel != null)
+        {
             confirmPanel.SetActive(false);
+        }
 
         // 포켓몬 / 골드
         if (EggEnhanceController.Instance != null)
+        {
             EggEnhanceController.Instance.ResetAllGameData();
+        }
 
         // 도감
         if (PokedexSaveManager.Instance != null)
+        {
             PokedexSaveManager.Instance.ResetDex();
+        }
 
         // 인벤토리
         if (PlayerGeneralInventory.Instance != null)
+        {
             PlayerGeneralInventory.Instance.Reset();
+        }
 
         if (PlayerEvolveInventory.Instance != null)
+        {
             PlayerEvolveInventory.Instance.Reset();
 
+        }
         // 가방 UI 갱신
         if (GeneralBagPanelController.Instance != null)
+        {
             GeneralBagPanelController.Instance.RefreshCounts();
+        }
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayButtonClick();
+        }
     }
 
-    /// <summary>확인 팝업에서 "아니오" 클릭.</summary>
     public void OnCancelReset()
     {
         if (confirmPanel != null)
+        {
             confirmPanel.SetActive(false);
+        }
     }
 
-    // ─────────────────────────────────────────
-    // 해상도
-    // ─────────────────────────────────────────
+    // 해상도 변경
 
     private void OnResolutionSelected(int index)
     {
-        if (index == currentResolutionIndex) return;
+        if (index == currentResolutionIndex)
+        {
+            return;
+        }
 
         ApplyResolution(index, save: true);
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayShopSelect();
+        }
     }
 
     private void ApplyResolution(int index, bool save)
     {
-        if (index < 0 || index >= ResWidths.Length) return;
+        if (index < 0 || index >= ResWidths.Length)
+        {
+            return;
+        }
 
         currentResolutionIndex = index;
         Screen.SetResolution(ResWidths[index], ResHeights[index], FullScreenMode.Windowed);

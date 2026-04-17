@@ -28,8 +28,6 @@ public class DexPanelController : MonoBehaviour
             closeArea.SetActive(false);
         }
 
-        // pokedexRoot는 항상 켜진 상태 유지 (SetActive 토글 안 함)
-        // 최초에 슬롯 풀 생성 및 첫 페이지 데이터 로드
         if (pokedexManager != null)
         {
             pokedexManager.GenerateCurrentPage();
@@ -39,6 +37,9 @@ public class DexPanelController : MonoBehaviour
 
     public void OpenDex()
     {
+        EvolveBagPanelController.Instance?.Close();
+        EvolveBagPanelController.Instance?.ClearSelection();
+
         if (GeneralBagPanelController.Instance != null)
         {
             GeneralBagPanelController.Instance.CloseBag();
@@ -60,7 +61,7 @@ public class DexPanelController : MonoBehaviour
             SoundManager.Instance.PlayPokedexOpen();
         }
 
-        // 열릴 때 현재 페이지 데이터 갱신 (소유 상태 등 반영)
+        // 열릴 때 현재 페이지 데이터 갱신
         if (pokedexManager != null)
         {
             pokedexManager.GenerateCurrentPage();
@@ -153,7 +154,9 @@ public class DexPanelController : MonoBehaviour
         isAnimating = false;
 
         if (GeneralBagPanelController.Instance != null)
+        {
             GeneralBagPanelController.Instance.ShowRevivalCostUI();
+        }
     }
 
     private float EaseOutCubic(float t)

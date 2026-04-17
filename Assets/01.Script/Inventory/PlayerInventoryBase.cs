@@ -38,6 +38,8 @@ public abstract class PlayerInventoryBase : MonoBehaviour
 
     public IReadOnlyList<InventoryEntry> Entries => entries;
 
+    public event System.Action OnChanged;
+
     protected abstract string SaveKey { get; }
 
     protected virtual void Start()
@@ -62,20 +64,27 @@ public abstract class PlayerInventoryBase : MonoBehaviour
     {
         if (item == null || amount <= 0) return;
 
-        InventoryEntry existing = entries.Find(e => e.item == item);
+        InventoryEntry existing = entries.Find(e => e.item.itemName == item.itemName);
         if (existing != null)
             existing.count += amount;
         else
             entries.Add(new InventoryEntry(item, amount));
 
         Save();
+        OnChanged?.Invoke();
     }
 
     public void RemoveItem(ShopItemData item, int amount = 1)
     {
         if (item == null || amount <= 0) return;
+        RemoveItem(item.itemName, amount);
+    }
 
-        InventoryEntry existing = entries.Find(e => e.item == item);
+    public void RemoveItem(string itemName, int amount = 1)
+    {
+        if (string.IsNullOrEmpty(itemName) || amount <= 0) return;
+
+        InventoryEntry existing = entries.Find(e => e.item.itemName == itemName);
         if (existing == null) return;
 
         existing.count -= amount;
@@ -83,6 +92,7 @@ public abstract class PlayerInventoryBase : MonoBehaviour
             entries.Remove(existing);
 
         Save();
+        OnChanged?.Invoke();
     }
 
     private void Save()
@@ -119,5 +129,7 @@ public abstract class PlayerInventoryBase : MonoBehaviour
             else
                 Debug.LogWarning($"[Inventory] 저장된 아이템 '{saved.itemName}'을 찾을 수 없음");
         }
+
+        OnChanged?.Invoke();
     }
 }

@@ -35,6 +35,9 @@ public class ShopPanelController : MonoBehaviour
 
     public void OpenShop()
     {
+        EvolveBagPanelController.Instance?.Close();
+        EvolveBagPanelController.Instance?.ClearSelection();
+
         if (GeneralBagPanelController.Instance != null)
         {
             GeneralBagPanelController.Instance.CloseBag();

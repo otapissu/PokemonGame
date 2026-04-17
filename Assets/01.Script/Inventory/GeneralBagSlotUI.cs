@@ -11,7 +11,7 @@ public enum UsageCondition
 
 public class GeneralBagSlotUI : MonoBehaviour
 {
-    [SerializeField] private ShopItemData itemData;    // 고정 아이템 (인스펙터 연결)
+    [SerializeField] private string itemName;    // 고정 아이템 이름 (인스펙터 연결)
     [SerializeField] private TMP_Text     countText;   // "X999"
     [SerializeField] private GameObject   selectUI;    // 선택 시 표시
 
@@ -24,7 +24,7 @@ public class GeneralBagSlotUI : MonoBehaviour
     [Tooltip("체크 시 이로치 확률을 5%로 고정 (ShinyCharm 전용)")]
     [SerializeField] private bool isShinyCharm;
 
-    public ShopItemData    ItemData         => itemData;
+    public string          ItemName         => itemName;
     public int             ExclusiveGroupId => exclusiveGroupId;
     public UsageCondition  Condition        => usageCondition;
     public bool            IsShinyCharm     => isShinyCharm;

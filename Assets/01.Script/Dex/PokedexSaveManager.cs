@@ -14,7 +14,7 @@ public class PokedexSaveManager : MonoBehaviour
     private HashSet<int> chainAnyMaxIds = new();
     private HashSet<int> chainAllMaxIds = new();
 
-    // 폼 키 목록 캐시 (Resources.LoadAll 반복 방지)
+    // 폼 키 목록 캐시
     private Dictionary<int, List<string>> allKeysCache = new();
 
     void Awake()
@@ -41,7 +41,9 @@ public class PokedexSaveManager : MonoBehaviour
     {
         string key = MakeKey(id, gender, formIndex, isShiny, genderVisualType);
         if (seenFormKeys.Add(key))
+        {
             Save();
+        }
     }
 
     public bool IsOwned(int id) => ownedPokemon.Contains(id);
@@ -61,22 +63,32 @@ public class PokedexSaveManager : MonoBehaviour
         return maxEnhancedKeys.Contains(key);
     }
 
-    /// <summary>비전설 포켓몬의 진화 체인 전체에 최대 강화를 전파합니다.</summary>
+    // 비전설 포켓몬의 진화 체인 전체에 최대 강화를 전파
     public void PropagateMaxEnhanceToChain(PokemonData rootData, int maxedId, PokemonData maxedData)
     {
-        if (rootData == null || maxedData == null) return;
-        if (maxedData.isLegendary) return;
+        if (rootData == null || maxedData == null)
+        {
+            return;
+        }
+        if (maxedData.isLegendary)
+        {
+            return;
+        }
 
         List<int> chainIds = new();
         CollectChainIds(rootData, chainIds);
 
         foreach (int id in chainIds)
+        {
             chainAnyMaxIds.Add(id);
+        }
 
         if (IsAllFormsMaxed(maxedId, maxedData))
         {
             foreach (int id in chainIds)
+            {
                 chainAllMaxIds.Add(id);
+            }
         }
 
         Save();
@@ -84,27 +96,44 @@ public class PokedexSaveManager : MonoBehaviour
 
     private void CollectChainIds(PokemonData data, List<int> ids)
     {
-        if (data == null) return;
-        if (ids.Contains(data.id)) return; // 순환 방지
+        if (data == null)
+        {
+            return;
+        }
+        if (ids.Contains(data.id))
+        {
+            return;
+        }
 
         ids.Add(data.id);
 
-        if (data.evolutionOptions == null) return;
+        if (data.evolutionOptions == null)
+        {
+            return;
+        }
         foreach (EvolutionOption opt in data.evolutionOptions)
         {
             if (opt != null && opt.targetData != null)
+            {
                 CollectChainIds(opt.targetData, ids);
+            }
         }
     }
 
     public bool IsAllFormsMaxed(int id, PokemonData data)
     {
         List<string> allKeys = GetOrComputeAllKeys(id, data);
-        if (allKeys.Count == 0) return false;
+        if (allKeys.Count == 0)
+        {
+            return false;
+        }
 
         foreach (string k in allKeys)
         {
-            if (!maxEnhancedKeys.Contains(k)) return false;
+            if (!maxEnhancedKeys.Contains(k))
+            {
+                return false;
+            }
         }
 
         return true;
@@ -113,7 +142,9 @@ public class PokedexSaveManager : MonoBehaviour
     private List<string> GetOrComputeAllKeys(int id, PokemonData data)
     {
         if (allKeysCache.TryGetValue(id, out List<string> cached))
+        {
             return cached;
+        }
 
         List<string> keys = new();
 
@@ -128,7 +159,9 @@ public class PokedexSaveManager : MonoBehaviour
                 {
                     List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, g, shiny);
                     foreach (int fi in forms)
+                    {
                         keys.Add(MakeKey(id, g, fi, shiny, data.genderVisualType));
+                    }
                 }
             }
         }
@@ -138,7 +171,9 @@ public class PokedexSaveManager : MonoBehaviour
             {
                 List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, Gender.None, shiny);
                 foreach (int fi in forms)
+                {
                     keys.Add(MakeKey(id, Gender.None, fi, shiny, data.genderVisualType));
+                }
             }
         }
 
@@ -146,20 +181,16 @@ public class PokedexSaveManager : MonoBehaviour
         return keys;
     }
 
-    // 기존 비이로치 키 포맷 유지 (하위 호환) + 이로치는 S 접두어 추가
+    // 기존 비이로치 키 포맷 유지 + 이로치는 S 접두어 추가
     private static string MakeKey(int id, Gender gender, int formIndex, bool isShiny, GenderVisualType genderVisualType)
     {
         if (genderVisualType == GenderVisualType.DifferentVisual)
         {
             string g = gender == Gender.Male ? "M" : "F";
-            return isShiny
-                ? id + "_S" + g + "_" + formIndex
-                : id + "_" + g + "_" + formIndex;
+            return isShiny ? id + "_S" + g + "_" + formIndex : id + "_" + g + "_" + formIndex;
         }
 
-        return isShiny
-            ? id + "_S_" + formIndex
-            : id + "_" + formIndex;
+        return isShiny ? id + "_S_" + formIndex : id + "_" + formIndex;
     }
 
     [ContextMenu("Reset Dex")]
@@ -181,7 +212,9 @@ public class PokedexSaveManager : MonoBehaviour
         allKeysCache.Clear();
 
         if (PokedexManager.Instance != null)
+        {
             PokedexManager.Instance.GenerateCurrentPage();
+        }
 
         Debug.Log("도감 데이터 초기화 완료");
     }
@@ -207,7 +240,7 @@ public class PokedexSaveManager : MonoBehaviour
 
         string owned = PlayerPrefs.GetString("DEX_OWNED", "");
         string maxed = PlayerPrefs.GetString("DEX_MAX_V2", "");
-        string seen  = PlayerPrefs.GetString("DEX_SEEN", "");
+        string seen = PlayerPrefs.GetString("DEX_SEEN", "");
 
         foreach (string s in owned.Split(','))
             if (int.TryParse(s, out int id))

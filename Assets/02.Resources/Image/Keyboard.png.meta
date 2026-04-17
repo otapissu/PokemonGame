@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: efd70ef48f1d1d44990fa555297d0e14
+guid: 9edc9fa913114c24a9132632f03d0961
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2823838568841336431
+    second: Keyboard_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,211 +113,35 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cursor_target_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 230
-        width: 236
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc433cb602b95714a9005f87217b1e3c
-      internalID: 958302668
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 184
-        width: 170
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d025c777b88c553499a7925942ce6baf
-      internalID: 569921507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 138
-        width: 236
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d54b813d794d4f4a87cce5d0e86ac29
-      internalID: 1543321566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_3
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 138
-        width: 236
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 96b78673bee589b4a8f47620eea5f36f
-      internalID: -423170990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 92
-        width: 170
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 478ff782a4128d24d9d7a5f5205a39f5
-      internalID: 738786125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_5
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 92
-        width: 170
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5fe3a57f344e15142b0c5402b41635c6
-      internalID: -2097082605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 46
-        width: 236
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b8bfaf566858d744ba0af6fd123dc01
-      internalID: -1852947957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_7
-      rect:
-        serializedVersion: 2
-        x: 236
-        y: 46
-        width: 236
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a315585c90a72fe468c5368f0be2d806
-      internalID: -363374251
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cursor_target_8
+      name: Keyboard_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 170
-        height: 46
+        width: 11
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 1f4ad7a979fc2c24785bc8e2c23a9d83
-      internalID: 1830572749
+      spriteID: 1992a2178c5bfc8d0800000000000000
+      internalID: -2823838568841336431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cursor_target_9
+      name: Keyboard_1
       rect:
         serializedVersion: 2
-        x: 236
+        x: 11
         y: 0
-        width: 236
-        height: 46
+        width: 11
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,8 +150,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e1345d28f723ec46b574ee5f0f9119f
-      internalID: -1444291655
+      spriteID: eb29ba23a6258a9459a95e1779b51052
+      internalID: -1076230110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 324a4058ee8a9cb4dba019341cb923d0
+      internalID: -1972773559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Keyboard_3
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c1081ec731c904192cbbf576a8e95d
+      internalID: -1802977909
       vertices: []
       indices: 
       edges: []
@@ -333,7 +204,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 5027b7dc37d0a964ea638a52ac52249f
     internalID: 0
     vertices: []
     indices: 
@@ -341,18 +212,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":11.0,"y":13.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      cursor_target_0: 958302668
-      cursor_target_1: 569921507
-      cursor_target_2: 1543321566
-      cursor_target_3: -423170990
-      cursor_target_4: 738786125
-      cursor_target_5: -2097082605
-      cursor_target_6: -1852947957
-      cursor_target_7: -363374251
-      cursor_target_8: 1830572749
-      cursor_target_9: -1444291655
+      Keyboard_0: -2823838568841336431
+      Keyboard_1: -1076230110
+      Keyboard_2: -1972773559
+      Keyboard_3: -1802977909
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

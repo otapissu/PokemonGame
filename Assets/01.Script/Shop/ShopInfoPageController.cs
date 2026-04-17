@@ -51,7 +51,7 @@ public class ShopInfoPageController : MonoBehaviour
     {
         if (data == null) return;
 
-        bool isSameItem = infoPage != null && infoPage.activeSelf && currentItem == data;
+        bool isSameItem = infoPage != null && infoPage.activeSelf && currentItem?.itemName == data?.itemName;
 
         if (isSameItem)
         {
@@ -175,7 +175,7 @@ public class ShopInfoPageController : MonoBehaviour
 
     private void ResetAmount()
     {
-        currentAmount = 0;
+        currentAmount = 1;
         UpdateAmountText();
     }
 

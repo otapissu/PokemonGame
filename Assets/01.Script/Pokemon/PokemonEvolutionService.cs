@@ -232,11 +232,7 @@ public class PokemonEvolutionService
 
         if (selectedOption.randomizeTargetForm)
         {
-            instance.formIndex = PokemonFormUtility.GetRandomFormIndex(
-                instance.data,
-                instance.gender,
-                instance.isShiny
-            );
+            instance.formIndex = PokemonFormUtility.GetRandomFormIndex(instance.data, instance.gender, instance.isShiny);
         }
         else
         {
@@ -303,8 +299,14 @@ public class PokemonEvolutionService
 
     private bool HasItem(EvolutionItemType itemType)
     {
-        if (itemType == EvolutionItemType.None) return false;
-        if (PlayerEvolveInventory.Instance == null) return false;
-        return PlayerEvolveInventory.Instance.HasItem(itemType);
+        if (itemType == EvolutionItemType.None)
+        {
+            return false;
+        }
+        if (EvolveBagPanelController.Instance == null)
+        {
+            return false;
+        }
+        return EvolveBagPanelController.Instance.SelectedItemType == itemType;
     }
 }

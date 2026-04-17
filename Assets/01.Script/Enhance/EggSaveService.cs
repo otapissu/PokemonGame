@@ -4,33 +4,28 @@ public class EggSaveService
 {
     public void Save(EggEnhanceController c)
     {
-        EnhanceSaveData data = new EnhanceSaveData();
-
         if (c.currentInstance != null)
         {
-            data.hasPokemon = true;
-            data.rootID = c.currentInstance.rootData.id;
-            data.currentID = c.currentInstance.data.id;
-            data.enhanceLevel = c.currentInstance.enhanceLevel;
-            data.gender = (int)c.currentInstance.gender;
-            data.isShiny = c.currentInstance.isShiny;
-            data.formIndex = c.currentInstance.formIndex;
+            PlayerPrefs.SetInt("SAVE_hasPokemon", 1);
+            PlayerPrefs.SetInt("SAVE_rootID", c.currentInstance.rootData.id);
+            PlayerPrefs.SetInt("SAVE_currentID", c.currentInstance.data.id);
+            PlayerPrefs.SetInt("SAVE_enhanceLevel", c.currentInstance.enhanceLevel);
+            PlayerPrefs.SetInt("SAVE_gender", (int)c.currentInstance.gender);
+            PlayerPrefs.SetInt("SAVE_isShiny", c.currentInstance.isShiny ? 1 : 0);
+            PlayerPrefs.SetInt("SAVE_formIndex", c.currentInstance.formIndex);
         }
         else
         {
-            data.hasPokemon = false;
+            PlayerPrefs.SetInt("SAVE_hasPokemon", 0);
         }
 
-        data.gold = c.gold;
-
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString("SAVE_DATA", json);
+        PlayerPrefs.SetString("SAVE_gold", c.gold.ToString());
         PlayerPrefs.Save();
     }
 
     public void Load(EggEnhanceController c)
     {
-        if (!PlayerPrefs.HasKey("SAVE_DATA"))
+        if (!PlayerPrefs.HasKey("SAVE_hasPokemon"))
         {
             return;
         }
@@ -41,19 +36,21 @@ public class EggSaveService
             return;
         }
 
-        string json = PlayerPrefs.GetString("SAVE_DATA");
-        EnhanceSaveData data = JsonUtility.FromJson<EnhanceSaveData>(json);
+        if (!long.TryParse(PlayerPrefs.GetString("SAVE_gold", "0"), out long gold))
+            gold = 0L;
 
         // 기존 세이브가 int로 저장된 경우 음수(-21억)로 깨진 값 보정
-        if (data.gold < 0)
+        if (gold < 0)
         {
             Debug.LogWarning("gold 값이 음수입니다. 기존 int 오버플로우 세이브로 판단하여 0으로 초기화합니다.");
-            data.gold = 0L;
+            gold = 0L;
         }
 
-        c.gold = data.gold;
+        c.gold = gold;
 
-        if (data.hasPokemon == false)
+        bool hasPokemon = PlayerPrefs.GetInt("SAVE_hasPokemon", 0) == 1;
+
+        if (!hasPokemon)
         {
             c.currentInstance = null;
 
@@ -71,31 +68,38 @@ public class EggSaveService
             return;
         }
 
-        PokemonData root = c.allPokemons.Find(p => p.id == data.rootID);
-        PokemonData current = c.allPokemons.Find(p => p.id == data.currentID);
+        int rootID = PlayerPrefs.GetInt("SAVE_rootID", 0);
+        int currentID = PlayerPrefs.GetInt("SAVE_currentID", 0);
+        int enhanceLevel = PlayerPrefs.GetInt("SAVE_enhanceLevel", 0);
+        int gender = PlayerPrefs.GetInt("SAVE_gender", 0);
+        bool isShiny = PlayerPrefs.GetInt("SAVE_isShiny", 0) == 1;
+        int formIndex = PlayerPrefs.GetInt("SAVE_formIndex", 0);
+
+        PokemonData root = c.allPokemons.Find(p => p.id == rootID);
+        PokemonData current = c.allPokemons.Find(p => p.id == currentID);
 
         if (root == null)
         {
-            Debug.LogError("root 못 찾음: " + data.rootID);
+            Debug.LogError("root 못 찾음: " + rootID);
             return;
         }
 
         if (current == null)
         {
-            Debug.LogError("current 못 찾음: " + data.currentID);
+            Debug.LogError("current 못 찾음: " + currentID);
             return;
         }
 
         c.currentInstance = new PokemonInstance(
             root,
-            (Gender)data.gender,
-            data.isShiny,
-            data.formIndex
+            (Gender)gender,
+            isShiny,
+            formIndex
         );
 
         c.currentInstance.data = current;
-        c.currentInstance.enhanceLevel = data.enhanceLevel;
-        c.currentInstance.formIndex = data.formIndex;
+        c.currentInstance.enhanceLevel = enhanceLevel;
+        c.currentInstance.formIndex = formIndex;
 
         RestoreVisual(c);
         new EggUIService().UpdateAll(c);

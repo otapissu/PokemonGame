@@ -57,7 +57,6 @@ public class PokedexManager : MonoBehaviour
 
     private void InitializeSlots()
     {
-        // 이미 올바른 수의 슬롯이 있으면 스킵
         if (slotPool.Count >= itemsPerPage)
         {
             return;
@@ -69,11 +68,13 @@ public class PokedexManager : MonoBehaviour
             dexSlotPrefab.SetActive(false);
         }
 
-        // 혹시 남아있는 잘못된 슬롯 정리
+        // 남아있는 잘못된 슬롯 정리
         foreach (DexSlotUI old in slotPool)
         {
             if (old != null)
+            {
                 Destroy(old.gameObject);
+            }
         }
         slotPool.Clear();
 
@@ -99,12 +100,16 @@ public class PokedexManager : MonoBehaviour
     private PokemonData GetCachedPokemonData(int id)
     {
         if (pokemonDataCache.TryGetValue(id, out PokemonData cached))
+        {
             return cached;
+        }
 
         PokemonData found = null;
 
         if (EggEnhanceController.Instance != null)
+        {
             found = EggEnhanceController.Instance.allPokemons.Find(p => p.id == id);
+        }
 
         pokemonDataCache[id] = found;
         return found;
@@ -138,6 +143,7 @@ public class PokedexManager : MonoBehaviour
         int totalPages = Mathf.CeilToInt((float)maxDexCount / itemsPerPage);
 
         currentPage++;
+
         if (currentPage >= totalPages)
         {
             currentPage = 0;
@@ -151,6 +157,7 @@ public class PokedexManager : MonoBehaviour
         int totalPages = Mathf.CeilToInt((float)maxDexCount / itemsPerPage);
 
         currentPage--;
+        
         if (currentPage < 0)
         {
             currentPage = totalPages - 1;

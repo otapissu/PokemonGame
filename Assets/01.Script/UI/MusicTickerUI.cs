@@ -1,9 +1,6 @@
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// 부모 오브젝트에 RectMask2D 컴포넌트를 붙여야 텍스트가 박스 밖에서 잘립니다.
-/// </summary>
 public class MusicTickerUI : MonoBehaviour
 {
     [Header("텍스트")]
@@ -24,7 +21,9 @@ public class MusicTickerUI : MonoBehaviour
         textRect   = musicText.GetComponent<RectTransform>();
         rootCanvas = GetComponentInParent<Canvas>();
         while (rootCanvas != null && !rootCanvas.isRootCanvas)
+        {
             rootCanvas = rootCanvas.transform.parent.GetComponentInParent<Canvas>();
+        }
     }
 
     private void Update()
@@ -65,9 +64,7 @@ public class MusicTickerUI : MonoBehaviour
     private void ResetToRightEdge()
     {
         // Canvas 스케일을 반영한 화면 오른쪽 끝 좌표
-        float canvasWidth = rootCanvas != null
-            ? rootCanvas.GetComponent<RectTransform>().rect.width
-            : Screen.width;
+        float canvasWidth = rootCanvas != null ? rootCanvas.GetComponent<RectTransform>().rect.width : Screen.width;
 
         textRect.anchoredPosition = new Vector2(canvasWidth + gap, textRect.anchoredPosition.y);
     }

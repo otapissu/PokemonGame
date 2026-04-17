@@ -163,7 +163,7 @@ public class SoundManager : MonoBehaviour
 
         bgmSource.Stop();
         bgmSource.clip = startSceneBgm;
-        bgmSource.volume = bgmVolume;
+        bgmSource.volume = bgmMuted ? 0f : bgmVolume;
         bgmSource.loop = true;
         bgmSource.Play();
     }
@@ -225,7 +225,7 @@ public class SoundManager : MonoBehaviour
 
         bgmSource.Stop();
         bgmSource.clip = shopBgm;
-        bgmSource.volume = bgmVolume;
+        bgmSource.volume = bgmMuted ? 0f : bgmVolume;
         bgmSource.loop = true;
         bgmSource.Play();
     }
@@ -248,7 +248,7 @@ public class SoundManager : MonoBehaviour
             {
                 bgmSource.Stop();
                 bgmSource.clip = clip;
-                bgmSource.volume = bgmVolume;
+                bgmSource.volume = bgmMuted ? 0f : bgmVolume;
                 bgmSource.loop = false;
                 bgmSource.time = savedMainBgmTime;
                 bgmSource.Play();
@@ -270,8 +270,7 @@ public class SoundManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    // ── SFX ──────────────────────────────────────────
-
+    // SFX
     public void PlayButtonClick()
     {
         PlaySfxOneShot(buttonClickSfx);
@@ -350,10 +349,10 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(sfxClip, Mathf.Clamp01(volumeScale) * sfxVolume);
     }
 
-    public float  GetBgmVolume()      => bgmVolume;
-    public float  GetSfxVolume()      => sfxVolume;
-    public bool   IsBgmMuted()        => bgmMuted;
-    public bool   IsSfxMuted()        => sfxMuted;
+    public float GetBgmVolume() => bgmVolume;
+    public float GetSfxVolume() => sfxVolume;
+    public bool IsBgmMuted() => bgmMuted;
+    public bool IsSfxMuted() => sfxMuted;
     public string GetCurrentBgmName() => bgmSource != null && bgmSource.clip != null ? bgmSource.clip.name : "";
 
     public void SetBgmVolume(float volume)
@@ -361,7 +360,9 @@ public class SoundManager : MonoBehaviour
         bgmVolume = Mathf.Clamp01(volume);
 
         if (bgmSource != null)
+        {
             bgmSource.volume = bgmMuted ? 0f : bgmVolume;
+        }
 
         SaveSettings();
     }
@@ -377,7 +378,9 @@ public class SoundManager : MonoBehaviour
         bgmMuted = mute;
 
         if (bgmSource != null)
+        {
             bgmSource.volume = bgmMuted ? 0f : bgmVolume;
+        }
 
         SaveSettings();
     }
@@ -477,7 +480,7 @@ public class SoundManager : MonoBehaviour
 
         bgmSource.Stop();
         bgmSource.clip = clip;
-        bgmSource.volume = bgmVolume;
+        bgmSource.volume = bgmMuted ? 0f : bgmVolume;
         bgmSource.loop = false;
         bgmSource.Play();
     }

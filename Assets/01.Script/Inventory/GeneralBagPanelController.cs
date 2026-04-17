@@ -105,13 +105,13 @@ public class GeneralBagPanelController : MonoBehaviour
         RefreshRevivalCostUI();
     }
 
-    private int GetCount(ShopItemData item)
+    private int GetCount(string itemName)
     {
         if (PlayerGeneralInventory.Instance == null) return 0;
         var entries = PlayerGeneralInventory.Instance.Entries;
         foreach (var e in entries)
         {
-            if (e.item == item) return e.count;
+            if (e.item.itemName == itemName) return e.count;
         }
         return 0;
     }
@@ -133,7 +133,7 @@ public class GeneralBagPanelController : MonoBehaviour
         }
 
         // 아이템 0개 체크
-        if (GetCount(slot.ItemData) <= 0)
+        if (GetCount(slot.ItemName) <= 0)
         {
             ShowWarning("사용할 수 있는 아이템이 없습니다.");
             return;
@@ -168,7 +168,7 @@ public class GeneralBagPanelController : MonoBehaviour
     public void ApplyQueuedItems()
     {
         foreach (GeneralBagSlotUI slot in queueList)
-            UseItem(slot.ItemData);
+            UseItem(slot.ItemName);
 
         ClearQueue();
         RefreshCounts();
@@ -191,7 +191,7 @@ public class GeneralBagPanelController : MonoBehaviour
         foreach (GeneralBagSlotUI slot in queueList)
         {
             if (slot.Condition == UsageCondition.RequiresHatched)
-                return 0.1f;
+                return 0.05f;
         }
         return 0f;
     }
@@ -205,10 +205,10 @@ public class GeneralBagPanelController : MonoBehaviour
             if (slot.Condition != UsageCondition.RequiresHatched) continue;
 
             if (PlayerGeneralInventory.Instance != null)
-                PlayerGeneralInventory.Instance.RemoveItem(slot.ItemData, 1);
+                PlayerGeneralInventory.Instance.RemoveItem(slot.ItemName, 1);
 
             // 0개가 되면 자동 선택 해제
-            if (GetCount(slot.ItemData) <= 0)
+            if (GetCount(slot.ItemName) <= 0)
                 queueList.RemoveAt(i);
         }
 
@@ -227,13 +227,13 @@ public class GeneralBagPanelController : MonoBehaviour
         return false;
     }
 
-    /// <summary>큐에 담긴 RequiresDestroyed 슬롯의 ItemData 반환.</summary>
-    public ShopItemData GetRevivalItemData()
+    /// <summary>큐에 담긴 RequiresDestroyed 슬롯의 ItemName 반환.</summary>
+    public string GetRevivalItemName()
     {
         foreach (GeneralBagSlotUI slot in queueList)
         {
             if (slot.Condition == UsageCondition.RequiresDestroyed)
-                return slot.ItemData;
+                return slot.ItemName;
         }
         return null;
     }
@@ -242,8 +242,8 @@ public class GeneralBagPanelController : MonoBehaviour
     {
         foreach (GeneralBagSlotUI slot in slots)
         {
-            if (slot == null || slot.ItemData == null) continue;
-            slot.RefreshCount(GetCount(slot.ItemData));
+            if (slot == null || string.IsNullOrEmpty(slot.ItemName)) continue;
+            slot.RefreshCount(GetCount(slot.ItemName));
         }
 
     }
@@ -363,14 +363,14 @@ public class GeneralBagPanelController : MonoBehaviour
     // 아이템 사용 (효과 미구현)
     // ─────────────────────────────────────────
 
-    private void UseItem(ShopItemData item)
+    private void UseItem(string itemName)
     {
-        if (item == null) return;
+        if (string.IsNullOrEmpty(itemName)) return;
 
         // TODO: 아이템별 효과 구현
-        Debug.Log($"[GeneralBag] 아이템 사용: {item.itemName}");
+        Debug.Log($"[GeneralBag] 아이템 사용: {itemName}");
 
         if (PlayerGeneralInventory.Instance != null)
-            PlayerGeneralInventory.Instance.RemoveItem(item, 1);
+            PlayerGeneralInventory.Instance.RemoveItem(itemName, 1);
     }
 }

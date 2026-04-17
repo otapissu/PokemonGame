@@ -172,14 +172,9 @@ public static class EggDataService
                 continue;
             }
 
-            if (instance.enhanceLevel <= option.requiredEnhanceLevel)
+            if (instance.enhanceLevel < option.requiredEnhanceLevel)
             {
                 continue;
-            }
-
-            if (PlayerEvolveInventory.Instance != null && PlayerEvolveInventory.Instance.HasItem(option.requiredItem))
-            {
-                return false;
             }
 
             return true;
