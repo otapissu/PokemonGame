@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,12 +27,13 @@ public class EvolveBagPanelController : MonoBehaviour
         selectedSlot != null ? selectedSlot.EvolutionItemType : EvolutionItemType.None;
 
     [Header("슬라이드 설정")]
-    [Tooltip("오른쪽으로 숨길 거리 (패널 너비와 맞추세요)")]
+    [Tooltip("오른쪽으로 숨길 거리")]
     [SerializeField] private float slideDistance = 400f;
     [SerializeField] private float slideDuration = 0.25f;
 
     private bool isOpen = false;
     private Coroutine slideCoroutine;
+    private Camera _canvasCamera;
 
     // Inspector 기준 위치 (= 닫힌 위치)
     private float panelClosedX;
@@ -45,11 +46,19 @@ public class EvolveBagPanelController : MonoBehaviour
 
     private void Start()
     {
-        panelClosedX   = panelRect   != null ? panelRect.anchoredPosition.x   : 0f;
+        panelClosedX = panelRect   != null ? panelRect.anchoredPosition.x   : 0f;
         bagIconClosedX = bagIconRect != null ? bagIconRect.anchoredPosition.x : 0f;
 
+        if (panelRect != null)
+        {
+            Canvas canvas = panelRect.GetComponentInParent<Canvas>();
+            _canvasCamera = canvas != null ? canvas.worldCamera : null;
+        }
+
         if (PlayerEvolveInventory.Instance != null)
+        {
             PlayerEvolveInventory.Instance.OnChanged += RefreshSlots;
+        }
 
         // Awake에서 Load 완료됐으므로 Start 시점엔 데이터 보장
         RefreshSlots();
@@ -58,7 +67,27 @@ public class EvolveBagPanelController : MonoBehaviour
     private void OnDestroy()
     {
         if (PlayerEvolveInventory.Instance != null)
+        {
             PlayerEvolveInventory.Instance.OnChanged -= RefreshSlots;
+        }
+    }
+
+    private void Update()
+    {
+        if (!isOpen || panelRect == null)
+        {
+            return;
+        }
+
+        if (!Input.GetMouseButtonDown(0))
+        {
+            return;
+        }
+
+        if (!RectTransformUtility.RectangleContainsScreenPoint(panelRect, Input.mousePosition, _canvasCamera))
+        {
+            Close();
+        }
     }
 
     // ─────────────────────────────────────────
@@ -72,11 +101,17 @@ public class EvolveBagPanelController : MonoBehaviour
             // 같은 슬롯 다시 누르면 선택 해제
             selectedSlot.SetSelected(false);
             selectedSlot = null;
-            if (selectedItemImage != null) selectedItemImage.gameObject.SetActive(false);
+            if (selectedItemImage != null)
+            {
+                selectedItemImage.gameObject.SetActive(false);
+            }
             return;
         }
 
-        if (selectedSlot != null) selectedSlot.SetSelected(false);
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetSelected(false);
+        }
 
         selectedSlot = slot;
         selectedSlot.SetSelected(true);
@@ -97,7 +132,9 @@ public class EvolveBagPanelController : MonoBehaviour
         }
 
         if (selectedItemImage != null)
+        {
             selectedItemImage.gameObject.SetActive(false);
+        }
     }
 
     // ─────────────────────────────────────────
@@ -106,15 +143,24 @@ public class EvolveBagPanelController : MonoBehaviour
 
     private void RefreshSlots()
     {
-        if (slotPrefab == null || content == null) return;
-        if (PlayerEvolveInventory.Instance == null) return;
+        if (slotPrefab == null || content == null)
+        {
+            return;
+        }
+        if (PlayerEvolveInventory.Instance == null)
+        {
+            return;
+        }
 
         var entries = PlayerEvolveInventory.Instance.Entries;
 
         // 새 아이템 추가 or 기존 아이템 카운트 갱신
         foreach (InventoryEntry entry in entries)
         {
-            if (entry.item == null) continue;
+            if (entry.item == null)
+            {
+                continue;
+            }
             string name = entry.item.itemName;
 
             if (spawnedSlots.TryGetValue(name, out EvolveBagSlotUI existing))
@@ -146,13 +192,22 @@ public class EvolveBagPanelController : MonoBehaviour
                     break;
                 }
             }
-            if (!stillExists) toRemove.Add(kv.Key);
+            if (!stillExists)
+            {
+                toRemove.Add(kv.Key);
+            }
         }
 
         foreach (string key in toRemove)
         {
             if (spawnedSlots[key] != null)
+            {
+                if (spawnedSlots[key] == selectedSlot)
+                {
+                    ClearSelection();
+                }
                 Destroy(spawnedSlots[key].gameObject);
+            }
             spawnedSlots.Remove(key);
         }
     }
@@ -163,30 +218,45 @@ public class EvolveBagPanelController : MonoBehaviour
 
     public void Toggle()
     {
-        if (isOpen) Close();
-        else        Open();
+        if (isOpen)
+        {
+            Close();
+        }
+        else
+        {
+            Open();
+        }
     }
 
     public void Open()
     {
-        if (isOpen) return;
+        if (isOpen)
+        {
+            return;
+        }
         isOpen = true;
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayBagOpen();
+        }
 
         StartSlide(panelClosedX - slideDistance, bagIconClosedX - slideDistance);
     }
 
     public void Close()
     {
-        if (!isOpen) return;
+        if (!isOpen)
+        {
+            return;
+        }
         isOpen = false;
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayButtonClose();
+        }
 
-        // 둘 다 원래 위치로 복귀
         StartSlide(panelClosedX, bagIconClosedX);
     }
 
@@ -197,7 +267,9 @@ public class EvolveBagPanelController : MonoBehaviour
     private void StartSlide(float targetPanelX, float targetIconX)
     {
         if (slideCoroutine != null)
+        {
             StopCoroutine(slideCoroutine);
+        }
 
         slideCoroutine = StartCoroutine(SlideRoutine(targetPanelX, targetIconX));
     }
@@ -205,7 +277,7 @@ public class EvolveBagPanelController : MonoBehaviour
     private IEnumerator SlideRoutine(float targetPanelX, float targetIconX)
     {
         float startPanelX = panelRect != null   ? panelRect.anchoredPosition.x   : 0f;
-        float startIconX  = bagIconRect != null ? bagIconRect.anchoredPosition.x : 0f;
+        float startIconX = bagIconRect != null ? bagIconRect.anchoredPosition.x : 0f;
 
         float elapsed = 0f;
         while (elapsed < slideDuration)

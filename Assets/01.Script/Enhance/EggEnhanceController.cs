@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections.Generic;
 
 public class EggEnhanceController : MonoBehaviour
 {
@@ -13,10 +14,23 @@ public class EggEnhanceController : MonoBehaviour
     public Button enhanceButton;
     public Button sellButton;
 
+    [Header("되살리기")]
+    [SerializeField] private Button reviveButton;
+    [SerializeField] private float destroyedEnhanceButtonOffsetY = -140f;
+
+    private Vector2 _enhanceButtonOriginalPos;
+
     private TMP_Text enhanceButtonText;
     private Color _originalButtonTextColor;
     private bool _pendingEvolveWarning = false;
     private bool _evolveWarningDismissed = false;
+
+    private Queue<(string msg, Color color)> _messageQueue = new();
+    private Coroutine _messageFade;
+    private bool _skipCurrent;
+
+    [Header("Message Color")]
+    [SerializeField] private Color defaultMessageColor = Color.black;
 
     public TextMeshProUGUI messageText;
     public TextMeshProUGUI enhanceLevelText;
@@ -37,6 +51,20 @@ public class EggEnhanceController : MonoBehaviour
     [Range(0f, 1f)]
     public float shinyChance = 0.02f;
 
+#if UNITY_EDITOR
+    [Tooltip("ON 시 강화 결과를 항상 성공으로 처리 (에디터 전용)")]
+    public bool alwaysSucceedEnhance = false;
+#endif
+
+    public bool AlwaysSucceedEnhance
+    {
+#if UNITY_EDITOR
+        get => alwaysSucceedEnhance;
+#else
+        get => false;
+#endif
+    }
+
     [Header("Balance Data")]
     public EggBalanceData balanceData;
 
@@ -46,6 +74,14 @@ public class EggEnhanceController : MonoBehaviour
     public long gold = 999999999L;
     public int maxLevel = 15;
 
+    [Header("Egg Purchase")]
+    [Tooltip("알 구매 시 부화마다 차감될 골드")]
+    public long eggPurchaseCost = 100000L;
+    [SerializeField] private Image selectedPokemonIconImage;
+    [SerializeField] private Button selectedPokemonButton;
+
+    public PokemonData SelectedHatchPokemon { get; private set; }
+
     [Header("Test Spawn")]
     [Tooltip("0이면 랜덤, 1 이상이면 해당 도감 번호를 강제로 부화")]
     public int testSpawnPokemonId = 0;
@@ -54,6 +90,7 @@ public class EggEnhanceController : MonoBehaviour
     public bool ignoreHatchConditionForTest = true;
 
     public Coroutine loopCoroutine;
+    public int currentFrameIndex = 0;
 
     public PokemonEvolutionService evolutionService;
 
@@ -94,6 +131,13 @@ public class EggEnhanceController : MonoBehaviour
             {
                 _originalButtonTextColor = enhanceButtonText.color;
             }
+            _enhanceButtonOriginalPos = enhanceButton.GetComponent<RectTransform>().anchoredPosition;
+        }
+
+        if (reviveButton != null)
+        {
+            reviveButton.onClick.AddListener(OnReviveClick);
+            reviveButton.gameObject.SetActive(false);
         }
 
         evolutionService = new PokemonEvolutionService();
@@ -104,6 +148,12 @@ public class EggEnhanceController : MonoBehaviour
 
         enhanceButton.onClick.AddListener(OnEnhanceClick);
         sellButton.onClick.AddListener(OnSellClick);
+
+        if (selectedPokemonButton != null)
+        {
+            selectedPokemonButton.onClick.AddListener(ClearSelectedHatchPokemon);
+            selectedPokemonButton.gameObject.SetActive(false);
+        }
 
         PokemonData[] loaded = Resources.LoadAll<PokemonData>("PokemonData");
         allPokemons = new List<PokemonData>(loaded);
@@ -122,6 +172,7 @@ public class EggEnhanceController : MonoBehaviour
         }
 
         SetButtonsInteractable(true);
+        UpdateDestroyedUI();
     }
 
     private bool ShouldShowEvolveWarning()
@@ -141,13 +192,71 @@ public class EggEnhanceController : MonoBehaviour
         return evolutionService.IsAtAnyEvolutionTiming(currentInstance) && !evolutionService.CanEvolveNow(currentInstance);
     }
 
+    public void ShowMessage(string msg, Color color)
+    {
+        color.a = 1f;
+        _messageQueue.Enqueue((msg, color));
+        _skipCurrent = true;
+        if (_messageFade == null)
+        {
+            _messageFade = StartCoroutine(ProcessMessageQueue());
+        }
+    }
+
+    public void ShowMessage(string msg)
+    {
+        ShowMessage(msg, defaultMessageColor);
+    }
+
+    private IEnumerator ProcessMessageQueue()
+    {
+        while (_messageQueue.Count > 0)
+        {
+            (string msg, Color color) = _messageQueue.Dequeue();
+            messageText.color = color;
+            messageText.text = msg;
+            _skipCurrent = false;
+
+            float elapsed = 0f;
+            while (elapsed < 2.0f && !_skipCurrent)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            if (!_skipCurrent)
+            {
+                float fade = 0f;
+                Color start = messageText.color;
+                while (fade < 0.3f)
+                {
+                    fade += Time.deltaTime;
+                    Color c = start;
+                    c.a = Mathf.Lerp(1f, 0f, fade / 0.3f);
+                    messageText.color = c;
+                    yield return null;
+                }
+            }
+            messageText.color = new Color(color.r, color.g, color.b, 0f);
+            messageText.text = "";
+        }
+        _messageFade = null;
+    }
+
     public void ResetEvolveWarning()
     {
         _pendingEvolveWarning = false;
         _evolveWarningDismissed = false;
         if (messageText != null)
         {
-            messageText.color = Color.white;
+            if (_messageFade != null)
+            {
+                StopCoroutine(_messageFade);
+                _messageFade = null;
+            }
+            _messageQueue.Clear();
+            messageText.color = defaultMessageColor;
+            messageText.text = "";
         }
         RefreshEnhanceButtonText();
     }
@@ -163,17 +272,6 @@ public class EggEnhanceController : MonoBehaviour
         {
             _pendingEvolveWarning = false;
             RefreshEnhanceButtonText();
-
-            bool revivalQueued = IsDestroyed && GeneralBagPanelController.Instance != null && GeneralBagPanelController.Instance.HasRevivalItemQueued();
-
-            if (revivalQueued)
-            {
-                BeginProcessing();
-                try { enhanceService.Revive(this); }
-                finally { EndProcessing(); }
-                return;
-            }
-
             StartCoroutine(hatchService.Hatch(this));
             return;
         }
@@ -182,9 +280,21 @@ public class EggEnhanceController : MonoBehaviour
         if (!_pendingEvolveWarning && ShouldShowEvolveWarning())
         {
             _pendingEvolveWarning = true;
+            if (_messageFade != null)
+            {
+                StopCoroutine(_messageFade);
+                _messageFade = null;
+            }
+            _messageQueue.Clear();
             messageText.color = Color.red;
             messageText.text = "진화아이템을 선택해주세요!";
             RefreshEnhanceButtonText();
+
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.TryShowEvolveWarningTutorial();
+            }
+
             return;
         }
 
@@ -194,7 +304,6 @@ public class EggEnhanceController : MonoBehaviour
             _evolveWarningDismissed = true;
         }
         _pendingEvolveWarning = false;
-        messageText.color = Color.white;
         RefreshEnhanceButtonText();
 
         BeginProcessing();
@@ -252,10 +361,40 @@ public class EggEnhanceController : MonoBehaviour
         }
 
         enhanceButtonText.color = _originalButtonTextColor;
+        enhanceButtonText.text = "강화하기";
+    }
 
-        bool showRevive = IsDestroyed && GeneralBagPanelController.Instance != null && GeneralBagPanelController.Instance.HasRevivalItemQueued();
+    private void OnReviveClick()
+    {
+        if (IsProcessing) { return; }
 
-        enhanceButtonText.text = showRevive ? "되살리기" : "강화하기";
+        bool revivalQueued = GeneralBagPanelController.Instance != null &&
+                             GeneralBagPanelController.Instance.HasRevivalItemSelected();
+        if (!revivalQueued)
+        {
+            ShowMessage("기력의 덩어리를 선택해주세요.", Color.red);
+            return;
+        }
+
+        BeginProcessing();
+        try { enhanceService.Revive(this); }
+        finally { EndProcessing(); }
+    }
+
+    public void UpdateDestroyedUI()
+    {
+        if (enhanceButton != null)
+        {
+            RectTransform rt = enhanceButton.GetComponent<RectTransform>();
+            Vector2 pos = _enhanceButtonOriginalPos;
+            if (IsDestroyed) { pos.y += destroyedEnhanceButtonOffsetY; }
+            rt.anchoredPosition = pos;
+        }
+
+        if (reviveButton != null)
+        {
+            reviveButton.gameObject.SetActive(IsDestroyed);
+        }
     }
 
     public void SetButtonsInteractable(bool value)
@@ -269,6 +408,11 @@ public class EggEnhanceController : MonoBehaviour
         {
             sellButton.interactable = value;
         }
+
+        if (reviveButton != null && reviveButton.gameObject.activeSelf)
+        {
+            reviveButton.interactable = value;
+        }
     }
 
     public void ResetAllGameData()
@@ -280,6 +424,14 @@ public class EggEnhanceController : MonoBehaviour
         }
 
         PlayerPrefs.DeleteKey("SAVE_DATA");
+        PlayerPrefs.DeleteKey("SAVE_hasPokemon");
+        PlayerPrefs.DeleteKey("SAVE_rootID");
+        PlayerPrefs.DeleteKey("SAVE_currentID");
+        PlayerPrefs.DeleteKey("SAVE_enhanceLevel");
+        PlayerPrefs.DeleteKey("SAVE_gender");
+        PlayerPrefs.DeleteKey("SAVE_isShiny");
+        PlayerPrefs.DeleteKey("SAVE_formIndex");
+        PlayerPrefs.DeleteKey("SAVE_gold");
         PlayerPrefs.Save();
 
         IsDestroyed = false;
@@ -301,13 +453,14 @@ public class EggEnhanceController : MonoBehaviour
 
         if (GeneralBagPanelController.Instance != null)
         {
-            GeneralBagPanelController.Instance.ClearQueue();
+            GeneralBagPanelController.Instance.ClearSelection();
         }
 
         uiService ??= new EggUIService();
         uiService.UpdateGold(this);
         uiService.UpdateAll(this);
         RefreshEnhanceButtonText();
+        UpdateDestroyedUI();
     }
 
     [ContextMenu("Reset SAVE_DATA")]
@@ -362,5 +515,35 @@ public class EggEnhanceController : MonoBehaviour
     public void RefreshGoldUI()
     {
         uiService?.UpdateGold(this);
+    }
+
+    public void SelectPokemonForHatch(PokemonData data)
+    {
+        SelectedHatchPokemon = data;
+
+        if(selectedPokemonIconImage != null)
+        {
+            Sprite[] icons = Resources.LoadAll<Sprite>("Icon/" + data.id.ToString("D3"));
+
+            if (icons != null && icons.Length > 0)
+            {
+                selectedPokemonIconImage.sprite = icons[0];
+            }
+        }
+
+        if (selectedPokemonButton != null)
+        {
+            selectedPokemonButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void ClearSelectedHatchPokemon()
+    {
+        SelectedHatchPokemon = null;
+
+        if (selectedPokemonButton != null)
+        {
+            selectedPokemonButton.gameObject.SetActive(false);
+        }
     }
 }

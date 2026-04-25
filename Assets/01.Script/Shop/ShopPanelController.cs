@@ -18,6 +18,21 @@ public class ShopPanelController : MonoBehaviour
     private bool isAnimating = false;
     private bool isOpen = false;
 
+    private void Update()
+    {
+        if (!isOpen) { return; }
+        if (!Input.GetKeyDown(KeyCode.Escape)) { return; }
+
+        if (ShopInfoPageController.Instance != null && ShopInfoPageController.Instance.IsInfoOpen)
+        {
+            ShopInfoPageController.Instance.HideInfo();
+        }
+        else
+        {
+            CloseShop();
+        }
+    }
+
     private void Start()
     {
         if (shopPanel != null)

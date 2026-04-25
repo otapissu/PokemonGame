@@ -226,6 +226,7 @@ public class PokemonEvolutionService
         if (selectedOption.method == EvolutionMethod.Item)
         {
             PlayerEvolveInventory.Instance?.ConsumeItem(selectedOption.requiredItem);
+            EvolveBagPanelController.Instance?.ClearSelection();
         }
 
         instance.data = selectedOption.targetData;

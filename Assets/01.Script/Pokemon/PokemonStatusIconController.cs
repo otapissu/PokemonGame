@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PokemonStatusIconController : MonoBehaviour
@@ -14,6 +14,9 @@ public class PokemonStatusIconController : MonoBehaviour
     public Sprite seenSprite;   // 2: 본 적 있지만 미15강
     public Sprite maxedSprite;  // 3: 15강 달성
 
+    [Header("이로치 아이콘")]
+    [SerializeField] private GameObject shinyIcon;
+
     public void Setup(PokemonInstance instance)
     {
         if (instance == null || instance.data == null)
@@ -24,12 +27,23 @@ public class PokemonStatusIconController : MonoBehaviour
 
         SetupGender(instance.gender);
         SetupIcon(instance);
+        SetupShinyIcon(instance.isShiny);
     }
 
     public void Hide()
     {
-        if (genderImage != null) genderImage.enabled = false;
-        if (iconImage != null)   iconImage.enabled   = false;
+        if (genderImage != null)
+        {
+            genderImage.enabled = false;
+        }
+        if (iconImage != null)
+        {
+            iconImage.enabled = false;
+        }
+        if (shinyIcon != null)
+        {
+            shinyIcon.SetActive(false);
+        }
     }
 
     private void SetupGender(Gender gender)
@@ -40,15 +54,23 @@ public class PokemonStatusIconController : MonoBehaviour
         {
             case Gender.Male:
                 genderImage.enabled = true;
-                genderImage.sprite  = maleSprite;
+                genderImage.sprite = maleSprite;
                 break;
             case Gender.Female:
                 genderImage.enabled = true;
-                genderImage.sprite  = femaleSprite;
+                genderImage.sprite = femaleSprite;
                 break;
             default:
                 genderImage.enabled = false;
                 break;
+        }
+    }
+
+    private void SetupShinyIcon(bool isShiny)
+    {
+        if (shinyIcon != null)
+        {
+            shinyIcon.SetActive(isShiny);
         }
     }
 
@@ -62,9 +84,11 @@ public class PokemonStatusIconController : MonoBehaviour
         bool isShiny = instance.isShiny;
         GenderVisualType gvt = instance.data.genderVisualType;
 
-        bool isMaxed = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt);
+        bool isMaxed = PokedexSaveManager.Instance != null &&
+            (PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt) ||
+             PokedexSaveManager.Instance.IsFormMaxedExact(id, gender, formIndex, isShiny));
 
-        bool isSeen  = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormSeen(id, gender, formIndex, isShiny, gvt);
+        bool isSeen = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormSeen(id, gender, formIndex, isShiny, gvt);
 
         iconImage.enabled = true;
 

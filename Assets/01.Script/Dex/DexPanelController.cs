@@ -16,6 +16,12 @@ public class DexPanelController : MonoBehaviour
     private bool isAnimating = false;
     private bool isOpen = false;
 
+    private void Update()
+    {
+        if (!isOpen) { return; }
+        if (Input.GetKeyDown(KeyCode.Escape)) { CloseDex(); }
+    }
+
     private void Start()
     {
         if (dexPanel != null)
@@ -74,6 +80,12 @@ public class DexPanelController : MonoBehaviour
     {
         if (isAnimating || !isOpen)
         {
+            return;
+        }
+
+        if (DexInfoController.Instance != null && DexInfoController.Instance.IsInfoOpen)
+        {
+            DexInfoController.Instance.HideInfo();
             return;
         }
 

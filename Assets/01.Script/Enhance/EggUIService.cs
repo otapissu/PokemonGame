@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class EggUIService
@@ -16,10 +16,8 @@ public class EggUIService
 
         if (next <= c.maxLevel)
         {
-            float baseRate  = EggDataService.GetSuccessRate(c, next);
-            float bonus     = GeneralBagPanelController.Instance != null
-                              ? GeneralBagPanelController.Instance.GetSuccessRateBonus()
-                              : 0f;
+            float baseRate = EggDataService.GetSuccessRate(c, next);
+            float bonus = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetSuccessRateBonus() : 0f;
 
             if (bonus > 0f)
             {
@@ -69,5 +67,10 @@ public class EggUIService
     public void UpdateGold(EggEnhanceController c)
     {
         c.goldText.text = "소지금 : " + c.gold.ToString("N0");
+
+        if (c.gold >= 10_000_000L && TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.TryShowMillionTutorial();
+        }
     }
 }

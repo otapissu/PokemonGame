@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,8 +16,21 @@ public class EggHatchService
             yield break;
         }
 
-        c.IsDestroyed       = false;
+        c.IsDestroyed = false;
         c.DestroyedSnapshot = null;
+        c.UpdateDestroyedUI();
+
+        if (c.SelectedHatchPokemon != null)
+        {
+            if (c.gold < c.eggPurchaseCost)
+            {
+                c.ShowMessage("골드 부족!", Color.red);
+                yield break;
+            }
+            c.gold -= c.eggPurchaseCost;
+            new EggUIService().UpdateGold(c);
+        }
+
         c.BeginProcessing();
 
         try
@@ -46,11 +59,11 @@ public class EggHatchService
                 yield break;
             }
 
-            bool shinyCharmActive = GeneralBagPanelController.Instance != null
-                                  && GeneralBagPanelController.Instance.IsShinyCharmQueued();
+            bool shinyCharmActive = GeneralBagPanelController.Instance != null && GeneralBagPanelController.Instance.IsShinyCharmSelected();
             float effectiveShinyChance = shinyCharmActive ? 0.10f : c.shinyChance;
             bool isShiny = Random.value < effectiveShinyChance;
-            Gender gender = RollGender(selected);
+            Gender genderFilter = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetGenderFilter() : Gender.None;
+            Gender gender = RollGender(selected, genderFilter);
             int formIndex = PokemonFormUtility.GetRandomFormIndex(selected, gender, isShiny);
 
             c.currentInstance = new PokemonInstance(selected, gender, isShiny, formIndex);
@@ -105,7 +118,7 @@ public class EggHatchService
                 );
             }
 
-            c.messageText.text = selected.pokemonName + " 등장!";
+            c.ShowMessage(selected.pokemonName + " 등장!");
 
             if (isShiny == true)
             {
@@ -125,7 +138,9 @@ public class EggHatchService
 
             // 부화 시 큐에 담긴 아이템 소모
             if (GeneralBagPanelController.Instance != null)
-                GeneralBagPanelController.Instance.ApplyQueuedItems();
+            {
+                GeneralBagPanelController.Instance.ApplySelectedItems();
+            }
 
             yield return c.StartCoroutine(PopEffect(c));
 
@@ -215,13 +230,14 @@ public class EggHatchService
             yield break;
         }
 
-        int index = 0;
+        int index = c.currentFrameIndex % frames.Length;
 
         while (true)
         {
             c.pokemonImage.sprite = frames[index];
             ApplyAutoScale(c, frames[index]);
 
+            c.currentFrameIndex = index;
             index = (index + 1) % frames.Length;
 
             yield return new WaitForSeconds(c.frameDelay);
@@ -256,6 +272,15 @@ public class EggHatchService
             return null;
         }
 
+        if (c.SelectedHatchPokemon != null)
+        {
+            PokemonData selected = c.allPokemons.Find(p => p.id == c.SelectedHatchPokemon.id);
+            if (selected != null && HasAnyUsableSprite(selected))
+            {
+                return selected;
+            }
+        }
+
         if (c.testSpawnPokemonId > 0)
         {
             PokemonData testTarget = c.allPokemons.Find(p => p.id == c.testSpawnPokemonId);
@@ -284,11 +309,12 @@ public class EggHatchService
 
         float roll = Random.value;
 
-        List<PokemonData> legendaryList =
-            c.allPokemons.FindAll(p => p.canHatch && p.isLegendary && HasAnyUsableSprite(p));
+        Gender genderFilter = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetGenderFilter() : Gender.None;
+        bool incenseActive = genderFilter != Gender.None;
 
-        List<PokemonData> normalList =
-            c.allPokemons.FindAll(p => p.canHatch && !p.isLegendary && HasAnyUsableSprite(p));
+        List<PokemonData> legendaryList = c.allPokemons.FindAll(p => p.canHatch && p.isLegendary && HasAnyUsableSprite(p) && (!incenseActive || p.genderVisualType != GenderVisualType.None));
+
+        List<PokemonData> normalList = c.allPokemons.FindAll(p => p.canHatch && !p.isLegendary && HasAnyUsableSprite(p) && (!incenseActive || p.genderVisualType != GenderVisualType.None));
 
         List<PokemonData> targetList =
             roll < 0.05f ? legendaryList : normalList;
@@ -345,11 +371,20 @@ public class EggHatchService
         return false;
     }
 
-    private Gender RollGender(PokemonData data)
+    private Gender RollGender(PokemonData data, Gender filter = Gender.None)
     {
         if (data.genderVisualType == GenderVisualType.None)
         {
             return Gender.None;
+        }
+
+        if (filter == Gender.Female)
+        {
+            return Gender.Female;
+        }
+        if (filter == Gender.Male)
+        {
+            return Gender.Male;
         }
 
         return Random.value < data.maleRatio ? Gender.Male : Gender.Female;

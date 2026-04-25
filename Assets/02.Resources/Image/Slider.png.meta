@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 154ffa5770e5d1c479605ba6488cb3a1
+guid: a2ec6fefb32350d4085436c3b90d6b46
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8191739510646017925
-    second: buttons_0
-  - first:
-      213: 3713549098536957005
-    second: buttons_1
-  - first:
-      213: -480254276019886394
-    second: buttons_2
-  - first:
-      213: -6460607209241108654
-    second: buttons_3
+      213: 9169877530624898698
+    second: Slider_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 3
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buttons_0
+      name: Slider_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 206
-        width: 18
-        height: 24
+        y: 0
+        width: 40
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,86 +128,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7079671158115e80800000000000000
-      internalID: -8191739510646017925
+      spriteID: a86bbbea703f14f70800000000000000
+      internalID: 9169877530624898698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_1
+      name: Slider_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 206
-        width: 18
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d44744ada3d298330800000000000000
-      internalID: 3713549098536957005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_2
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 206
-        width: 30
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6c6e8fbc74bc559f0800000000000000
-      internalID: -480254276019886394
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_3
-      rect:
-        serializedVersion: 2
-        x: 83
-        y: 206
-        width: 30
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 25f1bd319ff4756a0800000000000000
-      internalID: -6460607209241108654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 104
-        width: 100
-        height: 100
+        x: 40
+        y: 0
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2271fa146351d9c41b644855a922f4bf
-      internalID: -1320851501
+      spriteID: 0205c322dcb211c4d82e9ba3cc5dea05
+      internalID: 277869688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_5
+      name: Slider_2
       rect:
         serializedVersion: 2
-        x: 103
-        y: 104
-        width: 100
-        height: 100
+        x: 50
+        y: 0
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,20 +172,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a898356d0398244888d281de9086c08
-      internalID: 1568493166
+      spriteID: 0a033cd957fd65a4b8d62be861a1eddc
+      internalID: 1770965124
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_6
+      name: Slider_3
       rect:
         serializedVersion: 2
-        x: 210
-        y: 105
-        width: 100
-        height: 99
+        x: 60
+        y: 0
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd293de1e0027b941ae56cef35c4f81d
-      internalID: -431077071
+      spriteID: 0e3c104fbbaca8e4a87e646587ad3458
+      internalID: -2123098391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_7
+      name: Slider_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 58
-        width: 124
-        height: 46
+        x: 70
+        y: 0
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,52 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e09c5ac269bba844db08904f21f690f5
-      internalID: 961031659
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_8
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 58
-        width: 121
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 44ba946e3049d8b419644647861cba45
-      internalID: -1153838278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: buttons_9
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 12
-        width: 124
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30e87f3dc76c95d498cc572c4a987aac
-      internalID: -1514024774
+      spriteID: 9de2269dbf26dac41b9edfe159283ce8
+      internalID: 1932169726
       vertices: []
       indices: 
       edges: []
@@ -345,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1f75b0f89cfd9b04a973464ca247e570
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -353,20 +234,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      buttons_0: -8191739510646017925
-      buttons_1: 3713549098536957005
-      buttons_2: -480254276019886394
-      buttons_3: -6460607209241108654
-      buttons_4: -1320851501
-      buttons_5: 1568493166
-      buttons_6: -431077071
-      buttons_7: 961031659
-      buttons_8: -1153838278
-      buttons_9: -1514024774
+      Slider_0: 9169877530624898698
+      Slider_1: 277869688
+      Slider_2: 1770965124
+      Slider_3: -2123098391
+      Slider_4: 1932169726
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

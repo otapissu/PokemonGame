@@ -1,6 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 
 public class ShopInfoPageController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ShopInfoPageController : MonoBehaviour
     [SerializeField] private TMP_Text infoText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private TMP_Text amountText;
+    [SerializeField] private TMP_Text ownedCountText;
 
     [Header("Amount Buttons")]
     [SerializeField] private Button plusOneButton;
@@ -23,6 +25,7 @@ public class ShopInfoPageController : MonoBehaviour
     [Header("Buy Button")]
     [SerializeField] private Button buyButton;
 
+    public bool IsInfoOpen => infoPage != null && infoPage.activeSelf;
 
     private ShopItemData currentItem;
     private int currentAmount;
@@ -44,14 +47,34 @@ public class ShopInfoPageController : MonoBehaviour
         if (minusOneButton != null)  minusOneButton.onClick.AddListener(() => ChangeAmount(-1));
         if (minusTenButton != null)  minusTenButton.onClick.AddListener(() => ChangeAmount(-10));
         if (buyButton != null)       buyButton.onClick.AddListener(OnBuyClick);
+
+        if (PlayerGeneralInventory.Instance != null)
+            PlayerGeneralInventory.Instance.OnChanged += OnInventoryChanged;
+        if (PlayerEvolveInventory.Instance != null)
+            PlayerEvolveInventory.Instance.OnChanged += OnInventoryChanged;
     }
+
+    private void OnDestroy()
+    {
+        if (PlayerGeneralInventory.Instance != null)
+            PlayerGeneralInventory.Instance.OnChanged -= OnInventoryChanged;
+        if (PlayerEvolveInventory.Instance != null)
+            PlayerEvolveInventory.Instance.OnChanged -= OnInventoryChanged;
+    }
+
+    private void OnInventoryChanged()
+    {
+        if (infoPage != null && infoPage.activeSelf)
+            UpdateOwnedCountText();
+    }
+
 
     // ShopItemButton에서 호출 — 같은 아이템 누르면 토글, 다른 아이템 누르면 전환
     public void ToggleInfo(ShopItemData data)
     {
-        if (data == null) return;
+        if (data == null) { return; }
 
-        bool isSameItem = infoPage != null && infoPage.activeSelf && currentItem?.itemName == data?.itemName;
+        bool isSameItem = infoPage != null && infoPage.activeSelf && currentItem?.itemName == data.itemName;
 
         if (isSameItem)
         {
@@ -77,9 +100,11 @@ public class ShopInfoPageController : MonoBehaviour
         ResetAmount();
 
         if (iconImage != null)  iconImage.sprite = data.icon;
-        if (nameText != null)   nameText.text    = data.itemName;
-        if (infoText != null)   infoText.text    = data.description;
-        if (priceText != null)  priceText.text   = data.price.ToString("N0") + "원";
+        if (nameText != null)   nameText.text = data.itemName;
+        if (infoText != null)   infoText.text = data.description;
+        if (priceText != null)  priceText.text = data.price.ToString("N0") + "원";
+
+        UpdateOwnedCountText();
 
         if (infoPage != null)
             infoPage.SetActive(true);
@@ -171,6 +196,46 @@ public class ShopInfoPageController : MonoBehaviour
                 sb.Append(e.item.itemName).Append(" x").Append(e.count).Append(", ");
             Debug.Log(sb.ToString());
         }
+    }
+
+    private void UpdateOwnedCountText()
+    {
+        if (ownedCountText == null || currentItem == null)
+        {
+            return;
+        }
+
+        int count = 0;
+        if (currentItem.itemType == ShopItemType.General)
+        {
+            if (PlayerGeneralInventory.Instance != null)
+            {
+                foreach (var e in PlayerGeneralInventory.Instance.Entries)
+                {
+                    if (e.item != null && e.item.itemName == currentItem.itemName)
+                    {
+                        count = e.count;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (PlayerEvolveInventory.Instance != null)
+            {
+                foreach (var e in PlayerEvolveInventory.Instance.Entries)
+                {
+                    if (e.item != null && e.item.itemName == currentItem.itemName)
+                    {
+                        count = e.count;
+                        break;
+                    }
+                }
+            }
+        }
+
+        ownedCountText.text = ($"{count}");
     }
 
     private void ResetAmount()

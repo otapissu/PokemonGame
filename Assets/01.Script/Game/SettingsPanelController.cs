@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SettingsPanelController : MonoBehaviour
@@ -23,7 +24,7 @@ public class SettingsPanelController : MonoBehaviour
     [Header("데이터 초기화")]
     [SerializeField] private GameObject confirmPanel;
 
-    private static readonly int[] ResWidths  = { 540, 576, 720 };
+    private static readonly int[] ResWidths = { 540, 576, 720 };
     private static readonly int[] ResHeights = { 960, 1024, 1280 };
 
     private int currentResolutionIndex = 0;
@@ -79,7 +80,10 @@ public class SettingsPanelController : MonoBehaviour
 
     private void InitializeUI()
     {
-        if (SoundManager.Instance == null) return;
+        if (SoundManager.Instance == null)
+        {
+            return;
+        }
 
         isInitializing = true;
 
@@ -116,12 +120,23 @@ public class SettingsPanelController : MonoBehaviour
             return;
         }
 
-        InitializeUI();
-        settingsPanel.SetActive(true);
+        bool next = !settingsPanel.activeSelf;
+        if (next)
+        {
+            InitializeUI();
+        }
+        settingsPanel.SetActive(next);
 
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlayButtonClick();
+            if (next)
+            {
+                SoundManager.Instance.PlayButtonClick();
+            }
+            else
+            {
+                SoundManager.Instance.PlayButtonClose();
+            }
         }
     }
 
@@ -243,10 +258,18 @@ public class SettingsPanelController : MonoBehaviour
             GeneralBagPanelController.Instance.RefreshCounts();
         }
 
+        // 튜토리얼
+        if (TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.ResetTutorial();
+        }
+
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayButtonClick();
         }
+
+        SceneManager.LoadScene("Start");
     }
 
     public void OnCancelReset()

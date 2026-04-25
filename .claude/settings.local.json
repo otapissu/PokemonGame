@@ -8,7 +8,9 @@
       "Bash(iconv -f EUC-KR -t UTF-8 \"C:/Users/rukih/Documents/GitHub/PokemonGame/Assets/01.Script/Enhance/EggHatchService.cs\")",
       "Bash(iconv -f CP949 -t UTF-8 \"C:/Users/rukih/Documents/GitHub/PokemonGame/Assets/01.Script/Enhance/EggHatchService.cs\")",
       "Bash(grep -v \"^[[:print:]]*$\")",
-      "Bash(awk '{for\\(i=2;i<=NF;i++\\) if\\($i+0>127 || \\($i ~ /[89abcdef][0-9a-f]/\\)\\) {print NR\": \"$0; break}}')"
+      "Bash(awk '{for\\(i=2;i<=NF;i++\\) if\\($i+0>127 || \\($i ~ /[89abcdef][0-9a-f]/\\)\\) {print NR\": \"$0; break}}')",
+      "Bash(python3)",
+      "Bash(grep \"\\\\.cs$\")"
     ]
   }
 }

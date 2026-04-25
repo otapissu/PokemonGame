@@ -1025,6 +1025,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: EvolveItems_37
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 288
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dcc508691a567d41bc0f1f39a47bf0a
+      internalID: 299530757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1072,6 +1094,7 @@ TextureImporter:
       EvolveItems_34: 600372656
       EvolveItems_35: 1459762787
       EvolveItems_36: 1945562816
+      EvolveItems_37: 299530757
       EvolveItems_4: 3872165761672902510
       EvolveItems_5: -568599086383523875
       EvolveItems_6: 5244766367607107702

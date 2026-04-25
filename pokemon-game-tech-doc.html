@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>포켓몬 강화하기 — 기술 문서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+  @font-face {
+    font-family: 'PfStardust30';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/PFStardust.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'PfStardust30';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/PFStardustBold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'PfStardust30';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2506-1@1.0/PFStardustExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3354;
+    --accent: #6c8eff;
+    --accent2: #a78bfa;
+    --gold: #f4c542;
+    --green: #4ade80;
+    --red: #f87171;
+    --text: #e2e8f0;
+    --text-dim: #8892b0;
+    --text-muted: #5a6785;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'PfStardust30', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 40px 20px 80px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .doc-header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+
+  .doc-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .doc-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 2px;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: var(--accent);
+    background: rgba(108, 142, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .subsection-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 12px;
+    font-family: 'PfStardust30', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  p {
+    color: var(--text);
+    margin-bottom: 12px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  /* Code blocks */
+  .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #cdd6f4;
+    overflow-x: auto;
+    margin: 12px 0 16px;
+    white-space: pre;
+  }
+
+  .code-block .cm { color: var(--text-muted); }
+  .code-block .kw { color: var(--accent); }
+  .code-block .fn { color: var(--gold); }
+  .code-block .st { color: var(--green); }
+  .code-block .num { color: #f9a8d4; }
+  .code-block .tree { color: var(--text-dim); }
+  .code-block .label { color: var(--accent2); }
+
+  /* Tree diagram */
+  .tree-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--text-dim);
+    margin: 12px 0 16px;
+    white-space: pre;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  td {
+    padding: 9px 14px;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(46, 51, 84, 0.5);
+    font-weight: 300;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(108, 142, 255, 0.04); }
+
+  td code, th code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--gold);
+    background: rgba(244, 197, 66, 0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* Callout boxes */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0 16px;
+  }
+
+  .callout.gold { border-left-color: var(--gold); }
+  .callout.green { border-left-color: var(--green); }
+  .callout.purple { border-left-color: var(--accent2); }
+
+  .callout-label {
+    font-size: 16px;
+    font-family: 'PfStardust30', sans-serif;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .callout.gold .callout-label { color: var(--gold); }
+  .callout.green .callout-label { color: var(--green); }
+  .callout.purple .callout-label { color: var(--accent2); }
+
+  .callout p { margin-bottom: 0; font-size: 13px; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px;
+  }
+  .tag-blue { background: rgba(108, 142, 255, 0.15); color: var(--accent); }
+  .tag-purple { background: rgba(167, 139, 250, 0.15); color: var(--accent2); }
+  .tag-gold { background: rgba(244, 197, 66, 0.15); color: var(--gold); }
+  .tag-green { background: rgba(74, 222, 128, 0.15); color: var(--green); }
+  .tag-red { background: rgba(248, 113, 113, 0.15); color: var(--red); }
+
+  /* Loop flow */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 12px 0 16px;
+    flex-wrap: wrap;
+  }
+
+  .flow-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    padding: 0 6px;
+  }
+
+  /* Grid layout for field lists */
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .field-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  .field-name { color: var(--gold); font-weight: 600; }
+  .field-desc { color: #b0bec5; font-size: 11px; margin-top: 2px; font-family: 'PfStardust30', sans-serif; font-weight: 300; }
+
+  /* Divider */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* Outline state list */
+  .outline-list { list-style: none; margin: 12px 0; }
+  .outline-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(46,51,84,0.4);
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+  .outline-list li:last-child { border-bottom: none; }
+
+  .dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-black { background: #333; border: 1px solid #555; }
+  .dot-gray { background: #6b7280; border: 1px solid #9ca3af; }
+  .dot-gold-thin { background: transparent; border: 2px solid var(--gold); }
+  .dot-gold-thick { background: var(--gold); }
+  .dot-rainbow { background: linear-gradient(135deg, #f472b6, var(--accent), var(--green), var(--gold)); }
+  .dot-rainbow-thick { background: linear-gradient(135deg, #f472b6, var(--accent), var(--green), var(--gold)); box-shadow: 0 0 6px rgba(108,142,255,0.6); }
+
+  /* DS table badges */
+  .ds-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .ds-array   { background: rgba(108,142,255,0.15); color: var(--accent); }
+  .ds-list    { background: rgba(74,222,128,0.15);  color: var(--green); }
+  .ds-hashset { background: rgba(244,197,66,0.15);  color: var(--gold); }
+  .ds-queue   { background: rgba(248,113,113,0.15); color: var(--red); }
+  .ds-dict    { background: rgba(167,139,250,0.15); color: var(--accent2); }
+
+  /* Print styles */
+  @media print {
+    body { background: white; color: black; padding: 20px; }
+    .code-block, .tree-block { background: #f5f5f5; border-color: #ddd; color: #333; }
+    :root { --text: #111; --text-dim: #333; --text-muted: #666; }
+  }
+
+  @media (max-width: 600px) {
+    .field-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="doc-title">포켓몬 강화하기</div>
+    <div class="doc-subtitle">// Technical Design Document · Unity · C#</div>
+  </div>
+
+  <!-- 1. 시스템 개요 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">01</span>
+      시스템 개요
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">전체 구조</div>
+      <div class="tree-block">시작 씬 (StartScreenController)
+  └── 터치 입력 → 메인 씬 로드
+
+메인 씬
+  ├── 부화 시스템     EggHatchService
+  ├── 강화 시스템     EggEnhanceService
+  ├── 진화 시스템     PokemonEvolutionService
+  ├── 도감 시스템     PokedexManager / PokedexSaveManager
+  ├── 인벤토리 시스템  PlayerGeneralInventory / PlayerEvolveInventory
+  ├── 상점 시스템     ShopPanelController
+  ├── 설정 시스템     SettingsPanelController
+  └── 튜토리얼       TutorialManager / HelpManager</div>
+
+      <div class="subsection-title">핵심 게임 루프</div>
+      <div class="flow">
+        <div class="flow-item">🥚 부화</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">⚡ 강화</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">⬆️ 진화</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">💰 판매 / 📖 도감 등록</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">🔁 반복</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 데이터 설계 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">02</span>
+      데이터 설계
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">2-1. ScriptableObject 활용</div>
+      <p>데이터와 로직을 분리하기 위해 두 종류의 ScriptableObject를 사용한다.</p>
+
+      <table>
+        <tr>
+          <th>ScriptableObject</th>
+          <th style="min-width: 130px">역할</th>
+          <th>주요 필드</th>
+        </tr>
+        <tr>
+          <td><code>PokemonData</code></td>
+          <td>포켓몬 원본 정보</td>
+          <td><code>id</code>, <code>pokemonName</code>, <code>canHatch</code>, <code>isLegendary</code>, <code>genderVisualType</code>, <code>maleRatio</code>, <code>evolutionOptions[]</code></td>
+        </tr>
+        <tr>
+          <td><code>EggBalanceData</code></td>
+          <td>강화 밸런스 수치</td>
+          <td><code>successRates[]</code>, <code>destroyRates[]</code>, <code>enhanceCosts[]</code>, <code>sellPrices[]</code>, <code>reviveCosts[]</code></td>
+        </tr>
+      </table>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p>ScriptableObject로 분리함으로써 코드 변경 없이 인스펙터에서 밸런스 수치를 조정할 수 있다.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">2-2. 런타임 인스턴스 데이터 — PokemonInstance</div>
+      <div class="field-grid">
+        <div class="field-item">
+          <div class="field-name">rootData</div>
+          <div class="field-desc">최초 부화 시 포켓몬 (진화 후에도 불변 유지)</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">data</div>
+          <div class="field-desc">현재 진화 상태의 PokemonData</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">enhanceLevel</div>
+          <div class="field-desc">강화 단계 (1~15)</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">gender</div>
+          <div class="field-desc">Male / Female / None</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">isShiny</div>
+          <div class="field-desc">이로치 여부</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">formIndex</div>
+          <div class="field-desc">현재 폼 인덱스 (0부터 시작)</div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Note</div>
+        <p><code>rootData</code>는 진화 후에도 불변으로 유지되어 진화 체인 역추적에 사용된다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 주요 시스템 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">03</span>
+      주요 시스템
+    </div>
+
+    <!-- 3-1 부화 -->
+    <div class="subsection">
+      <div class="subsection-title">3-1. 부화 시스템</div>
+      <p>포켓몬을 랜덤으로 부화시킨다. 인벤토리 아이템(향로, 빛나는 부적)을 미리 리스트에 담아 부화 결과에 영향을 줄 수 있다.</p>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p>부화 로직은 <code>EggHatchService</code> 단일 책임으로 분리 (Controller와 분리). 아이템 효과는 부화 직전 상태를 읽고, 부화 완료 후 일괄 소비.</p>
+      </div>
+
+      <div class="code-block"><span class="fn">Hatch()</span>
+  <span class="num">1.</span> 파괴 상태 초기화 (IsDestroyed = false, UpdateDestroyedUI())
+  <span class="num">2.</span> 리스트에 담긴 아이템 상태 읽기 (향로, 빛나는 부적)
+  <span class="num">3.</span> 포켓몬 부화
+     - 5% 확률 전설 / 95% 일반 구분 후 균등 랜덤
+     - 향로 활성화 시 genderVisualType == None 제외
+  <span class="num">4.</span> 성별 롤  →  maleRatio 반영 (향로 사용 시 고정)
+  <span class="num">5.</span> 이로치 판정  →  기본 2%, 빛나는 부적 사용 시 10%
+  <span class="num">6.</span> 폼 결정  →  PokemonFormUtility.GetRandomFormIndex()
+  <span class="num">7.</span> PokemonInstance 생성, 저장, 도감 등록
+  <span class="num">8.</span> 선택 아이템 일괄 소비 (ApplySelectedItems)</div>
+
+      <div class="subsection-title" style="margin-top:16px;">폼 결정 방식 </div>
+      <div class="code-block"><span class="fn">GetAvailableFormIndices</span>(data, gender, isShiny):
+  <span class="kw">for</span> i <span class="kw">in</span> 0..10:
+    <span class="kw">if</span> Resources.Load(<span class="st">"Pokemon/{id}_{normal|shiny}[_m|_f][_{i}]"</span>) 존재:
+      result.Add(i)
+    <span class="kw">else</span>:
+      <span class="kw">break</span>   <span class="cm">// 중간에 없으면 탐색 중단</span>
+  <span class="kw">return</span> result
+<span class="cm">// 가중치 없음 → 모든 폼 균등 확률</span></div>
+    </div>
+
+    <!-- 3-2 강화 -->
+    <div class="subsection">
+      <div class="subsection-title">3-2. 강화 시스템</div>
+      <p>골드를 소비하여 강화를 시도한다. 단계마다 <span class="tag tag-green">성공</span> <span class="tag tag-red">파괴</span> <span class="tag tag-blue">실패</span> 세 가지 결과가 있으며, 파괴된 포켓몬은 아이템으로 되살릴 수 있다.</p>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p><code>EggEnhanceController</code>는 UI 상태 보관, 실제 로직은 <code>EggEnhanceService</code>로 위임. 밸런스 수치는 <code>EggBalanceData</code> ScriptableObject에서만 관리.</p>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">강화 성공률 계산</div>
+      <div class="code-block">effectiveRate = EggBalanceData.successRates[nextLevel]
+              + (강화 보너스 아이템 장착 시 +0.05)
+              <span class="fn">clamp</span>(0, 1)</div>
+
+      <div class="subsection-title" style="margin-top:16px;">구현 흐름</div>
+      <div class="code-block"><span class="fn">Enhance()</span>:
+  비용 부족 시  →  실패 메시지 리턴
+  gold -= cost
+
+  roll = forceSuccess ? <span class="num">0f</span> : Random.value   <span class="cm">// #if UNITY_EDITOR 테스트 토글</span>
+  <span class="kw">if</span>   roll &lt; successRate              →  <span class="fn">HandleSuccess()</span>
+  <span class="kw">elif</span> roll &lt; successRate + destroyRate →  <span class="fn">HandleDestroyed()</span>
+  <span class="kw">else</span>                                 →  실패 메시지</div>
+
+      <div class="subsection-title" style="margin-top:16px;">파괴 / 복구 버튼 구조</div>
+      <p>파괴와 복구는 버튼을 분리하여 관리한다. 파괴 시 강화하기 버튼은 Y위치가 내려가고 되살리기 버튼이 노출된다.</p>
+      <div class="code-block"><span class="cm">// 파괴 시</span>
+DestroyedSnapshot = <span class="fn">RevivalSnapshot</span>(currentInstance)
+currentInstance = <span class="kw">null</span>
+IsDestroyed = <span class="kw">true</span>
+<span class="fn">UpdateDestroyedUI()</span>   <span class="cm">// 강화버튼 Y -= 140, 되살리기버튼 활성화</span>
+
+<span class="cm">// 강화하기 버튼: 파괴 상태 무시, 새 포켓몬 부화</span>
+<span class="cm">// 되살리기 버튼: 기력의 덩어리 아이템 선택 후 누르면 복구</span>
+
+<span class="cm">// 복구 시</span>
+복구권 갯수 확인 (강화 단계에 따라 비용 차등)
+currentInstance = RevivalSnapshot으로부터 복원
+IsDestroyed = <span class="kw">false</span>
+<span class="fn">UpdateDestroyedUI()</span>   <span class="cm">// 강화버튼 원위치, 되살리기버튼 비활성화</span>
+
+<span class="cm">// 새 포켓몬 부화 시에도 UpdateDestroyedUI() 호출 → 버튼 원위치</span></div>
+
+      <div class="subsection-title" style="margin-top:16px;">판매가 계산</div>
+      <div class="code-block">sellPrice = balanceData.sellPrices[enhanceLevel]
+  × (전설 시 × <span class="num">1.5</span>)
+  × (이로치 시 × <span class="num">2.0</span>)
+  ÷ (아이템 진화 조건을 충족했으나 아이템 없이 미진화 시 ÷ <span class="num">2</span>)</div>
+    </div>
+
+    <!-- 3-3 진화 -->
+    <div class="subsection">
+      <div class="subsection-title">3-3. 진화 시스템</div>
+      <p>강화 성공 시 자동으로 진화 조건을 판단한다. 진화 조건은 <span class="tag tag-gold">강화 단계(Level)</span> <span class="tag tag-green">아이템(Item)</span> 두 가지 방식이 있으며 <code>EvolutionOption</code> 배열로 정의한다.</p>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p>진화 로직은 <code>PokemonEvolutionService</code>로 완전 분리. 다중 진화 분기를 배열 구조로 표현하여 코드 변경 없이 데이터만으로 신규 진화 추가 가능.</p>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">EvolutionOption 구조</div>
+      <div class="field-grid">
+        <div class="field-item">
+          <div class="field-name">targetData</div>
+          <div class="field-desc">진화 후 PokemonData</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">method</div>
+          <div class="field-desc">Level / Item</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">requiredItem</div>
+          <div class="field-desc">필요 아이템 (Item 방식만)</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">requiredEnhanceLevel</div>
+          <div class="field-desc">진화 조건 강화 단계</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">requiredSourceFormIndex</div>
+          <div class="field-desc">조건 폼 인덱스 (-1이면 무조건)</div>
+        </div>
+        <div class="field-item">
+          <div class="field-name">targetFormIndex</div>
+          <div class="field-desc">진화 후 폼 인덱스 (-1이면 무작위)</div>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">진화 탐색 흐름</div>
+      <div class="code-block"><span class="fn">GetRandomAvailableEvolution</span>(instance):
+  후보 = []
+  <span class="kw">for</span> option <span class="kw">in</span> instance.data.evolutionOptions:
+    <span class="kw">if</span> enhanceLevel &lt; option.requiredLevel → <span class="kw">skip</span>
+    <span class="kw">if</span> formIndex 불일치 → <span class="kw">skip</span>
+    <span class="kw">if</span> method == Item <span class="kw">and</span> !inventory.HasItem(option.requiredItem) → <span class="kw">skip</span>
+    후보.Add(option)
+
+  <span class="kw">return</span> 후보 중 랜덤 1개
+
+<span class="cm">// 아이템 진화 성공 후</span>
+PlayerEvolveInventory.<span class="fn">ConsumeItem</span>(option.requiredItem)
+EvolveBagPanelController.Instance?.<span class="fn">ClearSelection</span>()   <span class="cm">// 잔여 수량과 무관하게 선택 해제</span></div>
+
+      <div class="callout">
+        <div class="callout-label">Note</div>
+        <p>진화 타이밍(아이템 미선택)에서 강화 버튼을 누르면 첫 클릭은 경고 메시지를 표시하고, 두 번째 클릭에서 강화가 진행된다. <code>_pendingEvolveWarning</code> 으로 관리.</p>
+      </div>
+    </div>
+
+    <!-- 3-4 도감 -->
+    <div class="subsection">
+      <div class="subsection-title">3-4. 도감 시스템</div>
+      <p>부화·강화 이벤트마다 포켓몬 정보를 등록한다. 소유 여부, 폼 목격 여부, 최대 강화 달성 여부를 분리 관리하며 도감 슬롯 아웃라인에 반영한다.</p>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p>상태를 HashSet 여러 개로 분리 관리 → 조합 조회가 O(1). 폼 키 형식 통일로 어느 시스템에서든 동일한 키로 조회.</p>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">폼 상태 키 형식</div>
+      <div class="code-block">기본: <span class="st">"{id}_{M|F}_{formIndex}"</span>
+이로치: <span class="st">"S{id}_{M|F}_{formIndex}"</span>
+성별 없음: <span class="st">"{id}_N_{formIndex}"</span></div>
+
+      <div class="subsection-title" style="margin-top:16px;">등록 시점</div>
+      <table>
+        <tr><th>이벤트</th><th>등록 메서드</th></tr>
+        <tr><td>부화 완료</td><td><code>RegisterPokemon()</code> + <code>RegisterFormSeen()</code></td></tr>
+        <tr><td>강화 성공</td><td><code>RegisterFormSeen()</code></td></tr>
+        <tr><td>15강 달성</td><td><code>RegisterMaxEnhance()</code> + <code>PropagateMaxEnhanceToChain()</code></td></tr>
+      </table>
+
+      <div class="subsection-title" style="margin-top:16px;">15강 체인 전파 (별 스프라이트)</div>
+      <div class="code-block"><span class="fn">PropagateMaxEnhanceToChain</span>(rootData, currentId, currentData, gender, formIndex, isShiny):
+  ancestors = <span class="fn">CollectAncestors</span>(rootData, currentId)
+
+  <span class="kw">for</span> ancestor <span class="kw">in</span> ancestors:
+    <span class="kw">if</span> genderVisualType == DifferentVisual:
+      <span class="cm">// 최대강화 포켓몬의 성별만 키 등록</span>
+      genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, gender, fi, isShiny))
+
+    <span class="kw">elif</span> genderVisualType == SameVisual:
+      <span class="cm">// 시각적으로 동일 → 암수 양쪽 모두 키 등록</span>
+      <span class="kw">if</span> hasMale:   genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, Male,   fi, isShiny))
+      <span class="kw">if</span> hasFemale: genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, Female, fi, isShiny))
+
+    <span class="kw">else</span>: <span class="cm">// None</span>
+      genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, None, fi, isShiny))
+
+<span class="cm">// SameVisual 버그 수정: 암수 모두 등록하지 않으면 한쪽 성별에만 별이 뜨는 문제 발생</span></div>
+
+      <div class="subsection-title" style="margin-top:16px;">도감 슬롯 아웃라인 상태</div>
+      <ul class="outline-list">
+        <li><div class="dot dot-black"></div>미소유 → 검은색 실루엣</li>
+        <li><div class="dot dot-black"></div>소유 → 검은색 기본 아웃라인</li>
+        <li><div class="dot dot-silver-thick"></div>체인 일부 15강 → 실버 아웃라인</li>
+        <li><div class="dot dot-gold-thin"></div>체인 전체 15강 → 골드 아웃라인</li>
+        <li><div class="dot dot-gold-thin"></div>전설 일부 15강 → 골드 아웃라인</li>
+        <li><div class="dot dot-purple-thin"></div>전설 전체 15강 → 보라색 아웃라인</li>
+      </ul>
+
+      <div class="callout purple">
+        <div class="callout-label">ESC 동작</div>
+        <p>도감 열린 상태에서 ESC → 상세 페이지가 열려 있으면 상세 페이지 먼저 닫기, 없으면 도감 닫기. <code>DexPanelController.Update()</code>에서 <code>CloseDex()</code>를 호출하며 내부에서 분기 처리.</p>
+      </div>
+    </div>
+
+    <!-- 3-5 인벤토리 -->
+    <div class="subsection">
+      <div class="subsection-title">3-5. 인벤토리 시스템</div>
+      <p>일반 아이템(강화 보조, 부화 보조)과 진화 아이템을 독립적으로 관리한다. 부화 전 적용할 아이템을 미리 선택하여 결과에 영향을 준다.</p>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p><code>PlayerInventoryBase</code> 추상 클래스로 Save/Load/이벤트 공통화. <code>OnChanged</code> 이벤트로 UI가 인벤토리 변경을 구독 → 직접 참조 없이 갱신.</p>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">이벤트 기반 UI 갱신 구조</div>
+      <div class="tree-block">PlayerInventoryBase
+  OnChanged (event Action)
+    ← AddItem / RemoveItem 시 발생
+    ↓
+  EvolveBagPanelController.RefreshSlots() 구독
+  ShopInfoPageController.UpdateOwnedCountText() 구독  ← 실시간 보유 수량 반영</div>
+
+      <div class="subsection-title" style="margin-top:16px;">선택 시스템 (일반 가방)</div>
+      <div class="code-block">슬롯 클릭 → selectedSlots에 추가
+  배타 그룹(exclusiveGroupId): 같은 ID 중복 시 기존 제거 후 신규 추가
+  UsageCondition: 현재 상태와 사용 불가 시 선택 불가
+
+부화 시: <span class="fn">ApplySelectedItems()</span>  → 선택 아이템 소비 + 선택 초기화
+강화 시: <span class="fn">ConsumeEnhanceItems()</span> → 강화 보너스 아이템 소비
+복구 시: <span class="fn">HasRevivalItemSelected()</span> 확인 후 <span class="fn">Revive()</span> 호출</div>
+
+      <div class="subsection-title" style="margin-top:16px;">저장 방식</div>
+      <div class="code-block"><span class="cm">// JSON 직렬화 → PlayerPrefs 저장</span>
+[{ <span class="st">"itemName"</span>: <span class="st">"이로치참"</span>, <span class="st">"count"</span>: <span class="num">3</span> }, ...]</div>
+    </div>
+
+    <!-- 3-6 상점 -->
+    <div class="subsection">
+      <div class="subsection-title">3-6. 상점 시스템</div>
+      <p>아이템을 구매할 수 있다. 아이템 아이콘을 누르면 상세 페이지가 토글되며 수량 조정 후 구매한다.</p>
+
+      <div class="callout purple">
+        <div class="callout-label">ESC 동작</div>
+        <p>상점 열린 상태에서 ESC → 상세 페이지가 열려 있으면 먼저 닫기(<code>ShopInfoPageController.HideInfo()</code>), 없으면 상점 닫기. <code>ShopPanelController.Update()</code>에서 처리.</p>
+      </div>
+
+      <div class="subsection-title" style="margin-top:16px;">실시간 보유 수량 갱신</div>
+      <div class="code-block"><span class="cm">// ShopInfoPageController.Start()에서 구독</span>
+PlayerGeneralInventory.Instance.OnChanged += <span class="fn">OnInventoryChanged</span>
+PlayerEvolveInventory.Instance.OnChanged  += <span class="fn">OnInventoryChanged</span>
+
+<span class="cm">// 아이템 구매 → OnChanged 발생 → ownedCountText 즉시 갱신</span>
+<span class="cm">// 닫았다 열지 않아도 실시간 반영</span></div>
+    </div>
+  </div>
+
+  <!-- 4. 공통 설계 패턴 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">04</span>
+      공통 설계 패턴
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">4-1. Controller → Service 분리</div>
+      <p><code>EggEnhanceController</code>는 UI 상태(gold, currentInstance, 이미지 등)만 보관하고, 실제 로직은 Service 클래스에 위임한다.</p>
+      <div class="code-block">EggEnhanceController  →  <span class="fn">EggEnhanceService.Enhance</span>(c)
+                      →  <span class="fn">EggHatchService.Hatch</span>(c)
+                      →  <span class="fn">EggUIService.UpdateAll</span>(c)
+                      →  <span class="fn">EggSaveService.Save</span>(c)</div>
+      <div class="callout">
+        <div class="callout-label">Note</div>
+        <p>Controller를 파라미터로 넘기는 방식으로 Service가 Controller의 필드에 접근한다. Service는 상태를 직접 보관하지 않아 재사용 가능하다.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">4-2. Static Utility 분리</div>
+      <p>폼/스프라이트 경로 계산(<code>PokemonFormUtility</code>)과 밸런스 데이터 조회(<code>EggDataService</code>)는 Static으로 분리하여 어느 클래스에서든 인스턴스 없이 호출 가능하다.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">4-3. Singleton 적용 범위</div>
+      <p>게임 내 단일 존재가 보장되어야 하는 시스템에만 Singleton을 적용한다.</p>
+      <table>
+        <tr><th>범위</th><th>대상</th></tr>
+        <tr>
+          <td>영구 존재 <span class="tag tag-gold">DontDestroyOnLoad</span></td>
+          <td><code>SoundManager</code></td>
+        </tr>
+        <tr>
+          <td>씬 내 단일 존재</td>
+          <td><code>EggEnhanceController</code>, <code>PokedexSaveManager</code>, <code>PlayerGeneralInventory</code>, <code>PlayerEvolveInventory</code>, <code>TutorialManager</code> 등</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">4-4. Coroutine 기반 애니메이션</div>
+      <p>Update 루프 대신 Coroutine으로 애니메이션을 처리하여 불필요한 매 프레임 연산을 방지한다.</p>
+      <table>
+        <tr><th>애니메이션</th><th>방식</th></tr>
+        <tr><td>패널 슬라이드</td><td><code>EaseInCubic</code> / <code>EaseOutCubic</code></td></tr>
+        <tr><td>포켓몬 프레임 애니메이션</td><td><code>WaitForSeconds(frameDelay)</code></td></tr>
+        <tr><td>메시지 페이드 효과</td><td>알파 단위 <code>WaitForSeconds</code></td></tr>
+        <tr><td>이로치 이펙트</td><td>Animator 재생 후 자동 비활성화</td></tr>
+        <tr><td>경고 UI 페이드인/아웃</td><td>CanvasGroup.alpha 보간</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">4-5. ESC 키 계층 처리</div>
+      <p>각 패널의 <code>Update()</code>에서 독립적으로 ESC를 감지하며, 열린 패널이 없으면 무시된다.</p>
+      <div class="code-block">DexPanelController.Update():
+  ESC → CloseDex()
+    ↳ DexInfoController 열려있으면 → HideInfo() 먼저
+    ↳ 없으면 → SlideDown()
+
+ShopPanelController.Update():
+  ESC → ShopInfoPageController.IsInfoOpen ? HideInfo() : CloseShop()
+
+ShopInfoPageController.Update():
+  ESC → HideInfo()</div>
+    </div>
+
+  </div>
+
+  <!-- 5. 저장 구조 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">05</span>
+      저장 구조
+    </div>
+
+    <p>모든 데이터는 <code>PlayerPrefs</code>에 저장한다.</p>
+
+    <table>
+      <tr><th>시스템</th><th>형식</th><th>비고</th></tr>
+      <tr><td>강화 상태</td><td><code>int</code> / <code>string</code> 개별 키</td><td>gold는 long → string 변환</td></tr>
+      <tr><td>도감</td><td>쉼표 구분 문자열</td><td>id 또는 폼 키 목록</td></tr>
+      <tr><td>인벤토리</td><td>JSON 배열</td><td>itemName + count</td></tr>
+      <tr><td>설정</td><td><code>float</code> / <code>int</code></td><td>음량, 해상도 인덱스</td></tr>
+      <tr><td>튜토리얼</td><td>키 존재 여부</td><td><code>SetInt(key, 1)</code></td></tr>
+    </table>
+  </div>
+
+  <!-- 6. 스프라이트 로드 규칙 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">06</span>
+      스프라이트 로드 규칙
+    </div>
+
+    <p><code>Resources.LoadAll&lt;Sprite&gt;(path)</code>를 사용하며 경로 규칙은 다음과 같다.</p>
+
+    <div class="code-block">기본:       <span class="st">Pokemon/{id}_normal</span>
+이로치:     <span class="st">Pokemon/{id}_shiny</span>
+성별 구분:  <span class="st">Pokemon/{id}_normal_m</span>  /  <span class="st">_f</span>
+폼 인덱스:  <span class="st">Pokemon/{id}_normal_1</span>  /  <span class="st">_2</span>  ...
+조합 예시:  <span class="st">Pokemon/025_shiny_f_2</span></div>
+
+    <div class="callout gold">
+      <div class="callout-label">폼 탐색 규칙</div>
+      <p>인덱스 0부터 순차적으로 파일 존재 여부를 확인하며, 중간에 파일이 없으면 탐색을 중단한다. 별도의 폼 목록 데이터가 없고 <strong>파일 존재 여부 자체가 폼 정의</strong>이다.</p>
+    </div>
+  </div>
+
+  <!-- 7. 자료구조 활용 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">07</span>
+      자료구조 활용
+    </div>
+
+    <p>각 자료구조는 그 특성에 맞는 상황에 사용된다.</p>
+
+    <!-- 7-1 Array -->
+    <div class="subsection">
+      <div class="subsection-title">7-1. Array (배열) <span class="ds-badge ds-array">T[]</span></div>
+      <p>크기가 고정되어 있고 인스펙터에서 할당하거나 런타임에 일괄 로드하는 데이터에 사용한다. 요소 추가/삭제가 없고 인덱스 접근만 필요할 때 가장 적합하다.</p>
+
+      <table>
+        <tr><th>위치</th><th>필드 / 반환값</th><th>이유</th></tr>
+        <tr>
+          <td><code>EggBalanceData</code></td>
+          <td><code>successRates[]</code>, <code>destroyRates[]</code>, <code>enhanceCosts[]</code>, <code>sellPrices[]</code>, <code>reviveCosts[]</code></td>
+          <td>강화 단계(1~15)에 1:1 대응하는 고정 수치. 인스펙터에서 직접 편집, 런타임 중 변경 없음</td>
+        </tr>
+        <tr>
+          <td><code>PokemonData</code></td>
+          <td><code>evolutionOptions[]</code></td>
+          <td>한 포켓몬의 진화 경로는 설계 단계에 고정. 배열 인덱스로 분기 탐색</td>
+        </tr>
+        <tr>
+          <td><code>GeneralBagPanelController</code></td>
+          <td><code>GeneralBagSlotUI[] slots</code></td>
+          <td>씬에 배치된 UI 슬롯 수는 고정. Inspector에서 드래그로 연결</td>
+        </tr>
+        <tr>
+          <td><code>EggHatchService.LoadSprites()</code></td>
+          <td><code>Sprite[]</code> (반환값)</td>
+          <td><code>Resources.LoadAll&lt;Sprite&gt;(path)</code>가 배열 반환. 로드 후 순차 재생만 하므로 추가 불필요</td>
+        </tr>
+      </table>
+
+      <div class="code-block"><span class="cm">// balanceData.successRates[nextLevel] — 인덱스로 즉시 접근</span>
+<span class="kw">float</span> rate = c.balanceData.successRates[nextLevel];
+
+<span class="cm">// Resources.LoadAll → Sprite[] 반환, 프레임 루프에서 순서대로 재생</span>
+Sprite[] frames = Resources.LoadAll&lt;Sprite&gt;(path);
+c.pokemonImage.sprite = frames[index % frames.Length];</div>
+    </div>
+
+    <!-- 7-2 List -->
+    <div class="subsection">
+      <div class="subsection-title">7-2. List&lt;T&gt; <span class="ds-badge ds-list">동적 배열</span></div>
+      <p>런타임에 크기가 변하거나 조건에 따라 필터링한 임시 결과를 담을 때 사용한다. 이 프로젝트에서 가장 많이 쓰이는 자료구조이며, "선택 목록" 개념도 List로 구현한다.</p>
+
+      <table>
+        <tr><th>위치</th><th>필드 / 변수</th><th>역할</th></tr>
+        <tr>
+          <td><code>EggEnhanceController</code></td>
+          <td><code>List&lt;PokemonData&gt; allPokemons</code></td>
+          <td>런타임에 <code>Resources.LoadAll&lt;PokemonData&gt;</code>로 전체 포켓몬을 동적 수집</td>
+        </tr>
+        <tr>
+          <td><code>GeneralBagPanelController</code></td>
+          <td><code>List&lt;GeneralBagSlotUI&gt; selectedSlots</code></td>
+          <td>부화/강화 전 적용할 아이템 슬롯 선택 목록 보관. Add/Remove/Contains를 활용한 선택 동작</td>
+        </tr>
+        <tr>
+          <td><code>PlayerInventoryBase</code></td>
+          <td><code>List&lt;InventoryEntry&gt; entries</code></td>
+          <td>보유 아이템 목록. 아이템 추가·차감 시 수시로 변경</td>
+        </tr>
+        <tr>
+          <td><code>EggHatchService</code></td>
+          <td><code>legendaryList</code>, <code>normalList</code></td>
+          <td>부화 직전 조건 필터링한 임시 후보군. 랜덤 선택 후 GC 회수</td>
+        </tr>
+        <tr>
+          <td><code>PokedexSaveManager</code></td>
+          <td>ancestors 목록, chain ID 목록</td>
+          <td>15강 체인 전파 시 조상 체인을 재귀적으로 수집</td>
+        </tr>
+      </table>
+
+      <div class="code-block"><span class="cm">// selectedSlots — List로 구현한 선택 동작</span>
+<span class="cm">// 추가: 배타 그룹 처리 후 맨 뒤에 Add</span>
+selectedSlots.Add(slot);
+
+<span class="cm">// 토글: 이미 있으면 Remove (O(n) 이지만 슬롯 수가 적어 문제 없음)</span>
+<span class="kw">if</span> (selectedSlots.Contains(slot)) { selectedSlots.Remove(slot); }
+
+<span class="cm">// 소비: 역방향 순회로 안전하게 RemoveAt</span>
+<span class="kw">for</span> (<span class="kw">int</span> i = selectedSlots.Count - <span class="num">1</span>; i >= <span class="num">0</span>; i--)
+{
+    <span class="kw">if</span> (selectedSlots[i].Condition == UsageCondition.RequiresHatched)
+    {
+        PlayerGeneralInventory.Instance.RemoveItem(selectedSlots[i].ItemName, <span class="num">1</span>);
+        <span class="kw">if</span> (GetCount(selectedSlots[i].ItemName) &lt;= <span class="num">0</span>) { selectedSlots.RemoveAt(i); }
+    }
+}</div>
+    </div>
+
+    <!-- 7-3 Queue -->
+    <div class="subsection">
+      <div class="subsection-title">7-3. Queue&lt;T&gt; <span class="ds-badge ds-queue">FIFO</span></div>
+      <p>강화 결과 메시지(성공 · 실패 · 파괴 · 진화)는 한 번의 강화에서 여러 개가 동시에 발생할 수 있다. 먼저 생긴 메시지부터 순서대로 표시해야 하므로 <code>Queue&lt;T&gt;</code>가 적합하다.</p>
+
+      <table>
+        <tr><th>위치</th><th>필드</th><th>역할</th></tr>
+        <tr>
+          <td><code>EggEnhanceController</code></td>
+          <td><code>Queue&lt;(string msg, Color color)&gt; _messageQueue</code></td>
+          <td>강화 결과 메시지를 순서대로 보관. 코루틴이 하나씩 꺼내 표시</td>
+        </tr>
+      </table>
+
+      <div class="code-block"><span class="cm">// 메시지 추가</span>
+_messageQueue.<span class="fn">Enqueue</span>((msg, color));
+_skipCurrent = <span class="kw">true</span>;
+<span class="kw">if</span> (_messageFade == <span class="kw">null</span>) _messageFade = <span class="fn">StartCoroutine</span>(<span class="fn">ProcessMessageQueue</span>());
+
+<span class="cm">// 코루틴 — 큐가 빌 때까지 순서대로 표시</span>
+<span class="kw">while</span> (_messageQueue.Count &gt; <span class="num">0</span>)
+{
+    (<span class="kw">string</span> msg, Color color) = _messageQueue.<span class="fn">Dequeue</span>();
+    messageText.text = msg;
+    _skipCurrent = <span class="kw">false</span>;
+    <span class="kw">while</span> (elapsed &lt; <span class="num">2.0f</span> &amp;&amp; !_skipCurrent) { elapsed += Time.deltaTime; <span class="kw">yield return null</span>; }
+}</div>
+
+      <div class="callout green">
+        <div class="callout-label">설계 포인트</div>
+        <p>버튼을 누르면 <code>_skipCurrent = true</code>로 현재 대기 루프를 즉시 탈출하고 다음 메시지로 전환한다. 마지막 메시지만 2초 표시 후 페이드 아웃된다.</p>
+      </div>
+    </div>
+
+    <!-- 7-4 Dictionary -->
+    <div class="subsection">
+      <div class="subsection-title">7-4. Dictionary&lt;K, V&gt; <span class="ds-badge ds-dict">키 기반 조회</span></div>
+      <p>키로 특정 객체를 즉시 찾아야 하거나, 계산 비용이 큰 결과를 캐시할 때 사용한다.</p>
+
+      <table>
+        <tr><th>위치</th><th>필드</th><th>역할</th></tr>
+        <tr>
+          <td><code>EvolveBagPanelController</code></td>
+          <td><code>Dictionary&lt;ShopItemData, GameObject&gt; spawnedSlots</code></td>
+          <td>생성된 진화 아이템 슬롯을 아이템 데이터 키로 관리. 특정 아이템 슬롯 즉시 접근·제거</td>
+        </tr>
+        <tr>
+          <td><code>PokedexSaveManager</code></td>
+          <td><code>Dictionary&lt;int, HashSet&lt;string&gt;&gt; allKeysCache</code></td>
+          <td>포켓몬 ID별 전체 폼 키 집합을 캐시. 체인 전파 시 반복 계산 방지</td>
+        </tr>
+        <tr>
+          <td><code>PokedexSaveManager</code></td>
+          <td><code>genderAllKeysCache</code></td>
+          <td>성별 구분 폼 키 집합 캐시. 위와 동일한 목적</td>
+        </tr>
+      </table>
+
+      <div class="code-block"><span class="cm">// spawnedSlots — 아이템 ScriptableObject를 키로 슬롯 오브젝트 추적</span>
+spawnedSlots[itemData] = Instantiate(slotPrefab);
+
+<span class="cm">// 특정 아이템 슬롯 제거 시 O(1)</span>
+<span class="kw">if</span> (spawnedSlots.TryGetValue(itemData, <span class="kw">out</span> GameObject obj))
+{
+    Destroy(obj);
+    spawnedSlots.Remove(itemData);
+}</div>
+    </div>
+
+    <!-- 7-5 요약 -->
+    <div class="subsection">
+      <div class="subsection-title">7-5. 자료구조 선택 기준 요약</div>
+      <table>
+        <tr><th>자료구조</th><th>선택 기준</th><th>이 프로젝트에서</th></tr>
+        <tr>
+          <td><span class="ds-badge ds-array">Array</span></td>
+          <td>크기 고정, 인덱스 접근, 추가/삭제 없음</td>
+          <td>밸런스 수치, 진화 옵션, Inspector 연결 슬롯, 스프라이트 프레임</td>
+        </tr>
+        <tr>
+          <td><span class="ds-badge ds-list">List</span></td>
+          <td>크기 가변, 순서 유지, 중간 삽입/삭제 필요</td>
+          <td>인벤토리 목록, 부화 후보 필터, 체인 수집, 아이템 선택 목록</td>
+        </tr>
+        <tr>
+          <td><span class="ds-badge ds-queue">Queue</span></td>
+          <td>순수 FIFO, 선입선출 순서 보장</td>
+          <td>강화 결과 메시지 순서 표시 (EggEnhanceController)</td>
+        </tr>
+        <tr>
+          <td><span class="ds-badge ds-dict">Dictionary</span></td>
+          <td>키-값 매핑, 키 기반 즉시 접근</td>
+          <td>슬롯 오브젝트 추적, 폼 키 집합 캐시</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

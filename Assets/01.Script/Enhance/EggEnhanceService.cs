@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EggEnhanceService
 {
@@ -18,7 +18,7 @@ public class EggEnhanceService
 
         if (c.currentInstance.enhanceLevel >= c.maxLevel)
         {
-            c.messageText.text = "최대 강화입니다.";
+            c.ShowMessage("최대 강화입니다.");
             return;
         }
 
@@ -27,19 +27,18 @@ public class EggEnhanceService
 
         if (c.gold < cost)
         {
-            c.messageText.text = "골드 부족!";
+            c.ShowMessage("골드 부족!", Color.red);
             return;
         }
 
         c.gold -= cost;
         new EggUIService().UpdateGold(c);
 
-        float bonus   = GeneralBagPanelController.Instance != null
-                        ? GeneralBagPanelController.Instance.GetSuccessRateBonus()
-                        : 0f;
+        float bonus = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetSuccessRateBonus() : 0f;
         float success = Mathf.Min(EggDataService.GetSuccessRate(c, nextLevel) + bonus, 1f);
         float destroy = EggDataService.GetDestroyRate(c, nextLevel);
-        float roll = Random.value;
+        bool forceSuccess = EggEnhanceController.Instance != null && EggEnhanceController.Instance.AlwaysSucceedEnhance;
+        float roll = forceSuccess ? 0f : Random.value;
 
         if (roll < success)
         {
@@ -51,7 +50,7 @@ public class EggEnhanceService
         }
         else
         {
-            c.messageText.text = "강화 실패!";
+            c.ShowMessage("강화 실패!", Color.red);
 
             if (SoundManager.Instance != null)
             {
@@ -71,6 +70,11 @@ public class EggEnhanceService
             if (SoundManager.Instance != null)
             {
                 SoundManager.Instance.PlayEggLevel15();
+            }
+
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.TryShowMaxLevelTutorial();
             }
         }
 
@@ -109,7 +113,10 @@ public class EggEnhanceService
                 PokedexSaveManager.Instance.PropagateMaxEnhanceToChain(
                     c.currentInstance.rootData,
                     currentId,
-                    c.currentInstance.data
+                    c.currentInstance.data,
+                    c.currentInstance.gender,
+                    c.currentInstance.formIndex,
+                    c.currentInstance.isShiny
                 );
             }
         }
@@ -118,12 +125,17 @@ public class EggEnhanceService
 
         new EggSaveService().Save(c);
 
-        Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
-
-        if (frames != null && frames.Length > 0)
+        if (evolved)
         {
-            c.pokemonImage.sprite = frames[0];
-            EggHatchService.ApplyAutoScale(c, frames[0]);
+            c.currentFrameIndex = 0;
+
+            Sprite[] frames = EggHatchService.LoadSprites(c.currentInstance);
+
+            if (frames != null && frames.Length > 0)
+            {
+                c.pokemonImage.sprite = frames[0];
+                EggHatchService.ApplyAutoScale(c, frames[0]);
+            }
         }
 
         if (SoundManager.Instance != null)
@@ -133,12 +145,12 @@ public class EggEnhanceService
 
         if (evolved)
         {
-            c.messageText.text = beforeName + " 진화!";
+            c.ShowMessage(beforeName + " 진화!");
             c.StartCoroutine(EggHatchService.PopEffect(c));
         }
         else
         {
-            c.messageText.text = "강화 성공!";
+            c.ShowMessage("강화 성공!");
         }
 
         EggHatchService.StartAnimationLoop(c);
@@ -201,7 +213,7 @@ public class EggEnhanceService
     {
         c.IsDestroyed = true;
         c.DestroyedSnapshot = new RevivalSnapshot(c.currentInstance);
-        c.messageText.text = "파괴됨!";
+        c.ShowMessage("파괴됨!", Color.red);
 
         if (SoundManager.Instance != null)
         {
@@ -218,9 +230,12 @@ public class EggEnhanceService
         c.eggImage.gameObject.SetActive(true);
 
         if (GeneralBagPanelController.Instance != null)
-            GeneralBagPanelController.Instance.ClearQueue();
+        {
+            GeneralBagPanelController.Instance.ClearSelection();
+        }
 
         new EggUIService().Clear(c);
+        c.UpdateDestroyedUI();
     }
 
     public void Revive(EggEnhanceController c)
@@ -232,9 +247,7 @@ public class EggEnhanceService
             return;
         }
 
-        string revivalItemName = GeneralBagPanelController.Instance != null
-                                 ? GeneralBagPanelController.Instance.GetRevivalItemName()
-                                 : null;
+        string revivalItemName = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetRevivalItemName() : null;
         if (string.IsNullOrEmpty(revivalItemName))
         {
             Debug.LogWarning("[Revival] 복구권 아이템 없음");
@@ -244,8 +257,7 @@ public class EggEnhanceService
         // 필요 갯수 계산
         int costIndex = snap.destroyedAtLevel - 6;
         int cost = 1;
-        if (c.balanceData != null && c.balanceData.reviveCosts != null
-            && costIndex >= 0 && costIndex < c.balanceData.reviveCosts.Length)
+        if (c.balanceData != null && c.balanceData.reviveCosts != null && costIndex >= 0 && costIndex < c.balanceData.reviveCosts.Length)
         {
             cost = c.balanceData.reviveCosts[costIndex];
         }
@@ -262,7 +274,7 @@ public class EggEnhanceService
 
         if (available < cost)
         {
-            c.messageText.text = "기력의 덩어리가 부족합니다.";
+            c.ShowMessage("기력의 덩어리가 부족합니다.", Color.red);
             return;
         }
 
@@ -272,10 +284,10 @@ public class EggEnhanceService
 
         // 인스턴스 복원
         c.currentInstance = new PokemonInstance(snap.rootData, snap.gender, snap.isShiny, snap.formIndex);
-        c.currentInstance.data         = snap.data;
+        c.currentInstance.data = snap.data;
         c.currentInstance.enhanceLevel = snap.enhanceLevel;
 
-        c.IsDestroyed       = false;
+        c.IsDestroyed = false;
         c.DestroyedSnapshot = null;
 
         // 이미지 복원
@@ -290,10 +302,12 @@ public class EggEnhanceService
         c.pokemonImage.gameObject.SetActive(true);
 
         c.statusIconController?.Setup(c.currentInstance);
-        c.messageText.text = snap.data.pokemonName + " 부활!";
+        c.ShowMessage(snap.data.pokemonName + " 부활!");
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayEnhanceSuccess();
+        }
 
         new EggSaveService().Save(c);
         new EggUIService().UpdateAll(c);
@@ -301,11 +315,12 @@ public class EggEnhanceService
 
         if (GeneralBagPanelController.Instance != null)
         {
-            GeneralBagPanelController.Instance.ClearQueue();
+            GeneralBagPanelController.Instance.ClearSelection();
             GeneralBagPanelController.Instance.RefreshCounts();
         }
 
         c.RefreshEnhanceButtonText();
+        c.UpdateDestroyedUI();
     }
 
     public void Sell(EggEnhanceController c)
@@ -318,7 +333,7 @@ public class EggEnhanceService
         long sellGold = EggDataService.GetSellPrice(c);
         c.gold += sellGold;
 
-        c.messageText.text = sellGold.ToString("N0") + " 골드 획득!";
+        c.ShowMessage(sellGold.ToString("N0") + " 골드 획득!");
 
         if (c.loopCoroutine != null)
         {

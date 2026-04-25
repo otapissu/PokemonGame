@@ -27,8 +27,7 @@ public class GeneralBagPanelController : MonoBehaviour
     private CanvasGroup warningCanvasGroup;
     private TMPro.TMP_Text warningText;
 
-    // 큐: 슬롯 기준으로 관리
-    private readonly List<GeneralBagSlotUI> queueList = new();
+    private readonly List<GeneralBagSlotUI> selectedSlots = new();
 
     private Coroutine warningCoroutine;
 
@@ -40,16 +39,22 @@ public class GeneralBagPanelController : MonoBehaviour
     private void Start()
     {
         if (bagPanel != null)
+        {
             bagPanel.SetActive(false);
+        }
 
         if (revivalCostUI != null)
+        {
             revivalCostUI.SetActive(false);
+        }
 
         if (warningUI != null)
         {
             warningCanvasGroup = warningUI.GetComponent<CanvasGroup>();
             if (warningCanvasGroup == null)
+            {
                 warningCanvasGroup = warningUI.AddComponent<CanvasGroup>();
+            }
 
             warningText = warningUI.GetComponentInChildren<TMPro.TMP_Text>();
 
@@ -64,20 +69,32 @@ public class GeneralBagPanelController : MonoBehaviour
 
     public void ToggleBag()
     {
-        if (bagPanel == null) return;
+        if (bagPanel == null)
+        {
+            return;
+        }
 
         if (bagPanel.activeSelf)
+        {
             CloseBag();
+        }
         else
+        {
             OpenBag();
+        }
     }
 
     public void OpenBag()
     {
-        if (bagPanel == null) return;
+        if (bagPanel == null)
+        {
+            return;
+        }
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayBagOpen();
+        }
 
         bagPanel.SetActive(true);
         RefreshSlots();
@@ -85,12 +102,17 @@ public class GeneralBagPanelController : MonoBehaviour
 
     public void CloseBag()
     {
-        if (bagPanel == null) return;
+        if (bagPanel == null)
+        {
+            return;
+        }
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayButtonClose();
+        }
 
-        ClearQueue();
+        ClearSelection();
         bagPanel.SetActive(false);
     }
 
@@ -101,34 +123,43 @@ public class GeneralBagPanelController : MonoBehaviour
     private void RefreshSlots()
     {
         RefreshCounts();
-        RefreshQueueDisplay();
+        RefreshSelectionDisplay();
         RefreshRevivalCostUI();
     }
 
     private int GetCount(string itemName)
     {
-        if (PlayerGeneralInventory.Instance == null) return 0;
+        if (PlayerGeneralInventory.Instance == null)
+        {
+            return 0;
+        }
         var entries = PlayerGeneralInventory.Instance.Entries;
         foreach (var e in entries)
         {
-            if (e.item.itemName == itemName) return e.count;
+            if (e.item.itemName == itemName)
+            {
+                return e.count;
+            }
         }
         return 0;
     }
 
     // ─────────────────────────────────────────
-    // 큐 조작
+    // 선택 조작
     // ─────────────────────────────────────────
 
     public void OnSlotClicked(GeneralBagSlotUI slot)
     {
-        if (slot == null) return;
-
-        // 이미 큐에 있으면 제거 (토글)
-        if (queueList.Contains(slot))
+        if (slot == null)
         {
-            queueList.Remove(slot);
-            RefreshQueueDisplay();
+            return;
+        }
+
+        // 이미 선택됐으면 제거 (토글)
+        if (selectedSlots.Contains(slot))
+        {
+            selectedSlots.Remove(slot);
+            RefreshSelectionDisplay();
             return;
         }
 
@@ -146,94 +177,125 @@ public class GeneralBagPanelController : MonoBehaviour
             return;
         }
 
-        // 배타 그룹: 같은 그룹이 이미 큐에 있으면 그걸 빼고 새 걸 넣음
+        // 배타 그룹: 같은 그룹이 이미 선택됐으면 그걸 빼고 새 걸 넣음
         if (slot.ExclusiveGroupId != 0)
         {
-            for (int i = queueList.Count - 1; i >= 0; i--)
+            for (int i = selectedSlots.Count - 1; i >= 0; i--)
             {
-                if (queueList[i].ExclusiveGroupId == slot.ExclusiveGroupId)
-                    queueList.RemoveAt(i);
+                if (selectedSlots[i].ExclusiveGroupId == slot.ExclusiveGroupId)
+                {
+                    selectedSlots.RemoveAt(i);
+                }
             }
         }
 
-        queueList.Add(slot);
+        selectedSlots.Add(slot);
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayShopSelect();
+        }
 
-        RefreshQueueDisplay();
+        RefreshSelectionDisplay();
     }
 
-    /// <summary>부화 시 호출 — 알 상태 아이템(requiresHatched=false)만 소모하고 큐에서 제거.</summary>
-    public void ApplyQueuedItems()
+    public void ApplySelectedItems()
     {
-        foreach (GeneralBagSlotUI slot in queueList)
+        foreach (GeneralBagSlotUI slot in selectedSlots)
+        {
             UseItem(slot.ItemName);
+        }
 
-        ClearQueue();
+        ClearSelection();
         RefreshCounts();
     }
 
-    /// <summary>큐에 ShinyCharm이 있으면 true 반환.</summary>
-    public bool IsShinyCharmQueued()
+    public Gender GetGenderFilter()
     {
-        foreach (GeneralBagSlotUI slot in queueList)
+        foreach (GeneralBagSlotUI slot in selectedSlots)
+        {
+            if (slot.IsPinkIncense)
+            {
+                return Gender.Female;
+            }
+            if (slot.IsBlueIncense)
+            {
+                return Gender.Male;
+            }
+        }
+        return Gender.None;
+    }
+
+    public bool IsShinyCharmSelected()
+    {
+        foreach (GeneralBagSlotUI slot in selectedSlots)
         {
             if (slot.IsShinyCharm)
+            {
                 return true;
+            }
         }
         return false;
     }
 
-    /// <summary>큐에 requiresHatched 아이템이 있으면 보너스 성공률(0.0~1.0) 반환.</summary>
     public float GetSuccessRateBonus()
     {
-        foreach (GeneralBagSlotUI slot in queueList)
+        foreach (GeneralBagSlotUI slot in selectedSlots)
         {
             if (slot.Condition == UsageCondition.RequiresHatched)
+            {
                 return 0.05f;
+            }
         }
         return 0f;
     }
 
-    /// <summary>강화 클릭 시 호출 — 부화 상태 아이템(requiresHatched=true)을 1개씩 소모. 0개 되면 자동 해제.</summary>
     public void ConsumeEnhanceItems()
     {
-        for (int i = queueList.Count - 1; i >= 0; i--)
+        for (int i = selectedSlots.Count - 1; i >= 0; i--)
         {
-            GeneralBagSlotUI slot = queueList[i];
-            if (slot.Condition != UsageCondition.RequiresHatched) continue;
+            GeneralBagSlotUI slot = selectedSlots[i];
+            if (slot.Condition != UsageCondition.RequiresHatched)
+            {
+                continue;
+            }
 
             if (PlayerGeneralInventory.Instance != null)
+            {
                 PlayerGeneralInventory.Instance.RemoveItem(slot.ItemName, 1);
+            }
 
             // 0개가 되면 자동 선택 해제
             if (GetCount(slot.ItemName) <= 0)
-                queueList.RemoveAt(i);
+            {
+                selectedSlots.RemoveAt(i);
+            }
         }
 
         RefreshCounts();
-        RefreshQueueDisplay();
+        RefreshSelectionDisplay();
     }
 
-    /// <summary>큐에 RequiresDestroyed 슬롯이 있는지 반환.</summary>
-    public bool HasRevivalItemQueued()
+    public bool HasRevivalItemSelected()
     {
-        foreach (GeneralBagSlotUI slot in queueList)
+        foreach (GeneralBagSlotUI slot in selectedSlots)
         {
             if (slot.Condition == UsageCondition.RequiresDestroyed)
+            {
                 return true;
+            }
         }
         return false;
     }
 
-    /// <summary>큐에 담긴 RequiresDestroyed 슬롯의 ItemName 반환.</summary>
     public string GetRevivalItemName()
     {
-        foreach (GeneralBagSlotUI slot in queueList)
+        foreach (GeneralBagSlotUI slot in selectedSlots)
         {
             if (slot.Condition == UsageCondition.RequiresDestroyed)
+            {
                 return slot.ItemName;
+            }
         }
         return null;
     }
@@ -242,16 +304,20 @@ public class GeneralBagPanelController : MonoBehaviour
     {
         foreach (GeneralBagSlotUI slot in slots)
         {
-            if (slot == null || string.IsNullOrEmpty(slot.ItemName)) continue;
+            if (slot == null || string.IsNullOrEmpty(slot.ItemName))
+            {
+                continue;
+            }
             slot.RefreshCount(GetCount(slot.ItemName));
         }
-
     }
 
     public void HideRevivalCostUI()
     {
         if (revivalCostUI != null)
+        {
             revivalCostUI.SetActive(false);
+        }
     }
 
     public void ShowRevivalCostUI()
@@ -259,30 +325,40 @@ public class GeneralBagPanelController : MonoBehaviour
         RefreshRevivalCostUI();
     }
 
-    public void ClearQueue()
+    public void ClearSelection()
     {
-        queueList.Clear();
-        RefreshQueueDisplay();
+        selectedSlots.Clear();
+        RefreshSelectionDisplay();
     }
 
-    private void RefreshQueueDisplay()
+    private void RefreshSelectionDisplay()
     {
-        if (slots == null) return;
+        if (slots == null)
+        {
+            return;
+        }
 
         foreach (GeneralBagSlotUI slot in slots)
         {
-            if (slot == null) continue;
-            slot.SetSelected(queueList.Contains(slot));
+            if (slot == null)
+            {
+                continue;
+            }
+            slot.SetSelected(selectedSlots.Contains(slot));
         }
 
         // 강화확률 텍스트 즉시 갱신
         EggEnhanceController c = EggEnhanceController.Instance;
         if (c != null && c.currentInstance != null)
+        {
             new EggUIService().UpdateAll(c);
+        }
 
         // 강화 버튼 텍스트 갱신 ("강화하기" / "되살리기")
         if (c != null)
+        {
             c.RefreshEnhanceButtonText();
+        }
 
         // 복구 비용 UI 갱신
         RefreshRevivalCostUI();
@@ -294,9 +370,14 @@ public class GeneralBagPanelController : MonoBehaviour
         bool isDestroyed = c != null && c.IsDestroyed;
 
         if (revivalCostUI != null)
+        {
             revivalCostUI.SetActive(isDestroyed);
+        }
 
-        if (!isDestroyed || revivalCostText == null) return;
+        if (!isDestroyed || revivalCostText == null)
+        {
+            return;
+        }
 
         // 필요 갯수 계산
         int cost = 1;
@@ -304,28 +385,36 @@ public class GeneralBagPanelController : MonoBehaviour
         {
             int idx = c.DestroyedSnapshot.destroyedAtLevel - 6;
             if (idx >= 0 && idx < c.balanceData.reviveCosts.Length)
+            {
                 cost = c.balanceData.reviveCosts[idx];
+            }
         }
 
         revivalCostText.text = "X" + cost;
     }
 
-    // ─────────────────────────────────────────
     // 경고 UI 페이드인/아웃
-    // ─────────────────────────────────────────
-
     private void ShowWarning(string message)
     {
-        if (warningUI == null) return;
+        if (warningUI == null)
+        {
+            return;
+        }
 
         if (warningText != null)
+        {
             warningText.text = message;
+        }
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayEnhanceFail();
+        }
 
         if (warningCoroutine != null)
+        {
             StopCoroutine(warningCoroutine);
+        }
 
         warningCoroutine = StartCoroutine(WarningRoutine());
     }
@@ -359,18 +448,20 @@ public class GeneralBagPanelController : MonoBehaviour
         warningUI.SetActive(false);
     }
 
-    // ─────────────────────────────────────────
-    // 아이템 사용 (효과 미구현)
-    // ─────────────────────────────────────────
-
+    // 아이템 사용
     private void UseItem(string itemName)
     {
-        if (string.IsNullOrEmpty(itemName)) return;
+        if (string.IsNullOrEmpty(itemName))
+        {
+            return;
+        }
 
-        // TODO: 아이템별 효과 구현
+        // 아이템별 효과 구현
         Debug.Log($"[GeneralBag] 아이템 사용: {itemName}");
 
         if (PlayerGeneralInventory.Instance != null)
+        {
             PlayerGeneralInventory.Instance.RemoveItem(itemName, 1);
+        }
     }
 }
