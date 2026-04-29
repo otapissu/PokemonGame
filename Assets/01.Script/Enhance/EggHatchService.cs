@@ -61,7 +61,8 @@ public class EggHatchService
 
             bool shinyCharmActive = GeneralBagPanelController.Instance != null && GeneralBagPanelController.Instance.IsShinyCharmSelected();
             float effectiveShinyChance = shinyCharmActive ? 0.10f : c.shinyChance;
-            bool isShiny = Random.value < effectiveShinyChance;
+            bool forceShiny = EggEnhanceController.Instance != null && EggEnhanceController.Instance.ForceShinyHatch;
+            bool isShiny = forceShiny || Random.value < effectiveShinyChance;
             Gender genderFilter = GeneralBagPanelController.Instance != null ? GeneralBagPanelController.Instance.GetGenderFilter() : Gender.None;
             Gender gender = RollGender(selected, genderFilter);
             int formIndex = PokemonFormUtility.GetRandomFormIndex(selected, gender, isShiny);

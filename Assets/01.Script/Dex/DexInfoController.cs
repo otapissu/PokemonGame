@@ -71,7 +71,7 @@ public class DexInfoController : MonoBehaviour
             return;
         }
 
-        if (!_owned || _data == null)
+        if (_data == null)
         {
             return;
         }
@@ -118,16 +118,18 @@ public class DexInfoController : MonoBehaviour
             _currentGender = gender;
         }
 
-        // SameVisual + gender=None: 별 아이콘 즉시 표시를 위해 maxed 여부로 성별 초기화
-        if (_currentGender == Gender.None && data != null && data.genderVisualType == GenderVisualType.SameVisual && owned && PokedexSaveManager.Instance != null)
+        // SameVisual + gender=None: 항상 Male/Female로 초기화 (미등록 포켓몬 포함)
+        if (_currentGender == Gender.None && data != null && data.genderVisualType == GenderVisualType.SameVisual)
         {
             bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
             bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
 
             _currentGender = hasMale ? Gender.Male : Gender.Female;
 
-            // 수컷이 미달성이고 암컷이 달성된 경우 암컷으로 전환
-            if (hasMale && hasFemale && !PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Male, formIndex, isShiny) && PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Female, formIndex, isShiny))
+            // 등록된 포켓몬: 수컷이 미달성이고 암컷이 달성된 경우 암컷으로 전환
+            if (owned && hasMale && hasFemale && PokedexSaveManager.Instance != null &&
+                !PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Male, formIndex, isShiny) &&
+                PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Female, formIndex, isShiny))
             {
                 _currentGender = Gender.Female;
             }
@@ -145,7 +147,9 @@ public class DexInfoController : MonoBehaviour
         {
             pokemonImage.sprite = sprite;
             pokemonImage.preserveAspect = true;
-            pokemonImage.color = owned ? Color.white : Color.black;
+            bool seen = _data != null && PokedexSaveManager.Instance != null &&
+                PokedexSaveManager.Instance.IsFormSeen(_data.id, _currentGender, _currentFormIndex, _isShiny, _data.genderVisualType);
+            pokemonImage.color = seen ? Color.white : Color.black;
         }
 
         UpdateGenderIcon();
@@ -220,7 +224,11 @@ public class DexInfoController : MonoBehaviour
 
         if (display == null)
         {
-            Sprite[] fallback = Resources.LoadAll<Sprite>("Pokemon/" + id.ToString("D3") + "_normal");
+            Gender defaultGender = (data != null && data.genderVisualType == GenderVisualType.DifferentVisual) ? Gender.Male : Gender.None;
+            string fallbackPath = data != null
+                ? PokemonFormUtility.GetLoadPath(data, defaultGender, false, 0)
+                : "Pokemon/" + id.ToString("D3") + "_normal";
+            Sprite[] fallback = Resources.LoadAll<Sprite>(fallbackPath);
             if (fallback != null && fallback.Length > 0)
             {
                 display = fallback[0];
@@ -274,6 +282,14 @@ public class DexInfoController : MonoBehaviour
             bool seenFemale = HasAnySeenForm(id, data, Gender.Female, isShiny);
             gender = (seenMale || (!seenMale && !seenFemale)) ? Gender.Male : Gender.Female;
         }
+        else if (data.genderVisualType == GenderVisualType.SameVisual)
+        {
+            bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
+            bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
+            bool seenMale = hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny);
+            bool seenFemale = hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny);
+            gender = (seenMale || (!seenMale && !seenFemale)) ? (hasMale ? Gender.Male : Gender.Female) : Gender.Female;
+        }
         else
         {
             gender = Gender.None;
@@ -299,9 +315,12 @@ public class DexInfoController : MonoBehaviour
             return false;
         }
 
-        if (data.genderVisualType == GenderVisualType.DifferentVisual && genderHint == Gender.None)
+        if (genderHint == Gender.None && (data.genderVisualType == GenderVisualType.DifferentVisual || data.genderVisualType == GenderVisualType.SameVisual))
         {
-            return HasAnySeenForm(id, data, Gender.Male, isShiny) || HasAnySeenForm(id, data, Gender.Female, isShiny);
+            bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
+            bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
+            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) ||
+                   (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
         }
 
         List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, genderHint, isShiny);
@@ -324,7 +343,7 @@ public class DexInfoController : MonoBehaviour
         return Mathf.Approximately(_data.maleRatio, 0f) || Mathf.Approximately(_data.maleRatio, 1f);
     }
 
-    // G: 반대 성별로 전환. DifferentVisual이면 스프라이트도 변경, SameVisual이면 아이콘만 변경, None이면 무시
+    // G: 반대 성별로 전환
     private void ToggleGender()
     {
         if (_data.genderVisualType == GenderVisualType.None)
@@ -339,25 +358,17 @@ public class DexInfoController : MonoBehaviour
 
         _currentGender = (_currentGender == Gender.Male) ? Gender.Female : Gender.Male;
 
+        // 새 성별에서 현재 폼이 없으면 첫 번째 폼으로 리셋 (DifferentVisual 전용)
         if (_data.genderVisualType == GenderVisualType.DifferentVisual)
         {
-            // 새 성별에서 현재 폼이 없으면 첫 번째 폼으로 리셋
             List<int> forms = PokemonFormUtility.GetAvailableFormIndices(_data, _currentGender, _isShiny);
-
             if (!forms.Contains(_currentFormIndex))
             {
                 _currentFormIndex = forms.Count > 0 ? forms[0] : 0;
             }
+        }
 
-            RefreshSprite();
-        }
-        else
-        {
-            // SameVisual: 스프라이트/색상은 그대로, 아이콘만 변경
-            UpdateGenderIcon();
-            UpdateShinyIcon();
-            UpdateStarIcon();
-        }
+        RefreshSprite();
     }
 
     // F: 다음 폼으로 변경. 폼이 하나뿐이면 무시

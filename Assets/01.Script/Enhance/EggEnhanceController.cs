@@ -51,19 +51,11 @@ public class EggEnhanceController : MonoBehaviour
     [Range(0f, 1f)]
     public float shinyChance = 0.02f;
 
-#if UNITY_EDITOR
-    [Tooltip("ON 시 강화 결과를 항상 성공으로 처리 (에디터 전용)")]
-    public bool alwaysSucceedEnhance = false;
-#endif
+    [HideInInspector] public bool alwaysSucceedEnhance = false;
+    [HideInInspector] public bool forceShinyHatch = false;
 
-    public bool AlwaysSucceedEnhance
-    {
-#if UNITY_EDITOR
-        get => alwaysSucceedEnhance;
-#else
-        get => false;
-#endif
-    }
+    public bool AlwaysSucceedEnhance => alwaysSucceedEnhance;
+    public bool ForceShinyHatch => forceShinyHatch;
 
     [Header("Balance Data")]
     public EggBalanceData balanceData;
@@ -115,6 +107,20 @@ public class EggEnhanceController : MonoBehaviour
     {
         get;
         set;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            alwaysSucceedEnhance = !alwaysSucceedEnhance;
+            Debug.Log("[디버그] 강화 항상 성공: " + alwaysSucceedEnhance);
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            forceShinyHatch = !forceShinyHatch;
+            Debug.Log("[디버그] 이로치 강제 부화: " + forceShinyHatch);
+        }
     }
 
     private void Awake()

@@ -629,9 +629,14 @@ EvolveBagPanelController.Instance?.<span class="fn">ClearSelection</span>()   <s
       </div>
 
       <div class="subsection-title" style="margin-top:16px;">폼 상태 키 형식</div>
-      <div class="code-block">기본: <span class="st">"{id}_{M|F}_{formIndex}"</span>
-이로치: <span class="st">"S{id}_{M|F}_{formIndex}"</span>
-성별 없음: <span class="st">"{id}_N_{formIndex}"</span></div>
+      <div class="code-block"><span class="cm">// seenFormKeys / maxEnhancedKeys — MakeKey()</span>
+DifferentVisual · SameVisual (비이로치): <span class="st">"{id}_{M|F}_{formIndex}"</span>
+DifferentVisual · SameVisual (이로치):   <span class="st">"{id}_S{M|F}_{formIndex}"</span>
+None (비이로치):                         <span class="st">"{id}_{formIndex}"</span>
+None (이로치):                           <span class="st">"{id}_S_{formIndex}"</span>
+
+<span class="cm">// genderMaxKeys — MakeGenderKey()  (별 아이콘 · 상태 아이콘 전용)</span>
+<span class="st">"{id}|{M|F|N}|{S|N}|{formIndex}"</span></div>
 
       <div class="subsection-title" style="margin-top:16px;">등록 시점</div>
       <table>
@@ -651,14 +656,11 @@ EvolveBagPanelController.Instance?.<span class="fn">ClearSelection</span>()   <s
       genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, gender, fi, isShiny))
 
     <span class="kw">elif</span> genderVisualType == SameVisual:
-      <span class="cm">// 시각적으로 동일 → 암수 양쪽 모두 키 등록</span>
-      <span class="kw">if</span> hasMale:   genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, Male,   fi, isShiny))
-      <span class="kw">if</span> hasFemale: genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, Female, fi, isShiny))
+      <span class="cm">// DifferentVisual과 동일 — 최강화된 개체의 성별만 전파</span>
+      genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, gender, fi, isShiny))
 
     <span class="kw">else</span>: <span class="cm">// None</span>
-      genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, None, fi, isShiny))
-
-<span class="cm">// SameVisual 버그 수정: 암수 모두 등록하지 않으면 한쪽 성별에만 별이 뜨는 문제 발생</span></div>
+      genderMaxKeys.Add(<span class="fn">MakeGenderKey</span>(ancestor.id, None, fi, isShiny))</div>
 
       <div class="subsection-title" style="margin-top:16px;">도감 슬롯 아웃라인 상태</div>
       <ul class="outline-list">

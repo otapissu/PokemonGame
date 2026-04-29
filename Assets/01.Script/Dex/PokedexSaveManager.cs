@@ -132,13 +132,10 @@ public class PokedexSaveManager : MonoBehaviour
             }
             else if (ancestor.genderVisualType == GenderVisualType.SameVisual)
             {
-                // SameVisual: 암수 외형이 같으므로 존재하는 모든 성별에 전파
-                bool hasMale = !Mathf.Approximately(ancestor.maleRatio, 0f);
-                bool hasFemale = !Mathf.Approximately(ancestor.maleRatio, 1f);
+                // SameVisual: 최강화된 개체의 성별만 전파 (DifferentVisual과 동일)
                 foreach (int fi in targetForms)
                 {
-                    if (hasMale)   { genderMaxKeys.Add(MakeGenderKey(ancestor.id, Gender.Male,   fi, isShiny)); }
-                    if (hasFemale) { genderMaxKeys.Add(MakeGenderKey(ancestor.id, Gender.Female, fi, isShiny)); }
+                    genderMaxKeys.Add(MakeGenderKey(ancestor.id, gender, fi, isShiny));
                 }
             }
             else // GenderVisualType.None
@@ -308,6 +305,20 @@ public class PokedexSaveManager : MonoBehaviour
                 }
             }
         }
+        else if (data.genderVisualType == GenderVisualType.SameVisual)
+        {
+            bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
+            bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
+            foreach (bool shiny in shinyOptions)
+            {
+                List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, Gender.None, shiny);
+                foreach (int fi in forms)
+                {
+                    if (hasMale)   { keys.Add(MakeKey(id, Gender.Male,   fi, shiny, data.genderVisualType)); }
+                    if (hasFemale) { keys.Add(MakeKey(id, Gender.Female, fi, shiny, data.genderVisualType)); }
+                }
+            }
+        }
         else
         {
             foreach (bool shiny in shinyOptions)
@@ -335,9 +346,9 @@ public class PokedexSaveManager : MonoBehaviour
     // 기존 비이로치 키 포맷 유지 + 이로치는 S 접두어 추가
     private static string MakeKey(int id, Gender gender, int formIndex, bool isShiny, GenderVisualType genderVisualType)
     {
-        if (genderVisualType == GenderVisualType.DifferentVisual)
+        if (genderVisualType == GenderVisualType.DifferentVisual || genderVisualType == GenderVisualType.SameVisual)
         {
-            string g = gender == Gender.Male ? "M" : "F";
+            string g = gender == Gender.Male ? "M" : (gender == Gender.Female ? "F" : "N");
             return isShiny ? id + "_S" + g + "_" + formIndex : id + "_" + g + "_" + formIndex;
         }
 

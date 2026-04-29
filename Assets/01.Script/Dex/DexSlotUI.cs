@@ -56,7 +56,11 @@ public class DexSlotUI : MonoBehaviour
 
         if (display == null)
         {
-            Sprite[] fallback = Resources.LoadAll<Sprite>("Pokemon/" + _pokemonId.ToString("D3") + "_normal");
+            Gender defaultGender = (_pokemonData != null && _pokemonData.genderVisualType == GenderVisualType.DifferentVisual) ? Gender.Male : Gender.None;
+            string fallbackPath = _pokemonData != null
+                ? PokemonFormUtility.GetLoadPath(_pokemonData, defaultGender, false, 0)
+                : "Pokemon/" + _pokemonId.ToString("D3") + "_normal";
+            Sprite[] fallback = Resources.LoadAll<Sprite>(fallbackPath);
             display = (fallback != null && fallback.Length > 0) ? fallback[0] : (frames != null && frames.Length > 0 ? frames[0] : null);
         }
 
@@ -75,12 +79,20 @@ public class DexSlotUI : MonoBehaviour
         bool seenShiny = HasAnySeenForm(id, data, Gender.None, true);
         isShiny = !seenNonShiny && seenShiny;
 
-        // 2. 성별 (암수 외형 차이 있는 경우): 수컷 우선
+        // 2. 성별: 수컷 우선 (DifferentVisual/SameVisual 모두 성별 구분)
         if (data.genderVisualType == GenderVisualType.DifferentVisual)
         {
             bool seenMale = HasAnySeenForm(id, data, Gender.Male, isShiny);
             bool seenFemale = HasAnySeenForm(id, data, Gender.Female, isShiny);
             gender = (seenMale || (!seenMale && !seenFemale)) ? Gender.Male : Gender.Female;
+        }
+        else if (data.genderVisualType == GenderVisualType.SameVisual)
+        {
+            bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
+            bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
+            bool seenMale = hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny);
+            bool seenFemale = hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny);
+            gender = (seenMale || (!seenMale && !seenFemale)) ? (hasMale ? Gender.Male : Gender.Female) : Gender.Female;
         }
         else
         {
@@ -108,10 +120,12 @@ public class DexSlotUI : MonoBehaviour
             return false;
         }
 
-        if (data.genderVisualType == GenderVisualType.DifferentVisual && genderHint == Gender.None)
+        if (genderHint == Gender.None && (data.genderVisualType == GenderVisualType.DifferentVisual || data.genderVisualType == GenderVisualType.SameVisual))
         {
-            // 성별 힌트 없이 호출된 경우 양쪽 다 확인
-            return HasAnySeenForm(id, data, Gender.Male, isShiny) || HasAnySeenForm(id, data, Gender.Female, isShiny);
+            bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
+            bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
+            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) ||
+                   (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
         }
 
         List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, genderHint, isShiny);
