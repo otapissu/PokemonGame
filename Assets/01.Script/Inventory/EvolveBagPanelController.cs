@@ -23,8 +23,7 @@ public class EvolveBagPanelController : MonoBehaviour
     private readonly Dictionary<string, EvolveBagSlotUI> spawnedSlots = new();
     private EvolveBagSlotUI selectedSlot;
 
-    public EvolutionItemType SelectedItemType =>
-        selectedSlot != null ? selectedSlot.EvolutionItemType : EvolutionItemType.None;
+    public EvolutionItemType SelectedItemType => selectedSlot != null ? selectedSlot.EvolutionItemType : EvolutionItemType.None;
 
     [Header("슬라이드 설정")]
     [Tooltip("오른쪽으로 숨길 거리")]
@@ -90,9 +89,7 @@ public class EvolveBagPanelController : MonoBehaviour
         }
     }
 
-    // ─────────────────────────────────────────
     // 선택 처리
-    // ─────────────────────────────────────────
 
     public void OnSlotClicked(EvolveBagSlotUI slot)
     {
@@ -137,10 +134,7 @@ public class EvolveBagPanelController : MonoBehaviour
         }
     }
 
-    // ─────────────────────────────────────────
     // 슬롯 관리
-    // ─────────────────────────────────────────
-
     private void RefreshSlots()
     {
         if (slotPrefab == null || content == null)
@@ -212,10 +206,7 @@ public class EvolveBagPanelController : MonoBehaviour
         }
     }
 
-    // ─────────────────────────────────────────
     // Public API
-    // ─────────────────────────────────────────
-
     public void Toggle()
     {
         if (isOpen)
@@ -260,10 +251,7 @@ public class EvolveBagPanelController : MonoBehaviour
         StartSlide(panelClosedX, bagIconClosedX);
     }
 
-    // ─────────────────────────────────────────
     // 슬라이드 애니메이션
-    // ─────────────────────────────────────────
-
     private void StartSlide(float targetPanelX, float targetIconX)
     {
         if (slideCoroutine != null)
@@ -285,8 +273,7 @@ public class EvolveBagPanelController : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / slideDuration);
 
-            SetX(Mathf.Lerp(startPanelX, targetPanelX, t),
-                 Mathf.Lerp(startIconX,  targetIconX,  t));
+            SetX(Mathf.Lerp(startPanelX, targetPanelX, t), Mathf.Lerp(startIconX,  targetIconX,  t));
 
             yield return null;
         }

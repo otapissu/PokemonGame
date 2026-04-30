@@ -374,8 +374,7 @@ public class EggEnhanceController : MonoBehaviour
     {
         if (IsProcessing) { return; }
 
-        bool revivalQueued = GeneralBagPanelController.Instance != null &&
-                             GeneralBagPanelController.Instance.HasRevivalItemSelected();
+        bool revivalQueued = GeneralBagPanelController.Instance != null && GeneralBagPanelController.Instance.HasRevivalItemSelected();
         if (!revivalQueued)
         {
             ShowMessage("기력의 덩어리를 선택해주세요.", Color.red);

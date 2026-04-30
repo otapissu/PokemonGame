@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -74,8 +74,14 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (!tutorialCanvas.activeSelf) return;
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!tutorialCanvas.activeSelf)
+        {
+            return;
+        }
+        if (!Input.GetMouseButtonDown(0))
+        {
+            return;
+        }
 
         HandleClick();
     }

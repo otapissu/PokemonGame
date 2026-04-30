@@ -40,32 +40,59 @@ public class ShopInfoPageController : MonoBehaviour
     private void Start()
     {
         if (infoPage != null)
+        {
             infoPage.SetActive(false);
+        }
 
-        if (plusOneButton != null)   plusOneButton.onClick.AddListener(() => ChangeAmount(1));
-        if (plusTenButton != null)   plusTenButton.onClick.AddListener(() => ChangeAmount(10));
-        if (minusOneButton != null)  minusOneButton.onClick.AddListener(() => ChangeAmount(-1));
-        if (minusTenButton != null)  minusTenButton.onClick.AddListener(() => ChangeAmount(-10));
-        if (buyButton != null)       buyButton.onClick.AddListener(OnBuyClick);
+        if (plusOneButton != null)
+        {
+            plusOneButton.onClick.AddListener(() => ChangeAmount(1));
+        }
+        if (plusTenButton != null)
+        {
+            plusTenButton.onClick.AddListener(() => ChangeAmount(10));
+        }
+        if (minusOneButton != null)
+        {
+            minusOneButton.onClick.AddListener(() => ChangeAmount(-1));
+        }
+        if (minusTenButton != null)
+        {
+            minusTenButton.onClick.AddListener(() => ChangeAmount(-10));
+        }
+        if (buyButton != null)
+        {
+            buyButton.onClick.AddListener(OnBuyClick);
+        }
 
         if (PlayerGeneralInventory.Instance != null)
+        {
             PlayerGeneralInventory.Instance.OnChanged += OnInventoryChanged;
+        }
         if (PlayerEvolveInventory.Instance != null)
+        {
             PlayerEvolveInventory.Instance.OnChanged += OnInventoryChanged;
+        }
     }
 
     private void OnDestroy()
     {
         if (PlayerGeneralInventory.Instance != null)
+        {
             PlayerGeneralInventory.Instance.OnChanged -= OnInventoryChanged;
+        }
         if (PlayerEvolveInventory.Instance != null)
+        {
             PlayerEvolveInventory.Instance.OnChanged -= OnInventoryChanged;
+        }
     }
 
     private void OnInventoryChanged()
     {
         if (infoPage != null && infoPage.activeSelf)
+        {
             UpdateOwnedCountText();
+        }
     }
 
 
@@ -88,7 +115,9 @@ public class ShopInfoPageController : MonoBehaviour
     public void HideInfo()
     {
         if (infoPage != null)
+        {
             infoPage.SetActive(false);
+        }
 
         currentItem = null;
         ResetAmount();
@@ -99,15 +128,29 @@ public class ShopInfoPageController : MonoBehaviour
         currentItem = data;
         ResetAmount();
 
-        if (iconImage != null)  iconImage.sprite = data.icon;
-        if (nameText != null)   nameText.text = data.itemName;
-        if (infoText != null)   infoText.text = data.description;
-        if (priceText != null)  priceText.text = data.price.ToString("N0") + "원";
+        if (iconImage != null)
+        {
+            iconImage.sprite = data.icon;
+        }
+        if (nameText != null)
+        {
+            nameText.text = data.itemName;
+        }
+        if (infoText != null)
+        {
+            infoText.text = data.description;
+        }
+        if (priceText != null)
+        {
+            priceText.text = data.price.ToString("N0") + "원";
+        }
 
         UpdateOwnedCountText();
 
         if (infoPage != null)
+        {
             infoPage.SetActive(true);
+        }
     }
 
     private void ChangeAmount(int delta)
@@ -128,7 +171,9 @@ public class ShopInfoPageController : MonoBehaviour
         UpdateAmountText();
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayShopSelect();
+        }
     }
 
     private void OnBuyClick()
@@ -159,18 +204,24 @@ public class ShopInfoPageController : MonoBehaviour
         if (currentItem.itemType == ShopItemType.General)
         {
             if (PlayerGeneralInventory.Instance != null)
+            {
                 PlayerGeneralInventory.Instance.AddItem(currentItem, currentAmount);
-            else Debug.LogWarning("[Shop] PlayerGeneralInventory.Instance가 null");
+            }
+            else                 Debug.LogWarning("[Shop] PlayerGeneralInventory.Instance가 null");
         }
         else
         {
             if (PlayerEvolveInventory.Instance != null)
+            {
                 PlayerEvolveInventory.Instance.AddItem(currentItem, currentAmount);
-            else Debug.LogWarning("[Shop] PlayerEvolveInventory.Instance가 null");
+            }
+            else                 Debug.LogWarning("[Shop] PlayerEvolveInventory.Instance가 null");
         }
 
         if (SoundManager.Instance != null)
+        {
             SoundManager.Instance.PlayShopBuy();
+        }
 
         LogInventory();
         ResetAmount();
@@ -184,7 +235,9 @@ public class ShopInfoPageController : MonoBehaviour
             var entries = PlayerGeneralInventory.Instance.Entries;
             System.Text.StringBuilder sb = new($"[GeneralInventory] 총 {entries.Count}종 | ");
             foreach (var e in entries)
+            {
                 sb.Append(e.item.itemName).Append(" x").Append(e.count).Append(", ");
+            }
             Debug.Log(sb.ToString());
         }
         else
@@ -193,7 +246,9 @@ public class ShopInfoPageController : MonoBehaviour
             var entries = PlayerEvolveInventory.Instance.Entries;
             System.Text.StringBuilder sb = new($"[EvolveInventory] 총 {entries.Count}종 | ");
             foreach (var e in entries)
+            {
                 sb.Append(e.item.itemName).Append(" x").Append(e.count).Append(", ");
+            }
             Debug.Log(sb.ToString());
         }
     }
@@ -247,6 +302,8 @@ public class ShopInfoPageController : MonoBehaviour
     private void UpdateAmountText()
     {
         if (amountText != null)
+        {
             amountText.text = currentAmount.ToString();
+        }
     }
 }

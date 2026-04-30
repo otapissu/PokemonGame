@@ -70,14 +70,7 @@ public class EggHatchService
             c.currentInstance = new PokemonInstance(selected, gender, isShiny, formIndex);
             c.currentInstance.enhanceLevel = 1;
 
-            Debug.Log(
-                "[부화 결과] " +
-                "ID: " + selected.id.ToString("D3") +
-                ", 이름: " + selected.pokemonName +
-                ", 성별: " + gender +
-                ", 샤이니: " + isShiny +
-                ", 폼 인덱스: " + formIndex
-            );
+            Debug.Log( "[부화 결과] " + "ID: " + selected.id.ToString("D3") + ", 이름: " + selected.pokemonName + ", 성별: " + gender + ", 샤이니: " + isShiny + ", 폼 인덱스: " + formIndex );
 
             new EggSaveService().Save(c);
 
@@ -110,13 +103,7 @@ public class EggHatchService
             // 아이콘 표시 후 "본 적 있음" 등록
             if (PokedexSaveManager.Instance != null)
             {
-                PokedexSaveManager.Instance.RegisterFormSeen(
-                    c.currentInstance.data.id,
-                    c.currentInstance.gender,
-                    c.currentInstance.formIndex,
-                    c.currentInstance.isShiny,
-                    c.currentInstance.data.genderVisualType
-                );
+                PokedexSaveManager.Instance.RegisterFormSeen( c.currentInstance.data.id, c.currentInstance.gender, c.currentInstance.formIndex, c.currentInstance.isShiny, c.currentInstance.data.genderVisualType );
             }
 
             c.ShowMessage(selected.pokemonName + " 등장!");
@@ -403,12 +390,7 @@ public class EggHatchService
             return null;
         }
 
-        string path = PokemonFormUtility.GetLoadPath(
-            instance.data,
-            instance.gender,
-            instance.isShiny,
-            instance.formIndex
-        );
+        string path = PokemonFormUtility.GetLoadPath( instance.data, instance.gender, instance.isShiny, instance.formIndex );
 
         return Resources.LoadAll<Sprite>(path);
     }

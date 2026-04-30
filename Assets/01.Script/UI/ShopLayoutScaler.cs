@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,10 +59,14 @@ public class ShopLayoutScaler : MonoBehaviour
         aspectRatioHeight = GetComponent<AspectRatioHeight>();
 
         if (infoPage != null)
+        {
             infoPageReferenceScale = infoPage.localScale;
+        }
 
         if (tabButtons != null)
+        {
             tabButtonsReferenceScale = tabButtons.localScale;
+        }
 
         if (buttonLayoutTarget != null)
         {
@@ -78,7 +82,10 @@ public class ShopLayoutScaler : MonoBehaviour
 
     private void OnRectTransformDimensionsChange()
     {
-        if (rectTransform == null) return;
+        if (rectTransform == null)
+        {
+            return;
+        }
         ApplyScale();
     }
 
@@ -96,13 +103,18 @@ public class ShopLayoutScaler : MonoBehaviour
         int count = buttonLayoutTarget.childCount;
         childRects = new RectTransform[count];
         for (int i = 0; i < count; i++)
+        {
             childRects[i] = buttonLayoutTarget.GetChild(i) as RectTransform;
+        }
     }
 
     private void ApplyScale()
     {
         float currentWidth = rectTransform.rect.width;
-        if (currentWidth <= 0f) return;
+        if (currentWidth <= 0f)
+        {
+            return;
+        }
 
         // referenceWidth는 AspectRatioHeight에서 가져옴 (없으면 현재 너비 = ratio 1.0)
         float refWidth = aspectRatioHeight != null ? aspectRatioHeight.ReferenceWidth : currentWidth;
@@ -118,13 +130,17 @@ public class ShopLayoutScaler : MonoBehaviour
             for (int i = 0; i < childRects.Length; i++)
             {
                 if (childRects[i] != null)
+                {
                     childRects[i].sizeDelta = scaledSize;
+                }
             }
         }
 
         // Info 페이지 비례 스케일 (에디터 기준 scale × ratio, 자식 포함)
         if (infoPage != null)
+        {
             infoPage.localScale = infoPageReferenceScale * ratio;
+        }
 
         // 탭 버튼 비례 스케일 + 위치
         if (tabButtons != null)

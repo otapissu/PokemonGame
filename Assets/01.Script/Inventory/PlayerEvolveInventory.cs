@@ -1,4 +1,4 @@
-// 진화 아이템 가방
+﻿// 진화 아이템 가방
 public class PlayerEvolveInventory : PlayerInventoryBase
 {
     public static PlayerEvolveInventory Instance { get; private set; }
@@ -16,7 +16,9 @@ public class PlayerEvolveInventory : PlayerInventoryBase
         foreach (InventoryEntry e in Entries)
         {
             if (e.item != null && e.item.evolutionItemType == type)
+            {
                 return e.count;
+            }
         }
         return 0;
     }
@@ -39,6 +41,8 @@ public class PlayerEvolveInventory : PlayerInventoryBase
         }
 
         if (entry != null)
+        {
             RemoveItem(entry.item);
+        }
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
@@ -16,7 +16,7 @@ public static class SpriteBatchProcessor
 
         if (selectedObjects == null || selectedObjects.Length == 0)
         {
-            EditorUtility.DisplayDialog("¾Ë¸²", "Project Ã¢¿¡¼­ ÅØ½ºÃ³¸¦ ¸ÕÀú ¼±ÅÃÇÏ¼¼¿ä.", "È®ÀÎ");
+            EditorUtility.DisplayDialog("ï¿½Ë¸ï¿½", "Project Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.", "È®ï¿½ï¿½");
             return;
         }
 
@@ -46,11 +46,7 @@ public static class SpriteBatchProcessor
 
         AssetDatabase.Refresh();
 
-        EditorUtility.DisplayDialog(
-            "¿Ï·á",
-            $"ÃÑ {processedCount}°³ÀÇ ÅØ½ºÃ³¿¡ ¼³Á¤À» Àû¿ëÇß½À´Ï´Ù.",
-            "È®ÀÎ"
-        );
+        EditorUtility.DisplayDialog( "ï¿½Ï·ï¿½", $"ï¿½ï¿½ {processedCount}ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.", "È®ï¿½ï¿½" );
     }
 
     private static void ApplyTextureSettings(TextureImporter textureImporter)
@@ -79,7 +75,7 @@ public static class SpriteBatchProcessor
 
         if (columns <= 0 || rows <= 0)
         {
-            Debug.LogWarning($"Àß¸øµÈ ½½¶óÀÌ½º °ª: {assetPath}");
+            Debug.LogWarning($"ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½: {assetPath}");
             return;
         }
 
@@ -97,10 +93,7 @@ public static class SpriteBatchProcessor
 
                 SpriteRect spriteRect = new SpriteRect
                 {
-                    name = $"{texture.name}_{row}_{col}",
-                    rect = new Rect(x, y, cellWidth, cellHeight),
-                    alignment = SpriteAlignment.Center,
-                    pivot = new Vector2(0.5f, 0.5f)
+                    name = $"{texture.name}_{row}_{col}", rect = new Rect(x, y, cellWidth, cellHeight), alignment = SpriteAlignment.Center, pivot = new Vector2(0.5f, 0.5f)
                 };
 
                 spriteRects.Add(spriteRect);
@@ -115,7 +108,7 @@ public static class SpriteBatchProcessor
 
         if (dataProvider == null)
         {
-            Debug.LogWarning($"SpriteEditorDataProvider¸¦ °¡Á®¿ÀÁö ¸øÇß½À´Ï´Ù: {assetPath}");
+            Debug.LogWarning($"SpriteEditorDataProviderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½: {assetPath}");
             return;
         }
 

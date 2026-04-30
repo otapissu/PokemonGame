@@ -127,9 +127,7 @@ public class DexInfoController : MonoBehaviour
             _currentGender = hasMale ? Gender.Male : Gender.Female;
 
             // 등록된 포켓몬: 수컷이 미달성이고 암컷이 달성된 경우 암컷으로 전환
-            if (owned && hasMale && hasFemale && PokedexSaveManager.Instance != null &&
-                !PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Male, formIndex, isShiny) &&
-                PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Female, formIndex, isShiny))
+            if (owned && hasMale && hasFemale && PokedexSaveManager.Instance != null && !PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Male, formIndex, isShiny) && PokedexSaveManager.Instance.IsFormMaxedExact(data.id, Gender.Female, formIndex, isShiny))
             {
                 _currentGender = Gender.Female;
             }
@@ -147,8 +145,7 @@ public class DexInfoController : MonoBehaviour
         {
             pokemonImage.sprite = sprite;
             pokemonImage.preserveAspect = true;
-            bool seen = _data != null && PokedexSaveManager.Instance != null &&
-                PokedexSaveManager.Instance.IsFormSeen(_data.id, _currentGender, _currentFormIndex, _isShiny, _data.genderVisualType);
+            bool seen = _data != null && PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormSeen(_data.id, _currentGender, _currentFormIndex, _isShiny, _data.genderVisualType);
             pokemonImage.color = seen ? Color.white : Color.black;
         }
 
@@ -225,9 +222,7 @@ public class DexInfoController : MonoBehaviour
         if (display == null)
         {
             Gender defaultGender = (data != null && data.genderVisualType == GenderVisualType.DifferentVisual) ? Gender.Male : Gender.None;
-            string fallbackPath = data != null
-                ? PokemonFormUtility.GetLoadPath(data, defaultGender, false, 0)
-                : "Pokemon/" + id.ToString("D3") + "_normal";
+            string fallbackPath = data != null ? PokemonFormUtility.GetLoadPath(data, defaultGender, false, 0) : "Pokemon/" + id.ToString("D3") + "_normal";
             Sprite[] fallback = Resources.LoadAll<Sprite>(fallbackPath);
             if (fallback != null && fallback.Length > 0)
             {
@@ -319,8 +314,7 @@ public class DexInfoController : MonoBehaviour
         {
             bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
             bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
-            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) ||
-                   (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
+            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) || (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
         }
 
         List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, genderHint, isShiny);

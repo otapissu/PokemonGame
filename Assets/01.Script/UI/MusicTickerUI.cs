@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class MusicTickerUI : MonoBehaviour
@@ -49,7 +49,9 @@ public class MusicTickerUI : MonoBehaviour
 
         // 텍스트가 완전히 왼쪽으로 나가면 오른쪽 끝으로 리셋
         if (textRect.anchoredPosition.x + textWidth < 0f)
+        {
             ResetToRightEdge();
+        }
     }
 
     private void RefreshText()

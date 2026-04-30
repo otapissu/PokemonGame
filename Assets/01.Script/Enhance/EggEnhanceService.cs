@@ -92,32 +92,13 @@ public class EggEnhanceService
         if (PokedexSaveManager.Instance != null)
         {
             PokedexSaveManager.Instance.RegisterPokemon(currentId);
-            PokedexSaveManager.Instance.RegisterFormSeen(
-                currentId,
-                c.currentInstance.gender,
-                c.currentInstance.formIndex,
-                c.currentInstance.isShiny,
-                c.currentInstance.data.genderVisualType
-            );
+            PokedexSaveManager.Instance.RegisterFormSeen( currentId, c.currentInstance.gender, c.currentInstance.formIndex, c.currentInstance.isShiny, c.currentInstance.data.genderVisualType );
 
             if (c.currentInstance.enhanceLevel == 15)
             {
-                PokedexSaveManager.Instance.RegisterMaxEnhance(
-                    currentId,
-                    c.currentInstance.gender,
-                    c.currentInstance.formIndex,
-                    c.currentInstance.isShiny,
-                    c.currentInstance.data.genderVisualType
-                );
+                PokedexSaveManager.Instance.RegisterMaxEnhance( currentId, c.currentInstance.gender, c.currentInstance.formIndex, c.currentInstance.isShiny, c.currentInstance.data.genderVisualType );
 
-                PokedexSaveManager.Instance.PropagateMaxEnhanceToChain(
-                    c.currentInstance.rootData,
-                    currentId,
-                    c.currentInstance.data,
-                    c.currentInstance.gender,
-                    c.currentInstance.formIndex,
-                    c.currentInstance.isShiny
-                );
+                PokedexSaveManager.Instance.PropagateMaxEnhanceToChain( c.currentInstance.rootData, currentId, c.currentInstance.data, c.currentInstance.gender, c.currentInstance.formIndex, c.currentInstance.isShiny );
             }
         }
 
@@ -181,19 +162,14 @@ public class EggEnhanceService
 
         string beforeName = c.currentInstance.data.pokemonName;
 
-        EvolutionOption selectedOption = c.evolutionService.GetRandomAvailableEvolution(
-            c.currentInstance
-        );
+        EvolutionOption selectedOption = c.evolutionService.GetRandomAvailableEvolution( c.currentInstance );
 
         if (selectedOption == null)
         {
             return false;
         }
 
-        bool evolved = c.evolutionService.TryEvolve(
-            c.currentInstance,
-            selectedOption
-        );
+        bool evolved = c.evolutionService.TryEvolve( c.currentInstance, selectedOption );
 
         if (!evolved)
         {
@@ -280,7 +256,9 @@ public class EggEnhanceService
 
         // 아이템 소모
         for (int i = 0; i < cost; i++)
+        {
             PlayerGeneralInventory.Instance.RemoveItem(revivalItemName, 1);
+        }
 
         // 인스턴스 복원
         c.currentInstance = new PokemonInstance(snap.rootData, snap.gender, snap.isShiny, snap.formIndex);

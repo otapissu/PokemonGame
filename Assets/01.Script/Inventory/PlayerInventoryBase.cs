@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -62,13 +62,20 @@ public abstract class PlayerInventoryBase : MonoBehaviour
     // 같은 아이템이 있으면 count 누적, 없으면 새 항목 추가
     public void AddItem(ShopItemData item, int amount = 1)
     {
-        if (item == null || amount <= 0) return;
+        if (item == null || amount <= 0)
+        {
+            return;
+        }
 
         InventoryEntry existing = entries.Find(e => e.item.itemName == item.itemName);
         if (existing != null)
+        {
             existing.count += amount;
+        }
         else
+        {
             entries.Add(new InventoryEntry(item, amount));
+        }
 
         Save();
         OnChanged?.Invoke();
@@ -76,20 +83,31 @@ public abstract class PlayerInventoryBase : MonoBehaviour
 
     public void RemoveItem(ShopItemData item, int amount = 1)
     {
-        if (item == null || amount <= 0) return;
+        if (item == null || amount <= 0)
+        {
+            return;
+        }
         RemoveItem(item.itemName, amount);
     }
 
     public void RemoveItem(string itemName, int amount = 1)
     {
-        if (string.IsNullOrEmpty(itemName) || amount <= 0) return;
+        if (string.IsNullOrEmpty(itemName) || amount <= 0)
+        {
+            return;
+        }
 
         InventoryEntry existing = entries.Find(e => e.item.itemName == itemName);
-        if (existing == null) return;
+        if (existing == null)
+        {
+            return;
+        }
 
         existing.count -= amount;
         if (existing.count <= 0)
+        {
             entries.Remove(existing);
+        }
 
         Save();
         OnChanged?.Invoke();
@@ -100,7 +118,10 @@ public abstract class PlayerInventoryBase : MonoBehaviour
         InventorySaveData data = new();
         foreach (InventoryEntry e in entries)
         {
-            if (e.item == null) continue;
+            if (e.item == null)
+            {
+                continue;
+            }
             data.entries.Add(new InventorySaveEntry { itemName = e.item.itemName, count = e.count });
         }
 
@@ -110,7 +131,10 @@ public abstract class PlayerInventoryBase : MonoBehaviour
 
     private void Load()
     {
-        if (!PlayerPrefs.HasKey(SaveKey)) return;
+        if (!PlayerPrefs.HasKey(SaveKey))
+        {
+            return;
+        }
         if (allItems == null || allItems.Length == 0)
         {
             Debug.LogWarning($"[Inventory] {SaveKey} — allItems가 비어 있어 로드 불가");
@@ -125,9 +149,13 @@ public abstract class PlayerInventoryBase : MonoBehaviour
         {
             ShopItemData found = System.Array.Find(allItems, i => i.itemName == saved.itemName);
             if (found != null)
+            {
                 entries.Add(new InventoryEntry(found, saved.count));
+            }
             else
+            {
                 Debug.LogWarning($"[Inventory] 저장된 아이템 '{saved.itemName}'을 찾을 수 없음");
+            }
         }
 
         OnChanged?.Invoke();

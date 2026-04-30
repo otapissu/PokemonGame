@@ -76,8 +76,7 @@ public class PokedexSaveManager : MonoBehaviour
     }
 
     // 비전설 포켓몬의 진화 체인 전체에 최대 강화를 전파
-    public void PropagateMaxEnhanceToChain(PokemonData rootData, int maxedId, PokemonData maxedData,
-                                           Gender gender, int formIndex, bool isShiny)
+    public void PropagateMaxEnhanceToChain(PokemonData rootData, int maxedId, PokemonData maxedData, Gender gender, int formIndex, bool isShiny)
     {
         if (rootData == null || maxedData == null)
         {
@@ -410,31 +409,46 @@ public class PokedexSaveManager : MonoBehaviour
         string seen = PlayerPrefs.GetString("DEX_SEEN", "");
 
         foreach (string s in owned.Split(','))
+        {
             if (int.TryParse(s, out int id))
+            {
                 ownedPokemon.Add(id);
+            }
+        }
 
         foreach (string key in maxed.Split(','))
         {
-            if (string.IsNullOrEmpty(key)) continue;
+            if (string.IsNullOrEmpty(key))
+            {
+                continue;
+            }
             maxEnhancedKeys.Add(key);
 
             string[] parts = key.Split('_');
             if (parts.Length > 0 && int.TryParse(parts[0], out int id))
+            {
                 anyMaxIds.Add(id);
+            }
         }
 
         foreach (string key in seen.Split(','))
         {
             if (!string.IsNullOrEmpty(key))
+            {
                 seenFormKeys.Add(key);
+            }
         }
 
         string chainAny = PlayerPrefs.GetString("DEX_CHAIN_ANY", "");
         string chainAll = PlayerPrefs.GetString("DEX_CHAIN_ALL", "");
 
         foreach (string s in chainAny.Split(','))
+        {
             if (int.TryParse(s, out int id))
+            {
                 chainAnyMaxIds.Add(id);
+            }
+        }
 
         foreach (string s in chainAll.Split(','))
         {

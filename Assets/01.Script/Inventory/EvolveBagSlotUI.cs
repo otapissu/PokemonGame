@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -16,7 +16,9 @@ public class EvolveBagSlotUI : MonoBehaviour
     {
         Button btn = GetComponentInChildren<Button>();
         if (btn != null)
+        {
             btn.onClick.AddListener(OnClick);
+        }
     }
 
     public void Setup(ShopItemData data, int count)
@@ -25,8 +27,14 @@ public class EvolveBagSlotUI : MonoBehaviour
         Icon              = data.icon;
         EvolutionItemType = data.evolutionItemType;
 
-        if (iconImage != null) iconImage.sprite = data.icon;
-        if (selectUI  != null) selectUI.SetActive(false);
+        if (iconImage != null)
+        {
+            iconImage.sprite = data.icon;
+        }
+        if (selectUI  != null)
+        {
+            selectUI.SetActive(false);
+        }
 
         UpdateCount(count);
     }
@@ -34,13 +42,17 @@ public class EvolveBagSlotUI : MonoBehaviour
     public void UpdateCount(int count)
     {
         if (amountText != null)
+        {
             amountText.text = "X" + count;
+        }
     }
 
     public void SetSelected(bool selected)
     {
         if (selectUI != null)
+        {
             selectUI.SetActive(selected);
+        }
     }
 
     private void OnClick()

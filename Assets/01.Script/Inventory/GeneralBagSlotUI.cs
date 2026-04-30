@@ -1,13 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public enum UsageCondition
 {
-    RequiresEgg,       // 알 상태에서만 사용 (부화 전)
-    RequiresHatched,   // 부화된 상태에서만 사용
-    RequiresDestroyed, // 파괴된 상태에서만 사용
-}
+    RequiresEgg,       // 알 상태에서만 사용 (부화 전) RequiresHatched,   // 부화된 상태에서만 사용 RequiresDestroyed, // 파괴된 상태에서만 사용 }
 
 public class GeneralBagSlotUI : MonoBehaviour
 {

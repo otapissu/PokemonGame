@@ -48,20 +48,20 @@ public class PokemonStatusIconController : MonoBehaviour
 
     private void SetupGender(Gender gender)
     {
-        if (genderImage == null) return;
+        if (genderImage == null)
+        {
+            return;
+        }
 
         switch (gender)
         {
-            case Gender.Male:
-                genderImage.enabled = true;
+            case Gender.Male: genderImage.enabled = true;
                 genderImage.sprite = maleSprite;
                 break;
-            case Gender.Female:
-                genderImage.enabled = true;
+            case Gender.Female: genderImage.enabled = true;
                 genderImage.sprite = femaleSprite;
                 break;
-            default:
-                genderImage.enabled = false;
+            default: genderImage.enabled = false;
                 break;
         }
     }
@@ -76,7 +76,10 @@ public class PokemonStatusIconController : MonoBehaviour
 
     private void SetupIcon(PokemonInstance instance)
     {
-        if (iconImage == null) return;
+        if (iconImage == null)
+        {
+            return;
+        }
 
         int id = instance.data.id;
         Gender gender = instance.gender;
@@ -84,9 +87,7 @@ public class PokemonStatusIconController : MonoBehaviour
         bool isShiny = instance.isShiny;
         GenderVisualType gvt = instance.data.genderVisualType;
 
-        bool isMaxed = PokedexSaveManager.Instance != null &&
-            (PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt) ||
-             PokedexSaveManager.Instance.IsFormMaxedExact(id, gender, formIndex, isShiny));
+        bool isMaxed = PokedexSaveManager.Instance != null && (PokedexSaveManager.Instance.IsFormMaxed(id, gender, formIndex, isShiny, gvt) || PokedexSaveManager.Instance.IsFormMaxedExact(id, gender, formIndex, isShiny));
 
         bool isSeen = PokedexSaveManager.Instance != null && PokedexSaveManager.Instance.IsFormSeen(id, gender, formIndex, isShiny, gvt);
 

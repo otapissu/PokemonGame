@@ -25,9 +25,7 @@ public class ReadmeEditor : Editor
     {
         if (EditorUtility.DisplayDialog("Remove Readme Assets",
             
-            $"All contents under {s_ReadmeSourceDirectory} will be removed, are you sure you want to proceed?",
-            "Proceed",
-            "Cancel"))
+            $"All contents under {s_ReadmeSourceDirectory} will be removed, are you sure you want to proceed?", "Proceed", "Cancel"))
         {
             if (Directory.Exists(s_ReadmeSourceDirectory))
             {
@@ -199,7 +197,9 @@ public class ReadmeEditor : Editor
     void Init()
     {
         if (m_Initialized)
+        {
             return;
+        }
         m_BodyStyle = new GUIStyle(EditorStyles.label);
         m_BodyStyle.wordWrap = true;
         m_BodyStyle.fontSize = 14;

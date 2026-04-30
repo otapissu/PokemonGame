@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
@@ -14,7 +14,7 @@ public static class SpriteAutoGridByHeightTool
 
         if (selectedObjects == null || selectedObjects.Length == 0)
         {
-            EditorUtility.DisplayDialog("¾Ë¸²", "Project Ã¢¿¡¼­ ÅØ½ºÃ³¸¦ ¸ÕÀú ¼±ÅÃÇÏ¼¼¿ä.", "È®ÀÎ");
+            EditorUtility.DisplayDialog("ï¿½Ë¸ï¿½", "Project Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.", "È®ï¿½ï¿½");
             return;
         }
 
@@ -42,7 +42,7 @@ public static class SpriteAutoGridByHeightTool
 
             if (sourceWidth <= 0 || sourceHeight <= 0)
             {
-                Debug.LogWarning($"¿øº» ÅØ½ºÃ³ Å©±â¸¦ ÀÐÁö ¸øÇß½À´Ï´Ù: {assetPath}");
+                Debug.LogWarning($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½: {assetPath}");
                 continue;
             }
 
@@ -56,11 +56,7 @@ public static class SpriteAutoGridByHeightTool
 
         AssetDatabase.Refresh();
 
-        EditorUtility.DisplayDialog(
-            "¿Ï·á",
-            $"ÃÑ {processedCount}°³ÀÇ ÅØ½ºÃ³¿¡ ¼³Á¤À» Àû¿ëÇß½À´Ï´Ù.",
-            "È®ÀÎ"
-        );
+        EditorUtility.DisplayDialog( "ï¿½Ï·ï¿½", $"ï¿½ï¿½ {processedCount}ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.", "È®ï¿½ï¿½" );
     }
 
     private static void GetSourceTextureSize(TextureImporter textureImporter, out int width, out int height)
@@ -105,16 +101,11 @@ public static class SpriteAutoGridByHeightTool
         textureImporter.SaveAndReimport();
     }
 
-    private static void ApplyGridSliceByCellSize(
-        TextureImporter textureImporter,
-        string assetPath,
-        int sourceWidth,
-        int sourceHeight,
-        int cellSize)
+    private static void ApplyGridSliceByCellSize( TextureImporter textureImporter, string assetPath, int sourceWidth, int sourceHeight, int cellSize)
     {
         if (cellSize <= 0)
         {
-            Debug.LogWarning($"¼¿ Å©±â°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù: {assetPath}");
+            Debug.LogWarning($"ï¿½ï¿½ Å©ï¿½â°¡ ï¿½Ã¹Ù¸ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½: {assetPath}");
             return;
         }
 
@@ -142,10 +133,7 @@ public static class SpriteAutoGridByHeightTool
 
                 SpriteRect spriteRect = new SpriteRect
                 {
-                    name = $"{System.IO.Path.GetFileNameWithoutExtension(assetPath)}_{row}_{col}",
-                    rect = new Rect(x, unityY, rectWidth, rectHeight),
-                    alignment = SpriteAlignment.Center,
-                    pivot = new Vector2(0.5f, 0.5f)
+                    name = $"{System.IO.Path.GetFileNameWithoutExtension(assetPath)}_{row}_{col}", rect = new Rect(x, unityY, rectWidth, rectHeight), alignment = SpriteAlignment.Center, pivot = new Vector2(0.5f, 0.5f)
                 };
 
                 spriteRects.Add(spriteRect);
@@ -160,7 +148,7 @@ public static class SpriteAutoGridByHeightTool
 
         if (dataProvider == null)
         {
-            Debug.LogWarning($"SpriteEditorDataProvider¸¦ °¡Á®¿ÀÁö ¸øÇß½À´Ï´Ù: {assetPath}");
+            Debug.LogWarning($"SpriteEditorDataProviderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½: {assetPath}");
             return;
         }
 

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -345,7 +345,10 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        if (sfxMuted) return;
+        if (sfxMuted)
+        {
+            return;
+        }
         sfxSource.PlayOneShot(sfxClip, Mathf.Clamp01(volumeScale) * sfxVolume);
     }
 

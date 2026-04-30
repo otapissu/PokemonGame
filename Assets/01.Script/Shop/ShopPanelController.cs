@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class ShopPanelController : MonoBehaviour
@@ -104,15 +104,27 @@ public class ShopPanelController : MonoBehaviour
     public void ShowGenPage()
     {
         ShopInfoPageController.Instance?.HideInfo();
-        if (genPage != null) genPage.SetActive(true);
-        if (evolvePage != null) evolvePage.SetActive(false);
+        if (genPage != null)
+        {
+            genPage.SetActive(true);
+        }
+        if (evolvePage != null)
+        {
+            evolvePage.SetActive(false);
+        }
     }
 
     public void ShowEvolvePage()
     {
         ShopInfoPageController.Instance?.HideInfo();
-        if (genPage != null) genPage.SetActive(false);
-        if (evolvePage != null) evolvePage.SetActive(true);
+        if (genPage != null)
+        {
+            genPage.SetActive(false);
+        }
+        if (evolvePage != null)
+        {
+            evolvePage.SetActive(true);
+        }
     }
 
     private IEnumerator SlideUp()
@@ -168,7 +180,9 @@ public class ShopPanelController : MonoBehaviour
         isAnimating = false;
 
         if (GeneralBagPanelController.Instance != null)
+        {
             GeneralBagPanelController.Instance.ShowRevivalCostUI();
+        }
     }
 
     private float EaseOutCubic(float t)

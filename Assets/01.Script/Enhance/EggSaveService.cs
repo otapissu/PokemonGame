@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EggSaveService
 {
@@ -37,7 +37,9 @@ public class EggSaveService
         }
 
         if (!long.TryParse(PlayerPrefs.GetString("SAVE_gold", "0"), out long gold))
+        {
             gold = 0L;
+        }
 
         // 기존 세이브가 int로 저장된 경우 음수(-21억)로 깨진 값 보정
         if (gold < 0)
@@ -90,12 +92,7 @@ public class EggSaveService
             return;
         }
 
-        c.currentInstance = new PokemonInstance(
-            root,
-            (Gender)gender,
-            isShiny,
-            formIndex
-        );
+        c.currentInstance = new PokemonInstance( root, (Gender)gender, isShiny, formIndex );
 
         c.currentInstance.data = current;
         c.currentInstance.enhanceLevel = enhanceLevel;

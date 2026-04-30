@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,9 +63,7 @@ public class GeneralBagPanelController : MonoBehaviour
         }
     }
 
-    // ─────────────────────────────────────────
     // Open / Close / Toggle
-    // ─────────────────────────────────────────
 
     public void ToggleBag()
     {
@@ -116,9 +114,7 @@ public class GeneralBagPanelController : MonoBehaviour
         bagPanel.SetActive(false);
     }
 
-    // ─────────────────────────────────────────
     // Slot refresh
-    // ─────────────────────────────────────────
 
     private void RefreshSlots()
     {
@@ -144,9 +140,7 @@ public class GeneralBagPanelController : MonoBehaviour
         return 0;
     }
 
-    // ─────────────────────────────────────────
     // 선택 조작
-    // ─────────────────────────────────────────
 
     public void OnSlotClicked(GeneralBagSlotUI slot)
     {

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -199,9 +199,7 @@ public class PokemonEvolutionService
         return availableOptions[randomIndex];
     }
 
-    public bool TryEvolve(
-        PokemonInstance instance,
-        EvolutionOption selectedOption)
+    public bool TryEvolve( PokemonInstance instance, EvolutionOption selectedOption)
     {
         if (instance == null)
         {

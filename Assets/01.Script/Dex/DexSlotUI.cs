@@ -124,8 +124,7 @@ public class DexSlotUI : MonoBehaviour
         {
             bool hasMale = !Mathf.Approximately(data.maleRatio, 0f);
             bool hasFemale = !Mathf.Approximately(data.maleRatio, 1f);
-            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) ||
-                   (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
+            return (hasMale && HasAnySeenForm(id, data, Gender.Male, isShiny)) || (hasFemale && HasAnySeenForm(id, data, Gender.Female, isShiny));
         }
 
         List<int> forms = PokemonFormUtility.GetAvailableFormIndices(data, genderHint, isShiny);
